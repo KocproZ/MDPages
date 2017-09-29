@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${name}"></title>
+    <script src="/js/showdown.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
+</head>
+<body>
+<div id="content"></div>
+<script th:inline="javascript">
+    var converter = new showdown.Converter();
+    converter.setOption('tasklists', true);
+    converter.setOption('ghCodeBlocks', true);
+    var text      = [[${content}]];
+    var html      = converter.makeHtml(text);
+    document.getElementById("content").innerHTML = html;
+</script>
+</body>
+</html>

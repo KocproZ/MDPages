@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>markPages</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
+</head>
+<body>
+<div>
+    <ul th:each="p: ${pages}">
+        <li>
+            <a th:text="${p.getName()}" th:href="${p.getName()}"></a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
