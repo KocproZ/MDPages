@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <title th:text="${page_title != null} ? ${page_title} : 'md pages'"></title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection"/>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/>
 </head>
 <body>
@@ -19,12 +19,12 @@
     </div>
 </nav>
 
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
 <div class="main">
     <div layout:fragment="content"></div>
 </div>
-
-<script src="/js/jquery-3.2.1.min.js"></script>
-<script src="/js/materialize.min.js"></script>
 
 </body>
 </html>

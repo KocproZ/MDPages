@@ -29,6 +29,18 @@ public class Index {
         return "editor";
     }
 
+    @GetMapping("/edit/{a}")
+    public String edit(@PathVariable String a, Model model) {
+        PageModel p = pageRepository.getByName(a);
+        if(a == null){
+            return "redirect;/editor";
+        }
+        model.addAttribute("name", p.getName());
+        model.addAttribute("content", p.getContent());
+        return "editor";
+
+    }
+
     @RequestMapping("/add")
     public String add(@RequestParam String name, @RequestParam String mdPage) {
         PageModel p = new PageModel();
@@ -36,6 +48,15 @@ public class Index {
         p.setContent(mdPage);
         System.out.println(mdPage);
         pageRepository.save(p);
+        return String.format("redirect:%s", name);
+    }
+
+    @RequestMapping("/update")
+    public String update(@RequestParam String name, @RequestParam String mdPage){
+        PageModel m = pageRepository.getByName(name);
+        m.setContent(mdPage);
+        //pageRepository.delete(pageRepository.getByName(name));//TODO LOL very bad?
+        pageRepository.save(m);
         return String.format("redirect:%s", name);
     }
 

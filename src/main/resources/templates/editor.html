@@ -6,17 +6,17 @@
     <div class="container">
         <div class="row">
             <div class="col s6">
-                <form method="post" action="/add">
+                <form method="post" th:action="${name != null} ? '/update' : '/add'">
                     <div class="row input-field">
                         <div class="col m9">
-                            <input name="name"/>
+                            <input name="name" th:readonly="${name != null}" th:value="${name != null} ? ${name} : ''"/>
                         </div>
                         <div class="col m3">
                             <input class="waves-effect waves-light btn" value="save" type="submit"/>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col m12" id="editor">fdsafdsa</div>
+                        <div class="col m12" id="editor" th:text="${content != null} ? ${content} : ''"></div>
                     </div>
                     <input type="hidden" id="contentValue" name="mdPage"/>
                 </form>
@@ -39,7 +39,9 @@
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/twilight");
     editor.session.setMode("ace/mode/markdown");
-    editor.on('change', function(e) {
+    editor.on('change', update);
+
+    function update(e) {
         var converter = new showdown.Converter();
         converter.setOption('tasklists', true);
         converter.setOption('ghCodeBlocks', true);
@@ -50,7 +52,8 @@
         $('pre code').each(function(i, block) {
             hljs.highlightBlock(block);
         });
-    });
+    }
+    setTimeout(update, 500);
     </script>
 
 </div>
