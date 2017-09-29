@@ -45,7 +45,7 @@ public class Index {
         if (p == null){
             return "redirect:/";
         }
-        model.addAttribute("name", p.getName());
+        model.addAttribute("page_title", p.getName());
         model.addAttribute("content", p.getContent());
         return "mdPage";
     }

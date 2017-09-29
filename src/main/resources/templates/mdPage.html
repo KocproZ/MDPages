@@ -1,27 +1,24 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title th:text="${name}"></title>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorator="fragments/layout">
+
+<div layout:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div id="content"></div>
+        </div>
+    </div>
+
     <script src="/js/showdown.min.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
-    <link rel="stylesheet"
-          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-</head>
-<body class="container">
-<div class="row">
-    <div id="content"></div>
+    <script src="/js/highlight.min.js"></script>
+    <script th:inline="javascript">
+        var converter = new showdown.Converter();
+        converter.setOption('tasklists', true);
+        converter.setOption('ghCodeBlocks', true);
+        var text      = [[${content}]];
+        var html      = converter.makeHtml(text);
+        document.getElementById("content").innerHTML = html;
+        hljs.initHighlightingOnLoad();
+    </script>
 </div>
-<script th:inline="javascript">
-    var converter = new showdown.Converter();
-    converter.setOption('tasklists', true);
-    converter.setOption('ghCodeBlocks', true);
-    var text      = [[${content}]];
-    var html      = converter.makeHtml(text);
-    document.getElementById("content").innerHTML = html;
-    hljs.initHighlightingOnLoad();
-</script>
-</body>
 </html>

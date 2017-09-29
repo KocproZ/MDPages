@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${page_title != null} ? ${page_title} : 'md pages'"></title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/>
+</head>
+<body>
+
+<nav>
+    <div class="nav-wrapper">
+        <a href="/" class="brand-logo">md pages</a>
+        <ul id="mav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/editor">Create new</a></li>
+            <li><a href="/login">Login</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="main">
+    <div layout:fragment="content"></div>
+</div>
+
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+</body>
+</html>
