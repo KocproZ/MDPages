@@ -15,6 +15,7 @@
         var converter = new showdown.Converter();
         converter.setOption('tasklists', true);
         converter.setOption('ghCodeBlocks', true);
+        converter.setOption('tables', true);
         var text      = [[${content}]];
         var html      = converter.makeHtml(text);
         document.getElementById("content").innerHTML = html;
