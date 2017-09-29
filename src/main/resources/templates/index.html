@@ -6,8 +6,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
 </head>
-<body>
-<div>
+<body class="container">
+<div class="row">
     <ul th:each="p: ${pages}">
         <li>
             <a th:text="${p.getName()}" th:href="${p.getName()}"></a>
