@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -32,7 +34,9 @@ public class CustomAuthenticationProvider implements org.springframework.securit
         UserModel user = userRepository.getByUsername(username);
         if (user != null) {
             if (passwordEncoder.matches(password, user.getPassword())) {
-                return new UsernamePasswordAuthenticationToken(username, password, new ArrayList<>());
+                ArrayList ar = new ArrayList<GrantedAuthority>();
+                ar.add(new SimpleGrantedAuthority(user.getRole()));
+                return new UsernamePasswordAuthenticationToken(username, password, ar);
             }
         }
         return null;

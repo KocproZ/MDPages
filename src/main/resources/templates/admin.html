@@ -1,0 +1,51 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="fragments/layout">
+
+<div layout:fragment="content">
+    <div class="container">
+        <div class="row">
+            <table class="col m6">
+                <tr>
+                    <th>page name</th>
+                </tr>
+                <tbody th:each="p: ${pages}">
+                <tr>
+                    <td>
+                        <a th:text="${p.getName()}" th:href="${p.getName()}"></a>
+                    </td>
+                    <td>
+                        <a class="waves-effect waves-light btn red">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="col m6">
+                <tr>
+                    <th>username</th>
+                    <th>role</th>
+                    <th>new role</th>
+                </tr>
+                <tbody th:each="u: ${users}">
+                <tr>
+                    <td>
+                        <span th:text="${u.getUsername()}"></span>
+                    </td>
+                    <td>
+                        <span th:text="${u.getRole()}"></span>
+                    </td>
+                    <td>
+                        <form method="post" class="row">
+                            <input class="col m9" name="new_role"/><input class="col m3 btn waves-effect waves-light"
+                                                                          value="submit" type="submit"/>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="col m6"></div>
+        </div>
+    </div>
+</div>
+</html>
+
