@@ -23,7 +23,7 @@ public class AdminController {
     @Autowired
     private Pbkdf2PasswordEncoder passwordEncoder;
 
-    @GetMapping("/")
+    @GetMapping("")
     public String admin(Model model) {
         model.addAttribute("pages", pageRepository.findAll());
         model.addAttribute("users", userRepository.findAll());

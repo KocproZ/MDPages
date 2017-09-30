@@ -21,14 +21,6 @@ public class Index {
     @Autowired
     Logger logger;
 
-    @GetMapping("/admin")
-    public String admin(Model model) {
-        model.addAttribute("pages", pageRepository.findAll());
-        model.addAttribute("users", userRepository.findAll());
-        logger.warn("Using mapping from Index controller!!!");//TODO Żeby działało w AdminController
-        return "admin";
-    }
-
     @GetMapping("/")
     public String index(Model m, Principal principal) {
         if (principal != null) {
