@@ -1,4 +1,4 @@
-package me.matrix89.markPages;
+package me.matrix89.markpages;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

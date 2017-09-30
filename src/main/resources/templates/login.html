@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>md pages | login</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+<div class="row">
+    <form class="col offset-s4 s10" th:action="@{/login}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <div class="row">
+            <div class="input-field col s5">
+                <input type="text" name="username"/>
+                <label> User Name </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s5">
+                <input type="password" name="password"/>
+                <label> Password </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col ">
+                <input class="btn" type="submit" value="Sign In"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div th:if="${param.error}">
+    Invalid username and password.
+</div>
+<div th:if="${param.logout}">
+    You have been logged out.
+</div>
+
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+</body>
+</html>

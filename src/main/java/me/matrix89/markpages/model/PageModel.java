@@ -1,4 +1,4 @@
-package me.matrix89.markPages;
+package me.matrix89.markpages.model;
 
 
 import javax.persistence.*;

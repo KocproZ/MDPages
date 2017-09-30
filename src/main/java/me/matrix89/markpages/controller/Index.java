@@ -1,8 +1,7 @@
-package me.matrix89.markPages.controller;
+package me.matrix89.markpages.controller;
 
-import com.github.rjeschke.txtmark.Processor;
-import me.matrix89.markPages.PageModel;
-import me.matrix89.markPages.PageRepository;
+import me.matrix89.markpages.model.PageModel;
+import me.matrix89.markpages.repository.PageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,8 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.websocket.server.PathParam;
 
 @Controller
 public class Index {
@@ -55,7 +52,6 @@ public class Index {
     public String update(@RequestParam String name, @RequestParam String mdPage){
         PageModel m = pageRepository.getByName(name);
         m.setContent(mdPage);
-        //pageRepository.delete(pageRepository.getByName(name));//TODO LOL very bad?
         pageRepository.save(m);
         return String.format("redirect:%s", name);
     }
@@ -70,4 +66,5 @@ public class Index {
         model.addAttribute("content", p.getContent());
         return "mdPage";
     }
+
 }
