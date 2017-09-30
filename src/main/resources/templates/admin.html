@@ -53,23 +53,25 @@
             <div class="col m6"></div>
         </div>
         <div class="row">
-            <form class="row" th:action="@{/admin/useradd}" method="post">
-                <div class="input-field col s3">
+            <form class="col m3" th:action="@{/admin/useradd}" method="post">
+                <div class="input-field row">
                     <input type="text" name="username"/>
                     <label> Username </label>
                 </div>
-                <div class="input-field col s3">
+                <div class="input-field row">
                     <input type="password" name="password"/>
                     <label> Password </label>
                 </div>
-                <div class="input-field col s3">
-                    <select name="role">
-                        <option value="ROLE_USER" th:selected="true">User</option>
-                        <option value="ROLE_ADMIN">Admin</option>
-                    </select>
-                    <label>Role</label>
+                <div class="row">
+                    <div class="input-field col m6">
+                        <select name="role">
+                            <option value="ROLE_USER" th:selected="true">User</option>
+                            <option value="ROLE_ADMIN">Admin</option>
+                        </select>
+                        <label>Role</label>
+                    </div>
+                    <input class="input-field btn col m6" type="submit" value="Create"/>
                 </div>
-                <input class="btn col s2" type="submit" value="Create"/>
             </form>
         </div>
     </div>
