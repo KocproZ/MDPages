@@ -9,8 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import java.security.Principal;
 
 @Controller
@@ -21,14 +20,6 @@ public class Index {
     private UserRepository userRepository;
     @Autowired
     Logger logger;
-
-    @GetMapping("/admin")
-    public String admin(Model model) {
-        model.addAttribute("pages", pageRepository.findAll());
-        model.addAttribute("users", userRepository.findAll());
-        logger.warn("Using mapping from Index controller!!!");//TODO Żeby działało w AdminController
-        return "admin";
-    }
 
     @GetMapping("/")
     public String index(Model m, Principal principal) {
