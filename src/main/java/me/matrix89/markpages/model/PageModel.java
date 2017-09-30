@@ -17,7 +17,7 @@ public class PageModel {
     private String name;
 
     @NotNull
-    @Column(name = "content", columnDefinition = "LONGBLOB") //TODO ask marcik
+    @Column(name = "content", columnDefinition = "LONGBLOB")
     private String content;
 
     @NotNull
@@ -27,6 +27,21 @@ public class PageModel {
     @NotNull
     @Column(name = "lastEdited", columnDefinition = "DATETIME")
     private Date lastEdited;
+
+    @ManyToOne
+    private UserModel maintainer;
+
+    public UserModel getMaintainer() {
+        return maintainer;
+    }
+
+    public void setMaintainer(UserModel maintainer) {
+        this.maintainer = maintainer;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getVisibility() {
         return visibility;

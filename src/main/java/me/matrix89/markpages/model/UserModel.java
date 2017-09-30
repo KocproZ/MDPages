@@ -10,12 +10,15 @@ public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @NotNull
     @Column(name = "username", unique = true, length = 32, updatable = false)
     private String username;
+
     @NotNull
     @Column(name = "password", columnDefinition = "TEXT", length = 160)
     private String password;
+
     @NotNull
     @Column(name = "role", length = 16)
     private String role;

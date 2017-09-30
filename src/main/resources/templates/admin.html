@@ -25,7 +25,7 @@
                 </tr>
                 </tbody>
             </table>
-            <table class="col m6 striped">
+            <table class="col m5 striped offset-m1">
                 <thead>
                 <tr>
                     <th>username</th>
@@ -39,7 +39,7 @@
                         <span th:text="${u.getUsername()}"></span>
                     </td>
                     <td>
-                        <div class="input-field">
+                        <div class="input-field slim-dropdown">
                             <select name="role">
                                 <option value="ROLE_USER" th:selected="${u.role == 'ROLE_USER'}">User</option>
                                 <option value="ROLE_ADMIN" th:selected="${u.role == 'ROLE_ADMIN'}">Admin</option>
@@ -56,7 +56,8 @@
             <div class="col m6"></div>
         </div>
         <div class="row">
-            <form class="col m3" th:action="@{/admin/useradd}" method="post">
+            <div class="m4 col card blue lighten-5">
+                <form class="col" th:action="@{/admin/useradd}" method="post">
                 <div class="row">
                     <div class="input-field col m12">
                     <input type="text" name="username"/>
@@ -78,6 +79,7 @@
                     <input class="input-field btn col m6" type="submit" value="Create"/>
                 </div>
             </form>
+            </div>
         </div>
     </div>
 </div>

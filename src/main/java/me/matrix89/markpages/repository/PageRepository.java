@@ -9,4 +9,6 @@ public interface PageRepository extends CrudRepository<PageModel, Integer> {
     PageModel getByName(String name);
 
     List<PageModel> getAllByVisibility(String visibility);
+
+    List<PageModel> getAllByMaintainer_Id(Integer maintainer_id);
 }
