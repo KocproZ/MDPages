@@ -15,6 +15,9 @@
                         <a th:text="${p.getName()}" th:href="${p.getName()}"></a>
                     </td>
                     <td>
+                        <a class="waves-effect waves-light btn blue" th:href="${'/edit/' + p.getName()}">Edit</a>
+                    </td>
+                    <td>
                         <a class="waves-effect waves-light btn red">Delete</a>
                     </td>
                 </tr>

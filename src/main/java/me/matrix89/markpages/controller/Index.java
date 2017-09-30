@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import java.security.Principal;
 
 @Controller
 public class Index {
@@ -16,50 +16,20 @@ public class Index {
     private PageRepository pageRepository;
 
     @GetMapping("/")
-    public String index(Model m) {
-        m.addAttribute("pages", pageRepository.findAll());
-        return "index";
-    }
-
-    @GetMapping("/editor")
-    public String editor() {
-        return "editor";
-    }
-
-    @GetMapping("/edit/{a}")
-    public String edit(@PathVariable String a, Model model) {
-        PageModel p = pageRepository.getByName(a);
-        if(a == null){
-            return "redirect;/editor";
+    public String index(Model m, Principal principal) {
+        if (principal != null) {
+            m.addAttribute("pages", pageRepository.findAll());
+        } else {
+            m.addAttribute("pages", pageRepository.getAllByVisibility("everyone"));
         }
-        model.addAttribute("name", p.getName());
-        model.addAttribute("content", p.getContent());
-        return "editor";
 
-    }
-
-    @RequestMapping("/add")
-    public String add(@RequestParam String name, @RequestParam String mdPage) {
-        PageModel p = new PageModel();
-        p.setName(name);
-        p.setContent(mdPage);
-        System.out.println(mdPage);
-        pageRepository.save(p);
-        return String.format("redirect:%s", name);
-    }
-
-    @RequestMapping("/update")
-    public String update(@RequestParam String name, @RequestParam String mdPage){
-        PageModel m = pageRepository.getByName(name);
-        m.setContent(mdPage);
-        pageRepository.save(m);
-        return String.format("redirect:%s", name);
+        return "index";
     }
 
     @GetMapping("/{a}")
     public String mdPage(@PathVariable String a, Model model) {
         PageModel p = pageRepository.getByName(a);
-        if (p == null){
+        if (p == null) {
             return "redirect:/";
         }
         model.addAttribute("page_title", p.getName());

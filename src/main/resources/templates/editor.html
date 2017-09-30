@@ -8,12 +8,18 @@
             <div class="col s6">
                 <form method="post" th:action="${name != null} ? '/update' : '/add'">
                     <div class="row input-field">
-                        <div class="col m9">
+                        <div class="col m12">
                             <input name="name" th:readonly="${name != null}" th:value="${name != null} ? ${name} : ''"/>
                         </div>
-                        <div class="col m3">
-                            <input class="waves-effect waves-light btn" value="save" type="submit"/>
+                    </div>
+                    <div class="row">
+                        <div class="col m10 input-field">
+                            <select name="visibility">
+                                <option value="everyone">everyone</option>
+                                <option value="authorized">authorized</option>
+                            </select>
                         </div>
+                        <input class="col m2 input-field waves-effect waves-light btn" value="save" type="submit"/>
                     </div>
                     <div class="row">
                         <div class="col m12" id="editor" th:text="${content != null} ? ${content} : ''"></div>
@@ -36,25 +42,26 @@
     <script src="/js/highlight.min.js"></script>
     <script src="/js/ace/ace.js"></script>
     <script th:inline="javascript">
-    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/twilight");
-    editor.session.setMode("ace/mode/markdown");
-    editor.on('change', update);
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/twilight");
+        editor.session.setMode("ace/mode/markdown");
+        editor.on('change', update);
 
-    function update(e) {
-        var converter = new showdown.Converter();
-        converter.setOption('tasklists', true);
-        converter.setOption('ghCodeBlocks', true);
-        converter.setOption('tables', true);
-        var text      = editor.getValue();
-        var html      = converter.makeHtml(text);
-        document.getElementById("preview").innerHTML = html;
-        document.getElementById("contentValue").value = text;
-        $('pre code').each(function(i, block) {
-            hljs.highlightBlock(block);
-        });
-    }
-    setTimeout(update, 500);
+        function update(e) {
+            var converter = new showdown.Converter();
+            converter.setOption('tasklists', true);
+            converter.setOption('ghCodeBlocks', true);
+            converter.setOption('tables', true);
+            var text = editor.getValue();
+            var html = converter.makeHtml(text);
+            document.getElementById("preview").innerHTML = html;
+            document.getElementById("contentValue").value = text;
+            $('pre code').each(function (i, block) {
+                hljs.highlightBlock(block);
+            });
+        }
+
+        setTimeout(update, 500);
     </script>
 
 </div>
