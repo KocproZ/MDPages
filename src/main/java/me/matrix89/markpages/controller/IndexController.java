@@ -2,7 +2,6 @@ package me.matrix89.markpages.controller;
 
 import me.matrix89.markpages.model.PageModel;
 import me.matrix89.markpages.repository.PageRepository;
-import me.matrix89.markpages.repository.UserRepository;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,11 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.security.Principal;
 
 @Controller
-public class Index {
+public class IndexController {
     @Autowired
     private PageRepository pageRepository;
-    @Autowired
-    private UserRepository userRepository;
     @Autowired
     Logger logger;
 
