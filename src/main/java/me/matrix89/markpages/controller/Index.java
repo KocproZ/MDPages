@@ -9,8 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import java.security.Principal;
 
 @Controller
@@ -42,11 +41,16 @@ public class Index {
     }
 
     @GetMapping("/{a}")
-    public String mdPage(@PathVariable String a, Model model) {
+    public String mdPage(@PathVariable String a, Model model, Principal principal) {
         PageModel p = pageRepository.getByName(a);
         if (p == null) {
             return "redirect:/";
         }
+
+        if (principal == null && p.getVisibility().equals("authorized")) {
+            return "redirect:/login";
+        }
+
         model.addAttribute("page_title", p.getName());
         model.addAttribute("content", p.getContent());
         return "mdPage";
