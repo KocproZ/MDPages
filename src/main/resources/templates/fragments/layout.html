@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
-
     <meta charset="UTF-8"/>
     <title th:text="${page_title != null} ? ${page_title} : 'md pages'"></title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
@@ -11,7 +10,7 @@
 <body>
 
 <nav>
-    <div class="nav-wrapper">
+    <div class="nav-wrapper blue">
         <a href="/" class="brand-logo"><img src="favicon.ico"/></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a th:if="${#httpServletRequest.remoteUser != null}" href="/editor">Create new</a></li>
