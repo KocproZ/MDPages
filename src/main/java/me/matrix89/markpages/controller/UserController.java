@@ -21,6 +21,13 @@ public class UserController {
 
     @RequestMapping("/login")
     public String login() {
+        /*
+        UserModel m = new UserModel();
+        m.setUsername("admin");
+        m.setRole("ADMIN");
+        m.setPassword(passwordEncoder.encode("admin"));
+        userRepository.save(m);
+        */
         return "login";
     }
 
