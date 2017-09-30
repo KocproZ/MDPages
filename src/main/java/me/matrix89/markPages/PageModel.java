@@ -15,7 +15,7 @@ public class PageModel {
     private String name;
 
     @NotNull
-    @Column(name = "content", columnDefinition = "TEXT") //TODO ask marcik
+    @Column(name = "content", columnDefinition = "LONGBLOB") //TODO ask marcik
     private String content;
 
     public Integer getId() {
