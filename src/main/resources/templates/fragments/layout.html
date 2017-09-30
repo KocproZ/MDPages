@@ -13,6 +13,7 @@
     <div class="nav-wrapper blue">
         <a href="/" class="brand-logo"><img src="favicon.ico"/></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a th:if="${#httpServletRequest.isUserInRole('ROLE_ADMIN')}" href="/admin">Admin panel</a></li>
             <li><a th:if="${#httpServletRequest.remoteUser != null}" href="/editor">Create new</a></li>
             <li><a th:href="${#httpServletRequest.remoteUser != null} ? @{/logout} : @{/login}"
                    th:text="${#httpServletRequest.remoteUser != null} ? ${'Logout'} : ${'Login'}"></a></li>
