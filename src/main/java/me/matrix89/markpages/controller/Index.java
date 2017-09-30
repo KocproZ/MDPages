@@ -2,6 +2,8 @@ package me.matrix89.markpages.controller;
 
 import me.matrix89.markpages.model.PageModel;
 import me.matrix89.markpages.repository.PageRepository;
+import me.matrix89.markpages.repository.UserRepository;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +16,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class Index {
     @Autowired
     private PageRepository pageRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    Logger logger;
 
     @GetMapping("/")
     public String index(Model m) {
         m.addAttribute("pages", pageRepository.findAll());
         return "index";
+    }
+
+    @GetMapping("/admin")
+    public String admin(Model model) {
+        model.addAttribute("pages", pageRepository.findAll());
+        model.addAttribute("users", userRepository.findAll());
+        logger.warn("Using mapping from Index controller!!!");//TODO Żeby działało w AdminController
+        return "admin";
     }
 
     @GetMapping("/editor")
