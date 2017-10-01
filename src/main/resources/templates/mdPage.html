@@ -4,7 +4,15 @@
 
 <div layout:fragment="content">
     <div class="container">
-        <h1 class="row" th:text="${page_title}"></h1>
+        <h1 class="row m12" th:text="${page.name}"></h1>
+        <div class="row">
+            <div class="col m4">
+                <div><span class="grey-text" th:inline="text">Created: [[${page.formattedCreationDate}]]</span></div>
+                <div><span class="grey-text" th:inline="text">Edited: [[${page.formattedLastEditedDate}]]</span></div>
+            </div>
+            <a class="col m1 btn" th:href="'/edit/' + ${page.id}"
+               th:if="${user != null and user.canEdit(page)}">Edit</a>
+        </div>
         <div class="row">
             <div id="content"></div>
         </div>
@@ -17,7 +25,7 @@
         converter.setOption('tasklists', true);
         converter.setOption('ghCodeBlocks', true);
         converter.setOption('tables', true);
-        var text      = [[${content}]];
+        var text = [[${page.content}]];
         var html      = converter.makeHtml(text);
         document.getElementById("content").innerHTML = html;
         hljs.initHighlightingOnLoad();

@@ -1,6 +1,7 @@
 package me.matrix89.markpages.controller;
 
 import me.matrix89.markpages.model.PageModel;
+import me.matrix89.markpages.model.UserModel;
 import me.matrix89.markpages.repository.PageRepository;
 import me.matrix89.markpages.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +29,18 @@ public class EditorController {
         return "editor";
     }
 
-    @GetMapping("/edit/{a}")
-    public String edit(@PathVariable String a, Model model) {
-        PageModel p = pageRepository.getByName(a);
-        if (a == null) {
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model, Principal principal) {
+        PageModel page = pageRepository.findOne(id);
+        UserModel user = userRepository.getByUsername(principal.getName());
+        if (user == null || page == null)
             return "redirect:/editor";
+        if (user.canEdit(page)) {
+            model.addAttribute("page", page);
+            return "editor";
+        } else {
+            return "redirect:/";
         }
-        model.addAttribute("name", p.getName());
-        model.addAttribute("content", p.getContent());
-        return "editor";
-
     }
 
     @RequestMapping("/add")
@@ -45,13 +48,14 @@ public class EditorController {
         PageModel p = new PageModel();
         p.setName(name);
         p.setContent(mdPage);
+        p.setCreationDate(new Date());
         p.setLastEdited(new Date());
         p.setMaintainer(userRepository.getByUsername(principal.getName()));
         if (!visibility.equals("authorized") && !visibility.equals("everyone"))
             return "redirect:/editor";
         p.setVisibility(visibility);
         pageRepository.save(p);
-        return String.format("redirect:%s", name);
+        return String.format("redirect:%d", p.getId());
     }
 
     @RequestMapping("/update")
@@ -59,6 +63,7 @@ public class EditorController {
         PageModel m = pageRepository.getByName(name);
         m.setContent(mdPage);
         m.setVisibility(visibility);
+        m.setLastEdited(new Date());
         pageRepository.save(m);
         return String.format("redirect:%s", name);
     }

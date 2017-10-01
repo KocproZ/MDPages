@@ -6,8 +6,12 @@
     <div class="container">
         <div class="row">
             <ul th:each="p: ${pages}">
-                <li>
-                    <a th:text="${p.getName()}" th:href="${p.getName()}"></a>
+                <li class="row">
+                    <a class="col m3" th:text="${p.getName()}" th:href="${p.id}"></a>
+                    <span class="col m2" th:inline="text">Maintainer: [[${p.maintainer.username}]]</span>
+                    <a class="col m1 btn tooltipped" th:href="'/edit/' + ${p.id}"
+                       th:attr="data-tooltip='Last edited: ' + ${p.lastEdited}"
+                       th:if="${user != null and user.canEdit(p)}">Edit</a>
                 </li>
             </ul>
         </div>

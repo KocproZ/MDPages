@@ -1,6 +1,7 @@
 package me.matrix89.markpages.controller;
 
 import me.matrix89.markpages.model.PageModel;
+import me.matrix89.markpages.model.UserModel;
 import me.matrix89.markpages.repository.PageRepository;
 import me.matrix89.markpages.repository.UserRepository;
 import org.slf4j.Logger;
@@ -30,6 +31,7 @@ public class IndexController {
     public String index(Model m, Principal principal) {
         if (principal != null) {
             m.addAttribute("pages", pageRepository.findAll());
+            m.addAttribute("user", userRepository.getByUsername(principal.getName()));
         } else {
             m.addAttribute("pages", pageRepository.getAllByVisibility("everyone"));
         }
@@ -43,19 +45,25 @@ public class IndexController {
         return pageRepository.getAllByMaintainer_Id(1);
     }
 
-    @GetMapping("/{a}")
-    public String mdPage(@PathVariable String a, Model model, Principal principal) {
-        PageModel p = pageRepository.getByName(a);
-        if (p == null) {
+    @GetMapping("/{id}")
+    public String mdPage(@PathVariable(name = "id") Integer pageId, Model model, Principal principal) {
+        PageModel page = pageRepository.findOne(pageId);
+        if (page == null) {
             return "redirect:/";
         }
 
-        if (principal == null && p.getVisibility().equals("authorized")) {
+        UserModel user = null;
+        if (principal != null) {
+            user = userRepository.getByUsername(principal.getName());
+        }
+
+
+        if (user == null && page.getVisibility().equals("authorized")) {
             return "redirect:/login";
         }
 
-        model.addAttribute("page_title", p.getName());
-        model.addAttribute("content", p.getContent());
+        model.addAttribute("page", page);
+        model.addAttribute("user", user);
         return "mdPage";
     }
 
