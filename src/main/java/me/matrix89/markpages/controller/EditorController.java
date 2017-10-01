@@ -36,6 +36,7 @@ public class EditorController {
         if (user == null || page == null)
             return "redirect:/editor";
         if (user.canEdit(page)) {
+            model.addAttribute("visibility", page.getVisibility());
             model.addAttribute("page", page);
             return "editor";
         } else {
