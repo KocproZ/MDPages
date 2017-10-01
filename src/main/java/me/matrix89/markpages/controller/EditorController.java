@@ -60,13 +60,13 @@ public class EditorController {
     }
 
     @RequestMapping("/update")
-    public String update(@RequestParam String name, @RequestParam String mdPage, @RequestParam String visibility) {
-        PageModel m = pageRepository.getByName(name);
+    public String update(@RequestParam Integer id, @RequestParam String mdPage, @RequestParam String visibility) {
+        PageModel m = pageRepository.findOne(id);
         m.setContent(mdPage);
         m.setVisibility(visibility);
         m.setLastEdited(new Date());
         pageRepository.save(m);
-        return String.format("redirect:%s", name);
+        return String.format("redirect:%d", id);
     }
 
 }

@@ -14,10 +14,10 @@
                 <tbody>
                 <tr th:each="p: ${pages}">
                     <td>
-                        <a th:text="${p.getName()}" th:href="${p.getName()}"></a>
+                        <a th:text="${p.getName()}" th:href="${p.id}"></a>
                     </td>
                     <td>
-                        <a class="waves-effect waves-light btn blue" th:href="${'/edit/' + p.getName()}">Edit</a>
+                        <a class="waves-effect waves-light btn blue" th:href="${'/edit/' + p.id}">Edit</a>
                     </td>
                     <td>
                         <a class="waves-effect waves-light btn red">Delete</a>

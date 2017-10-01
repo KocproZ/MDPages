@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -19,14 +20,12 @@ public class UserController {
     @Autowired
     private Pbkdf2PasswordEncoder passwordEncoder;
 
-    @RequestMapping("/login")
-    public String login() {
-/*        UserModel m = new UserModel();
-        m.setUsername("admin");
-        m.setRole("ROLE_ADMIN");
-        m.setPassword(passwordEncoder.encode("admin"));
-        userRepository.save(m);*/
-        return "login";
+    @RequestMapping("/user/profile")
+    public String profile() {
+
+
+        return "redirect:/";
     }
+
 
 }

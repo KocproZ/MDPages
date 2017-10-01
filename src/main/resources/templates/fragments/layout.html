@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
     <title th:text="${page_title != null} ? ${page_title} : 'md pages'"></title>
@@ -10,14 +10,23 @@
 </head>
 <body>
 
+<ul id="user-dropdown" class="dropdown-content">
+    <li><a href="#!">Profile</a></li>
+    <li class="divider"></li>
+    <li><a href="/logout">Logout</a></li>
+</ul>
+
 <nav>
     <div class="nav-wrapper blue">
         <a href="/" class="brand-logo"><img src="/favicon.ico"/></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a th:if="${#httpServletRequest.isUserInRole('ROLE_ADMIN')}" href="/admin">Admin panel</a></li>
             <li><a th:if="${#httpServletRequest.remoteUser != null}" href="/editor">Create new</a></li>
-            <li><a th:href="${#httpServletRequest.remoteUser != null} ? @{/logout} : @{/login}"
-                   th:text="${#httpServletRequest.remoteUser != null} ? ${'Logout'} : ${'Login'}"></a></li>
+            <li><a href="/login" th:if="${#httpServletRequest.remoteUser == null}">Login</a></li>
+            <li><a class="dropdown-button" href="#!" data-activates="user-dropdown" th:inline="text"
+                   th:if="${#httpServletRequest.remoteUser != null}">
+                [[${#httpServletRequest.remoteUser}]]<i class="material-icons right">arrow_drop_down</i>
+            </a></li>
         </ul>
     </div>
 </nav>
@@ -32,6 +41,7 @@
 <script>
     $(document).ready(function () {
         $('select').material_select();
+        $(".dropdown-button").dropdown();
     });
 </script>
 
