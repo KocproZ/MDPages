@@ -60,8 +60,10 @@ public class EditorController {
     }
 
     @RequestMapping("/update")
-    public String update(@RequestParam Integer id, @RequestParam String mdPage, @RequestParam String visibility) {
+    public String update(@RequestParam Integer id, @RequestParam String mdPage,
+                         @RequestParam String visibility, @RequestParam String name) {
         PageModel m = pageRepository.findOne(id);
+        m.setName(name);
         m.setContent(mdPage);
         m.setVisibility(visibility);
         m.setLastEdited(new Date());

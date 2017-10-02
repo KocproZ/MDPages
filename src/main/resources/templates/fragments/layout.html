@@ -11,7 +11,7 @@
 <body>
 
 <ul id="user-dropdown" class="dropdown-content">
-    <li><a href="#!">Profile</a></li>
+    <li><a href="/user/profile">Profile</a></li>
     <li class="divider"></li>
     <li><a href="/logout">Logout</a></li>
 </ul>
@@ -23,7 +23,8 @@
             <li><a th:if="${#httpServletRequest.isUserInRole('ROLE_ADMIN')}" href="/admin">Admin panel</a></li>
             <li><a th:if="${#httpServletRequest.remoteUser != null}" href="/editor">Create new</a></li>
             <li><a href="/login" th:if="${#httpServletRequest.remoteUser == null}">Login</a></li>
-            <li><a class="dropdown-button" href="#!" data-activates="user-dropdown" th:inline="text"
+            <li><a class="dropdown-button" href="#!" data-activates="user-dropdown" data-beloworigin="true"
+                   th:inline="text"
                    th:if="${#httpServletRequest.remoteUser != null}">
                 [[${#httpServletRequest.remoteUser}]]<i class="material-icons right">arrow_drop_down</i>
             </a></li>

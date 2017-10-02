@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorator="fragments/layout">
+
+<div layout:fragment="content">
+    <div class="container">
+        <div class="row">
+            <h3 th:text="${user.username}" class="offset-m1 col"></h3>
+        </div>
+        <div class="row">
+            <div class="col m6">
+                <h5>Maintained by you</h5>
+                <li th:each="page : ${pages}"><a th:inline="text" th:href="'/' + ${page.id}">[[${page.name}]]</a></li>
+            </div>
+            <div class="col m4 offset-m1 card blue lighten-5">
+                <form class="col" th:action="@{/user/chpass}" method="post">
+                    <div class="row">
+                        <div class="input-field col m12">
+                            <input type="password" name="oldpass"/>
+                            <label> Old password </label>
+                        </div>
+                        <div class="input-field col m12">
+                            <input type="password" name="newpass"/>
+                            <label> New password </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <input class="input-field btn col m4 offset-m7" type="submit" value="Change"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
