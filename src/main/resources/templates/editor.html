@@ -5,39 +5,60 @@
 <div layout:fragment="content">
     <div class="container">
         <div class="row">
-            <div class="col s6">
-                <form method="post" th:action="${page != null} ? '/update' : '/add'">
-                    <input type="hidden" name="id" th:value="${page != null} ? ${page.id} : ${''}"/>
-                    <div class="row input-field">
-                        <div class="col m12">
-                            <input name="name" th:value="${page != null} ? ${page.name} : ''" maxlength="128"/>
+            <form method="post" th:action="${page != null} ? '/update' : '/add'">
+                <div class="row wrapper">
+                    <div class="mdref">test</div>
+                    <div class="options">
+                        <input type="hidden" name="id" th:value="${page != null} ? ${page.id} : ${''}"/>
+                        <div class="row input-field">
+                            <div class="col m12">
+                                <input name="name" th:value="${page != null} ? ${page.name} : ''" maxlength="128"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col m10 input-field">
+                                <select name="visibility">
+                                    <option value="everyone" th:selected="${visibility eq 'everyone'}">everyone
+                                    </option>
+                                    <option value="authorized" th:selected="${visibility eq 'authorized'}">authorized
+                                    </option>
+                                </select>
+                            </div>
+                            <input class="col m2 input-field waves-effect waves-light btn" value="save" type="submit"/>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col m10 input-field">
-                            <select name="visibility">
-                                <option value="everyone" th:selected="${visibility eq 'everyone'}">everyone
-                                </option>
-                                <option value="authorized" th:selected="${visibility eq 'authorized'}">authorized
-                                </option>
-                            </select>
-                        </div>
-                        <input class="col m2 input-field waves-effect waves-light btn" value="save" type="submit"/>
-                    </div>
-                    <div class="row">
+                    <div class="editor-wrapper">
                         <div class="col m12" id="editor" th:text="${page != null} ? ${page.content} : ''"></div>
+                        <input type="hidden" id="contentValue" name="mdPage"/>
                     </div>
-                    <input type="hidden" id="contentValue" name="mdPage"/>
-                </form>
-            </div>
-            <div class="col s6" id="preview"></div>
+                    <div class="preview-wrapper" id="preview"></div>
+                </div>
+            </form>
         </div>
     </div>
 
     <style>
-        #editor {
-            position: relative;
-            height: 80vh;
+        .wrapper {
+            display: grid;
+            grid-gap: 50px;
+            grid-template-columns: 1fr 1fr;
+            grid-template-areas: "options mdref" "editor preview";
+        }
+
+        .preview-wrapper {
+            grid-area: preview;
+        }
+
+        .editor-wrapper {
+            grid-area: editor;
+        }
+
+        .mdref {
+            grid-area: mdref;
+        }
+
+        .options {
+            grid-area: options;
         }
     </style>
 
@@ -46,6 +67,9 @@
     <script src="/js/ace/ace.js"></script>
     <script th:inline="javascript">
         var editor = ace.edit("editor");
+        editor.setOptions({
+            maxLines: Infinity
+        });
         editor.setTheme("ace/theme/twilight");
         editor.session.setMode("ace/mode/markdown");
         editor.on('change', update);
