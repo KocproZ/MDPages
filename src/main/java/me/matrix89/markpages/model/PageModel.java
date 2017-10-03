@@ -102,4 +102,9 @@ public class PageModel {
     public void setContent(String content) {
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return String.format("PageModel{Name: %s}", getName());
+    }
 }

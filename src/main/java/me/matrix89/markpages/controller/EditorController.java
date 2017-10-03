@@ -45,7 +45,8 @@ public class EditorController {
     }
 
     @RequestMapping("/add")
-    public String add(@RequestParam String name, @RequestParam String mdPage, @RequestParam String visibility, Principal principal) {
+    public String add(@RequestParam String name, @RequestParam String mdPage,
+                      @RequestParam String visibility, Principal principal) {
         PageModel p = new PageModel();
         p.setName(name);
         p.setContent(mdPage);

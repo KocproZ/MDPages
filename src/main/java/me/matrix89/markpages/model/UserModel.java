@@ -17,7 +17,7 @@ public class UserModel {
 
     @NotNull
     @Column(name = "password", columnDefinition = "TEXT", length = 160)
-    private String password;
+    private String password;  //TODO page model exposes user password
 
     @NotNull
     @Column(name = "role", length = 16)
