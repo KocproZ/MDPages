@@ -6,6 +6,7 @@ import me.matrix89.markpages.repository.PageRepository;
 import me.matrix89.markpages.repository.UserRepository;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +32,7 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model m, Principal principal) {
         if (principal != null) {
-            m.addAttribute("pages", pageRepository.findAll());
+            m.addAttribute("pages", pageRepository.findAll(new Sort(Sort.Direction.ASC, "name")));
             m.addAttribute("user", userRepository.getByUsername(principal.getName()));
         } else {
             m.addAttribute("pages", pageRepository.getAllByVisibility("everyone"));

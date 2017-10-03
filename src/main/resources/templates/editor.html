@@ -12,7 +12,8 @@
                         <input type="hidden" name="id" th:value="${page != null} ? ${page.id} : ${''}"/>
                         <div class="row input-field">
                             <div class="col m12">
-                                <input name="name" th:value="${page != null} ? ${page.name} : ''" maxlength="128"/>
+                                <input id="name-input" data-length="128" name="name"
+                                       th:value="${page != null} ? ${page.name} : ''" maxlength="128"/>
                             </div>
                         </div>
                         <div class="row">
@@ -85,6 +86,10 @@
             document.getElementById("contentValue").value = text;
             $('pre code').each(function (i, block) {
                 hljs.highlightBlock(block);
+            });
+
+            $(document).ready(function () {
+                $('#name-input').characterCounter();
             });
         }
 
