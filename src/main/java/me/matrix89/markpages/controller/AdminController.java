@@ -5,6 +5,7 @@ import me.matrix89.markpages.repository.PageRepository;
 import me.matrix89.markpages.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +27,7 @@ public class AdminController {
 
     @GetMapping("")
     public String admin(Model model, @RequestParam(defaultValue = "1") int page) {
-        model.addAttribute("pages", pageRepository.findAll(new PageRequest(page - 1, 10)));
+        model.addAttribute("pages", pageRepository.findAll(new PageRequest(page - 1, 10, Sort.Direction.ASC, "name")));
         model.addAttribute("page", page);
         model.addAttribute("users", userRepository.findAll());
         return "admin";
