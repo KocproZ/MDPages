@@ -5,6 +5,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "pages")
@@ -36,8 +39,28 @@ public class PageModel {
     @ManyToOne
     private UserModel maintainer;
 
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "tags_pages", joinColumns = @JoinColumn(name = "page_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
+    private Set<TagModel> tags = new HashSet<>();
+
     @Transient
     final static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+    public Set<TagModel> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<TagModel> tags) {
+        this.tags = tags;
+    }
+
+    public void addTag(TagModel tag) {
+        tags.add(tag);
+    }
+
+    public void addTags(List<TagModel> tags) {
+        this.tags.addAll(tags);
+    }
 
     public Date getCreationDate() {
         return created;

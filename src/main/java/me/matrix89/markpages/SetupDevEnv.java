@@ -1,8 +1,10 @@
 package me.matrix89.markpages;
 
 import me.matrix89.markpages.model.PageModel;
+import me.matrix89.markpages.model.TagModel;
 import me.matrix89.markpages.model.UserModel;
 import me.matrix89.markpages.repository.PageRepository;
+import me.matrix89.markpages.repository.TagRepository;
 import me.matrix89.markpages.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,12 +36,16 @@ public class SetupDevEnv {
     private UserRepository userRepository;
 
     @Autowired
+    private TagRepository tagRepository;
+
+    @Autowired
     private Pbkdf2PasswordEncoder passwordEncoder;
 
     @PostConstruct
     public void postInit() {
         if (dev && dllAuto.equals("create")) {
             createUsers();
+            createTags();
             createPages();
         }
     }
@@ -54,8 +60,21 @@ public class SetupDevEnv {
             String randomMarkdown = randomMarkdown();
             page.setContent(randomMarkdown);
             page.setName(UUID.randomUUID().toString());
+            page.addTag(tagRepository.findOne(1));
+            if (i % 2 == 0)
+                page.addTag(tagRepository.findOne(2));
             pageRepository.save(page);
         }
+    }
+
+    private void createTags() {
+        TagModel basicTag = new TagModel();
+        basicTag.setName("Basic");
+        basicTag.setDescription("Basic test tag for test purpołses.");
+        tagRepository.save(basicTag);
+        TagModel emptyTag = new TagModel();
+        emptyTag.setName("Empty");
+        tagRepository.save(emptyTag);
     }
 
     private String randomMarkdown() {
