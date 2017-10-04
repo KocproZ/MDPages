@@ -25,7 +25,13 @@ public class EditorController {
     private UserRepository userRepository;
 
     @GetMapping("/editor")
-    public String editor() {
+    public String editor(@RequestParam(defaultValue = "ace") String e) {
+        if (e != null) {
+            if (e.equals("cke"))
+                return "editor-cke";
+            else if (e.equals("ace"))
+                return "editor";
+        }
         return "editor";
     }
 
