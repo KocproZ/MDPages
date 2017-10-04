@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface TagRepository extends CrudRepository<TagModel, Integer> {
     List<TagModel> findAllByName(String name);
+
+    List<TagModel> findAllByNameContaining(String name);
 }

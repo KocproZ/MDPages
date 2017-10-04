@@ -3,6 +3,7 @@ package me.matrix89.markpages.controller;
 import me.matrix89.markpages.model.PageModel;
 import me.matrix89.markpages.model.UserModel;
 import me.matrix89.markpages.repository.PageRepository;
+import me.matrix89.markpages.repository.TagRepository;
 import me.matrix89.markpages.repository.UserRepository;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class IndexController {
     private UserRepository userRepository;
 
     @Autowired
+    private TagRepository tagRepository;
+
+    @Autowired
     Logger logger;
 
     @GetMapping("/")
@@ -35,7 +39,7 @@ public class IndexController {
             m.addAttribute("pages", pageRepository.findAll(new Sort(Sort.Direction.ASC, "name")));
             m.addAttribute("user", userRepository.getByUsername(principal.getName()));
         } else {
-            m.addAttribute("pages", pageRepository.getAllByVisibility("everyone"));
+            m.addAttribute("pages", pageRepository.getAllByVisibility("everyone", new Sort(Sort.Direction.ASC, "name")));
         }
 
         return "index";
@@ -69,13 +73,22 @@ public class IndexController {
         return "mdPage";
     }
 
+//    @RequestMapping("/search") //TODO
+//    public String search(Model model, @RequestParam(defaultValue = "") String name,
+//                         @RequestParam(defaultValue = "") String tag, Principal principal) {
+//        if (principal != null) {
+//            model.addAttribute("pages", pageRepository.findAll(new Sort(Sort.Direction.ASC, "name")));
+//            model.addAttribute("user", userRepository.getByUsername(principal.getName()));
+//        } else {
+//            model.addAttribute("pages", pageRepository.findAllByVisibilityAndTagsOrderByNameAsc("everyone",
+//                    tagRepository.findAllByName(name).get(0)));
+//        }
+//
+//        return "index";
+//    }
+
     @RequestMapping("/login")
     public String login() {
-/*        UserModel m = new UserModel();
-        m.setUsername("admin");
-        m.setRole("ROLE_ADMIN");
-        m.setPassword(passwordEncoder.encode("admin"));
-        userRepository.save(m);*/
         return "login";
     }
 
