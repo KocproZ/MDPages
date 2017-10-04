@@ -8,10 +8,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface PageRepository extends JpaRepository<PageModel, Integer> {
-    List<PageModel> getAllByVisibility(String visibility, Sort sort);
+    List<PageModel> getAllByVisibility(PageModel.Visibility visibility, Sort sort);
     List<PageModel> getAllByMaintainer_Id(Integer maintainer_id);
 
-    List<PageModel> findAllByVisibilityAndTagsOrderByNameAsc(String visibility, TagModel tag);
+    List<PageModel> findAllByVisibilityAndTagsOrderByNameAsc(PageModel.Visibility visibility, TagModel tag);
 
     List<PageModel> findAllByNameContainingOrTagsOrderByNameAsc(String name, TagModel tag);
 }

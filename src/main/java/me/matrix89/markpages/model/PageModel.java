@@ -25,8 +25,9 @@ public class PageModel {
     private String content;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(name = "visibility", length = 16, nullable = false)
-    private String visibility;
+    private Visibility visibility;
 
     @NotNull
     @Column(name = "created", columnDefinition = "DATETIME", nullable = false)
@@ -90,11 +91,11 @@ public class PageModel {
         this.id = id;
     }
 
-    public String getVisibility() {
+    public Visibility getVisibility() {
         return visibility;
     }
 
-    public void setVisibility(String visibility) {
+    public void setVisibility(Visibility visibility) {
         this.visibility = visibility;
     }
 
@@ -130,4 +131,12 @@ public class PageModel {
     public String toString() {
         return String.format("PageModel{Name: %s}", getName());
     }
+
+    public enum Visibility {
+        PUBLIC,
+        AUTHORIZED,
+        HIDDEN
+
+    }
 }
+

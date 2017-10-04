@@ -39,7 +39,7 @@ public class IndexController {
             m.addAttribute("pages", pageRepository.findAll(new Sort(Sort.Direction.ASC, "name")));
             m.addAttribute("user", userRepository.getByUsername(principal.getName()));
         } else {
-            m.addAttribute("pages", pageRepository.getAllByVisibility("everyone", new Sort(Sort.Direction.ASC, "name")));
+            m.addAttribute("pages", pageRepository.getAllByVisibility(PageModel.Visibility.PUBLIC, new Sort(Sort.Direction.ASC, "name")));
         }
 
         return "index";
@@ -64,7 +64,7 @@ public class IndexController {
         }
 
 
-        if (user == null && page.getVisibility().equals("authorized")) {
+        if (user == null && page.getVisibility() == PageModel.Visibility.AUTHORIZED) {
             return "redirect:/login";
         }
 

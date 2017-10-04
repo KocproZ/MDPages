@@ -53,7 +53,7 @@ public class SetupDevEnv {
     private void createPages() {
         for (int i = 0; i < 32; i++) {
             PageModel page = new PageModel();
-            page.setVisibility("everyone");
+            page.setVisibility(PageModel.Visibility.PUBLIC);
             page.setMaintainer(userRepository.findOne(1));
             page.setLastEdited(new Date());
             page.setCreationDate(new Date());

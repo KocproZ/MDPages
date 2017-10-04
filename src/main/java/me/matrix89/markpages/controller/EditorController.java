@@ -46,15 +46,13 @@ public class EditorController {
 
     @RequestMapping("/add")
     public String add(@RequestParam String name, @RequestParam String mdPage,
-                      @RequestParam String visibility, Principal principal) {
+                      @RequestParam PageModel.Visibility visibility, Principal principal) {
         PageModel p = new PageModel();
         p.setName(name);
         p.setContent(mdPage);
         p.setCreationDate(new Date());
         p.setLastEdited(new Date());
         p.setMaintainer(userRepository.getByUsername(principal.getName()));
-        if (!visibility.equals("authorized") && !visibility.equals("everyone"))
-            return "redirect:/editor";
         p.setVisibility(visibility);
         pageRepository.save(p);
         return String.format("redirect:%d", p.getId());
@@ -62,7 +60,7 @@ public class EditorController {
 
     @RequestMapping("/update")
     public String update(@RequestParam Integer id, @RequestParam String mdPage,
-                         @RequestParam String visibility, @RequestParam String name) {
+                         @RequestParam PageModel.Visibility visibility, @RequestParam String name) {
         PageModel m = pageRepository.findOne(id);
         m.setName(name);
         m.setContent(mdPage);
