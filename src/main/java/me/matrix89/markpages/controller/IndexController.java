@@ -74,16 +74,15 @@ public class IndexController {
     }
 
 //    @RequestMapping("/search") //TODO
-//    public String search(Model model, @RequestParam(defaultValue = "") String name,
-//                         @RequestParam(defaultValue = "") String tag, Principal principal) {
+//    public String search(Model model, @RequestParam String name, @RequestParam String tag, Principal principal) {
 //        if (principal != null) {
-//            model.addAttribute("pages", pageRepository.findAll(new Sort(Sort.Direction.ASC, "name")));
+//            model.addAttribute("pages",
+//                    pageRepository.findAllByVisibilityNotLikeAndNameContainingOrderByNameAsc(PageModel.Visibility.HIDDEN, name));
 //            model.addAttribute("user", userRepository.getByUsername(principal.getName()));
 //        } else {
-//            model.addAttribute("pages", pageRepository.findAllByVisibilityAndTagsOrderByNameAsc("everyone",
-//                    tagRepository.findAllByName(name).get(0)));
+//            model.addAttribute("pages",
+//                    pageRepository.findAllByVisibilityAndNameContainingOrderByNameAsc(PageModel.Visibility.PUBLIC, name));
 //        }
-//
 //        return "index";
 //    }
 

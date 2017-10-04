@@ -13,5 +13,7 @@ public interface PageRepository extends JpaRepository<PageModel, Integer> {
 
     List<PageModel> findAllByVisibilityAndTagsOrderByNameAsc(PageModel.Visibility visibility, TagModel tag);
 
-    List<PageModel> findAllByNameContainingOrTagsOrderByNameAsc(String name, TagModel tag);
+    List<PageModel> findAllByVisibilityAndNameContainingOrderByNameAsc(PageModel.Visibility visibility, String name);
+
+    List<PageModel> findAllByVisibilityNotLikeAndNameContainingOrderByNameAsc(PageModel.Visibility visibility, String name);
 }

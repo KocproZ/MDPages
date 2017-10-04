@@ -53,8 +53,8 @@ public class SetupDevEnv {
     private void createPages() {
         for (int i = 0; i < 32; i++) {
             PageModel page = new PageModel();
-            page.setVisibility(PageModel.Visibility.PUBLIC);
-            page.setMaintainer(userRepository.findOne(1));
+            page.setVisibility(i % 4 == 0 ? PageModel.Visibility.AUTHORIZED : PageModel.Visibility.PUBLIC);
+            page.setMaintainer(i % 6 == 0 ? userRepository.findOne(2) : userRepository.findOne(1));
             page.setLastEdited(new Date());
             page.setCreationDate(new Date());
             String randomMarkdown = randomMarkdown();
@@ -102,5 +102,11 @@ public class SetupDevEnv {
         admin.setRole("ROLE_ADMIN");
         admin.setUsername("admin");
         userRepository.save(admin);
+
+        UserModel user = new UserModel();
+        user.setPassword(passwordEncoder.encode("user"));
+        user.setRole("ROLE_USER");
+        user.setUsername("user");
+        userRepository.save(user);
     }
 }
