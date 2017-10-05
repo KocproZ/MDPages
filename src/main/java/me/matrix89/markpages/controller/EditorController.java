@@ -1,5 +1,6 @@
 package me.matrix89.markpages.controller;
 
+import me.matrix89.markpages.Util;
 import me.matrix89.markpages.model.PageModel;
 import me.matrix89.markpages.model.UserModel;
 import me.matrix89.markpages.repository.PageRepository;
@@ -60,8 +61,9 @@ public class EditorController {
         p.setLastEdited(new Date());
         p.setMaintainer(userRepository.getByUsername(principal.getName()));
         p.setVisibility(visibility);
+        p.setStringId(Util.randomString(8));
         pageRepository.save(p);
-        return String.format("redirect:%d", p.getId());
+        return String.format("redirect:%s", p.getStringId());
     }
 
     @RequestMapping("/update")

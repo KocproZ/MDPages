@@ -7,9 +7,9 @@
         <div class="row">
             <ul th:each="p: ${pages}">
                 <li class="row">
-                    <a class="col m3" th:text="${p.getName()}" th:href="${p.id}"></a>
+                    <a class="col m3" th:text="${p.getName()}" th:href="${p.stringId}"></a>
                     <span class="col m2" th:inline="text">Maintainer: [[${p.maintainer.username}]]</span>
-                    <a class="col m1 btn tooltipped" th:href="'/edit/' + ${p.id}"
+                    <a class="col m1 btn tooltipped" th:href="'/edit/' + ${p.stringId}"
                        th:attr="data-tooltip='Last edited: ' + ${p.lastEdited}"
                        th:if="${user != null and user.canEdit(p)}">Edit</a>
                 </li>

@@ -21,6 +21,10 @@ public class PageModel {
     private String name;
 
     @NotNull
+    @Column(name = "stringId", length = 8, unique = true, nullable = false)
+    private String stringId;
+
+    @NotNull
     @Column(name = "content", columnDefinition = "LONGBLOB")
     private String content;
 
@@ -46,6 +50,14 @@ public class PageModel {
 
     @Transient
     final static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+    public String getStringId() {
+        return stringId;
+    }
+
+    public void setStringId(String stringId) {
+        this.stringId = stringId;
+    }
 
     public Set<TagModel> getTags() {
         return tags;

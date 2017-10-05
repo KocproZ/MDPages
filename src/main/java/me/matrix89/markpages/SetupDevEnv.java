@@ -60,6 +60,7 @@ public class SetupDevEnv {
             String randomMarkdown = randomMarkdown();
             page.setContent(randomMarkdown);
             page.setName(UUID.randomUUID().toString());
+            page.setStringId(Util.randomString(8));
             page.addTag(tagRepository.findOne(1));
             if (i % 2 == 0)
                 page.addTag(tagRepository.findOne(2));

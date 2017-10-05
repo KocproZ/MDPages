@@ -52,8 +52,8 @@ public class IndexController {
     }
 
     @GetMapping("/{id}")
-    public String mdPage(@PathVariable(name = "id") Integer pageId, Model model, Principal principal) {
-        PageModel page = pageRepository.findOne(pageId);
+    public String mdPage(@PathVariable(name = "id") String pageId, Model model, Principal principal) {
+        PageModel page = pageRepository.getAllByStringId(pageId);
         if (page == null) {
             return "redirect:/";
         }
