@@ -8,27 +8,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-<div class="row">
-    <form class="col offset-s4 s10" th:action="@{/login}" method="post">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-        <div class="row">
-            <div class="input-field col s5">
-                <input type="text" name="username"/>
-                <label> User Name </label>
+
+<div class="center center-align">
+
+    <div class="row">
+        <div class="col s4 offset-s4">
+            <div class="card">
+                <div class="card-image background blue">
+                    <img src="favicon.ico" style="width: 250px; margin: 0 auto; padding: 10px"/>
+                </div>
+                <div class="card-content">
+                    <form method="post">
+                        <div class='row'>
+                            <div class='input-field col s12'>
+                                <input class='validate' type='text' name='username' id='username'/>
+                                <label for='username'>Enter your username</label>
+                            </div>
+                        </div>
+
+                        <div class='row'>
+                            <div class='input-field col s12'>
+                                <input class='validate' type='password' name='password' id='password'/>
+                                <label for='password'>Enter your password</label>
+                            </div>
+                            <label style='float: right;'>
+                                <a class='pink-text' href='#!'><b>Forgot Password?</b></a>
+                            </label>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect'>
+                                    Login
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="input-field col s5">
-                <input type="password" name="password"/>
-                <label> Password </label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col ">
-                <input class="btn" type="submit" value="Sign In"/>
-            </div>
-        </div>
-    </form>
+    </div>
 </div>
 
 <div th:if="${param.error}">
