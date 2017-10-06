@@ -1,6 +1,6 @@
-package me.matrix89.markpages.repository;
+package me.matrix89.markpages.data.repository;
 
-import me.matrix89.markpages.model.TagModel;
+import me.matrix89.markpages.data.model.TagModel;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

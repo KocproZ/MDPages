@@ -1,8 +1,8 @@
 package me.matrix89.markpages.controller;
 
-import me.matrix89.markpages.model.UserModel;
-import me.matrix89.markpages.repository.PageRepository;
-import me.matrix89.markpages.repository.UserRepository;
+import me.matrix89.markpages.data.model.UserModel;
+import me.matrix89.markpages.data.repository.PageRepository;
+import me.matrix89.markpages.data.repository.UserRepository;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
@@ -39,7 +39,7 @@ public class UserController {
     @RequestMapping("/profile")
     public String profile(Model model, Principal principal) {
         UserModel user = userRepository.getByUsername(principal.getName());
-        List pages = pageRepository.getAllByMaintainer_Id(user.getId());
+        List pages = pageRepository.findAllByMaintainer_Id(user.getId());
 
         model.addAttribute("page_title", String.format("%s's profile | md pages", user.getUsername()));
         model.addAttribute("user", user);

@@ -1,11 +1,11 @@
 package me.matrix89.markpages;
 
-import me.matrix89.markpages.model.PageModel;
-import me.matrix89.markpages.model.TagModel;
-import me.matrix89.markpages.model.UserModel;
-import me.matrix89.markpages.repository.PageRepository;
-import me.matrix89.markpages.repository.TagRepository;
-import me.matrix89.markpages.repository.UserRepository;
+import me.matrix89.markpages.data.model.PageModel;
+import me.matrix89.markpages.data.model.TagModel;
+import me.matrix89.markpages.data.model.UserModel;
+import me.matrix89.markpages.data.repository.PageRepository;
+import me.matrix89.markpages.data.repository.TagRepository;
+import me.matrix89.markpages.data.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;

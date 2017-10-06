@@ -1,10 +1,10 @@
 package me.matrix89.markpages.controller;
 
 import me.matrix89.markpages.Util;
-import me.matrix89.markpages.model.PageModel;
-import me.matrix89.markpages.model.UserModel;
-import me.matrix89.markpages.repository.PageRepository;
-import me.matrix89.markpages.repository.UserRepository;
+import me.matrix89.markpages.data.model.PageModel;
+import me.matrix89.markpages.data.model.UserModel;
+import me.matrix89.markpages.data.repository.PageRepository;
+import me.matrix89.markpages.data.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

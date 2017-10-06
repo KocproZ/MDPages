@@ -1,7 +1,7 @@
 package me.matrix89.markpages.security;
 
-import me.matrix89.markpages.model.UserModel;
-import me.matrix89.markpages.repository.UserRepository;
+import me.matrix89.markpages.data.model.UserModel;
+import me.matrix89.markpages.data.repository.UserRepository;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

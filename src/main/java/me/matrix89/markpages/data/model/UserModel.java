@@ -1,4 +1,4 @@
-package me.matrix89.markpages.model;
+package me.matrix89.markpages.data.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
