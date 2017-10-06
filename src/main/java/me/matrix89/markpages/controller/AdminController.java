@@ -27,7 +27,9 @@ public class AdminController {
 
     @GetMapping("")
     public String admin(Model model, @RequestParam(defaultValue = "1") int page) {
-        model.addAttribute("pages", pageRepository.findAll(new PageRequest(page - 1, 10, Sort.Direction.ASC, "name")));
+        model.addAttribute("pages", pageRepository.findAll(
+                new PageRequest(page - 1, 10, Sort.Direction.ASC, "name")
+        ));
         model.addAttribute("page", page);
         model.addAttribute("users", userRepository.findAll());
         return "admin";
