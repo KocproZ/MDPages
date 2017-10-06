@@ -12,6 +12,8 @@ public interface PageRepository extends JpaRepository<PageModel, Integer> {
 
     List<PageModel> findAllByVisibility(PageModel.Visibility visibility, Sort sort);
 
+    List<PageModel> findAllByVisibilityNot(PageModel.Visibility visibility, Sort sort);
+
     List<PageModel> findAllByMaintainer_Id(Integer maintainer_id);
 
     List<PageModel> findAllByVisibilityAndTags(PageModel.Visibility visibility, TagModel tag, Sort sort);

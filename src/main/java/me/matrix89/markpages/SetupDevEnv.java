@@ -1,5 +1,7 @@
 package me.matrix89.markpages;
 
+import com.thedeanda.lorem.Lorem;
+import com.thedeanda.lorem.LoremIpsum;
 import me.matrix89.markpages.data.model.PageModel;
 import me.matrix89.markpages.data.model.TagModel;
 import me.matrix89.markpages.data.model.UserModel;
@@ -18,7 +20,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Date;
-import java.util.UUID;
 
 @Component
 public class SetupDevEnv {
@@ -51,6 +52,7 @@ public class SetupDevEnv {
     }
 
     private void createPages() {
+        Lorem lorem = LoremIpsum.getInstance();
         for (int i = 0; i < 32; i++) {
             PageModel page = new PageModel();
             page.setVisibility(i % 4 == 0 ? PageModel.Visibility.AUTHORIZED : PageModel.Visibility.PUBLIC);
@@ -59,7 +61,8 @@ public class SetupDevEnv {
             page.setCreationDate(new Date());
             String randomMarkdown = randomMarkdown();
             page.setContent(randomMarkdown);
-            page.setName(UUID.randomUUID().toString());
+//            page.setName(UUID.randomUUID().toString());
+            page.setName(lorem.getTitle(3, 10));
             page.setStringId(Util.randomString(8));
             page.addTag(tagRepository.findOne(1));
             if (i % 2 == 0)

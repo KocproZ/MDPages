@@ -38,7 +38,7 @@ public class EditorController {
 
     @GetMapping("/edit/{StringId}")
     public String edit(@PathVariable String StringId, Model model, Principal principal) {
-        PageModel page = pageRepository.getAllByStringId(StringId);
+        PageModel page = pageRepository.findAllByStringId(StringId);
         UserModel user = userRepository.getByUsername(principal.getName());
         if (user == null || page == null)
             return "redirect:/editor";
