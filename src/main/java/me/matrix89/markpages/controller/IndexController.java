@@ -83,16 +83,15 @@ public class IndexController {
         } else if (principal == null && !search.getName().isEmpty()) {
             model.addAttribute("pages", pageRepository.findAllByVisibilityAndNameContaining(
                     PageModel.Visibility.PUBLIC, search.getName(), new Sort(Sort.Direction.ASC, "name")));
-        } else if (principal != null && !search.getTags().isEmpty()) { //TODO szukanie tagami dla zalogowanych
-//            model.addAttribute("page", pageRepository.findAllByVisibilityNotAndTagNames(
-//                    PageModel.Visibility.HIDDEN, search.getTags(), search.getTags().size()
-//            ));
-        } else if (principal == null && !search.getTags().isEmpty()) { //TODO szukanie tagami dla niezalogowanych
-//            model.addAttribute("page", pageRepository.findAllByVisibilityAndTagNames(
-//                    PageModel.Visibility.PUBLIC, search.getTags(), search.getTags().size()
-//            ));
+        } else if (principal != null && !search.getTags().isEmpty()) {
+            model.addAttribute("pages", pageRepository.findAllByVisibilityNotAndTagNames(
+                    PageModel.Visibility.HIDDEN, search.getTags()
+            ));
+        } else if (principal == null && !search.getTags().isEmpty()) {
+            model.addAttribute("pages", pageRepository.findAllByVisibilityAndTagNames(
+                    PageModel.Visibility.PUBLIC, search.getTags()
+            ));
         }
-
 
         return "index";
     }

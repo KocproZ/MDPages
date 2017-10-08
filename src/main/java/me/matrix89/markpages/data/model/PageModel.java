@@ -44,8 +44,9 @@ public class PageModel {
     @ManyToOne
     private UserModel maintainer;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "tags_pages", joinColumns = @JoinColumn(name = "page_id", referencedColumnName = "id"),
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinTable(name = "tags_pages",
+            joinColumns = @JoinColumn(name = "page_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
     private Set<TagModel> tags = new HashSet<>();
 

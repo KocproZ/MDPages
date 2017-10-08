@@ -21,7 +21,7 @@ public class TagModel {
     @Column(name = "description", length = 512)
     private String description;
 
-    @ManyToMany(mappedBy = "tags")
+    @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
     private Set<PageModel> pages = new HashSet<>();
 
     public Set<PageModel> getPages() {
