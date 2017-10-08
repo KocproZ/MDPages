@@ -28,36 +28,4 @@ public class PersistentLoginsModel {
     @Column(name = "last_used", nullable = false)
     private Timestamp last_user;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getSeries() {
-        return series;
-    }
-
-    public void setSeries(String series) {
-        this.series = series;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public Timestamp getLast_user() {
-        return last_user;
-    }
-
-    public void setLast_user(Timestamp last_user) {
-        this.last_user = last_user;
-    }
-
 }

@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Entity
+@Entity(name = "Page")
 @Table(name = "pages")
 public class PageModel {
     @Id
@@ -45,7 +45,8 @@ public class PageModel {
     private UserModel maintainer;
 
     @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "tags_pages", joinColumns = @JoinColumn(name = "page_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
+    @JoinTable(name = "tags_pages", joinColumns = @JoinColumn(name = "page_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
     private Set<TagModel> tags = new HashSet<>();
 
     @Transient
