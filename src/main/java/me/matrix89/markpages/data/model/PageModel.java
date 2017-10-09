@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Set;
 
 @Entity(name = "Page")
-@Table(name = "pages")
+@Table(name = "pages", indexes = {@Index(name = "PAGES_INDEX", columnList = "id, stringId, visibility")})
 public class PageModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @NotNull
     @Column(name = "name", length = 128, unique = true, nullable = false)
@@ -101,10 +101,6 @@ public class PageModel {
         this.maintainer = maintainer;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public Visibility getVisibility() {
         return visibility;
     }
@@ -121,7 +117,7 @@ public class PageModel {
         this.lastEdited = lastEdited;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

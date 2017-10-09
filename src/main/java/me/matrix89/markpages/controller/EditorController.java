@@ -67,7 +67,7 @@ public class EditorController {
     }
 
     @RequestMapping("/update")
-    public String update(@RequestParam Integer id, @RequestParam String mdPage,
+    public String update(@RequestParam Long id, @RequestParam String mdPage,
                          @RequestParam PageModel.Visibility visibility, @RequestParam String name) {
         PageModel m = pageRepository.findOne(id);
         m.setName(name);

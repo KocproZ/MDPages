@@ -12,7 +12,7 @@ public class TagModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @NotNull
     @Column(name = "name", unique = true, length = 32, nullable = false, updatable = false)
@@ -40,7 +40,7 @@ public class TagModel {
         this.pages.addAll(pages);
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

@@ -9,7 +9,7 @@ public class UserModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @NotNull
     @Column(name = "username", unique = true, length = 32, updatable = false)
@@ -23,7 +23,7 @@ public class UserModel {
     @Column(name = "role", length = 16)
     private String role;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

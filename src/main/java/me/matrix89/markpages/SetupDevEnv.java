@@ -42,6 +42,8 @@ public class SetupDevEnv {
     @Autowired
     private Pbkdf2PasswordEncoder passwordEncoder;
 
+    private static int PAGES = 64;
+
     @PostConstruct
     public void postInit() {
         if (dev && dllAuto.equals("create")) {
@@ -53,10 +55,10 @@ public class SetupDevEnv {
 
     private void createPages() {
         Lorem lorem = LoremIpsum.getInstance();
-        for (int i = 0; i < 32; i++) {
+        for (int i = 0; i < PAGES; i++) {
             PageModel page = new PageModel();
             page.setVisibility(i % 4 == 0 ? PageModel.Visibility.AUTHORIZED : PageModel.Visibility.PUBLIC);
-            page.setMaintainer(i % 6 == 0 ? userRepository.findOne(2) : userRepository.findOne(1));
+            page.setMaintainer(i % 6 == 0 ? userRepository.findOne(2l) : userRepository.findOne(1l));
             page.setLastEdited(new Date());
             page.setCreationDate(new Date());
             String randomMarkdown = randomMarkdown();
@@ -64,9 +66,9 @@ public class SetupDevEnv {
 //            page.setName(UUID.randomUUID().toString());
             page.setName(lorem.getTitle(3, 10));
             page.setStringId(Util.randomString(8));
-            page.addTag(tagRepository.findOne(1));
+            page.addTag(tagRepository.findOne(1l));
             if (i % 2 == 0)
-                page.addTag(tagRepository.findOne(2));
+                page.addTag(tagRepository.findOne(2l));
             pageRepository.save(page);
         }
     }

@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface TagRepository extends CrudRepository<TagModel, Integer> {
+public interface TagRepository extends CrudRepository<TagModel, Long> {
     List<TagModel> findAllByName(String name);
 
     List<TagModel> findAllByNameContaining(String name);

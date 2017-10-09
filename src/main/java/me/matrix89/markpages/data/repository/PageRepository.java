@@ -9,10 +9,10 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Set;
 
-public interface PageRepository extends JpaRepository<PageModel, Integer> {
+public interface PageRepository extends JpaRepository<PageModel, Long> {
     PageModel findAllByStringId(String stringId);
 
-    List<PageModel> findAllByMaintainer_Id(Integer maintainer_id);
+    List<PageModel> findAllByMaintainer_Id(Long maintainer_id);
     List<PageModel> findAllByVisibility(PageModel.Visibility visibility, Sort sort);
     List<PageModel> findAllByVisibilityNot(PageModel.Visibility visibility, Sort sort);
 
