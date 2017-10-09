@@ -8,6 +8,7 @@ import me.matrix89.markpages.data.model.UserModel;
 import me.matrix89.markpages.data.repository.PageRepository;
 import me.matrix89.markpages.data.repository.TagRepository;
 import me.matrix89.markpages.data.repository.UserRepository;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
@@ -46,9 +47,13 @@ public class SetupDevEnv {
     @Autowired
     private Pbkdf2PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private Logger logger;
+
     @PostConstruct
     public void postInit() {
         if (dev && dllAuto.equals("create")) {
+            logger.info("Launching in dev mode. Populating database with random data...");
             createUsers();
             createTags();
             createPages();

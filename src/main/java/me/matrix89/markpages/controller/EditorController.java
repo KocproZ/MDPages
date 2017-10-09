@@ -8,15 +8,13 @@ import me.matrix89.markpages.data.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.Date;
 
 @Controller
+@ControllerAdvice
 public class EditorController {
 
     @Autowired
@@ -67,15 +65,19 @@ public class EditorController {
     }
 
     @RequestMapping("/update")
-    public String update(@RequestParam Long id, @RequestParam String mdPage,
-                         @RequestParam PageModel.Visibility visibility, @RequestParam String name) {
-        PageModel m = pageRepository.findOne(id);
-        m.setName(name);
-        m.setContent(mdPage);
-        m.setVisibility(visibility);
-        m.setLastEdited(new Date());
-        pageRepository.save(m);
-        return String.format("redirect:%d", id);
+    public String update(@RequestParam String stringId, @RequestParam String mdPage,
+                         @RequestParam PageModel.Visibility visibility, @RequestParam String name,
+                         Principal principal) {
+        if (principal != null &&
+                userRepository.getByUsername(principal.getName()).canEdit(pageRepository.findAllByStringId(stringId))) {
+            PageModel m = pageRepository.findAllByStringId(stringId);
+            m.setName(name);
+            m.setContent(mdPage);
+            m.setVisibility(visibility);
+            m.setLastEdited(new Date());
+            pageRepository.save(m);
+        }
+        return String.format("redirect:%s", stringId);
     }
 
 }

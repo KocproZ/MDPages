@@ -19,7 +19,10 @@ import javax.sql.DataSource;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    CustomAuthenticationProvider authProvider;
+    private CustomAuthenticationProvider authProvider;
+
+    @Autowired
+    private CustomUserDetailsService userDetailsService;
 
     @Qualifier("dataSource")
     @Autowired
@@ -30,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/admin", "/admin/*")
                 .hasAuthority("ROLE_ADMIN")
-                .antMatchers("/editor", "/edit/*", "/user/profile")
+                .antMatchers("/editor", "/edit/*", "/user/profile", "/update")
                 .hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .antMatchers("/").permitAll()
                 .and()
@@ -45,12 +48,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .rememberMe().rememberMeParameter("remember-me")
-                .tokenRepository(persistentTokenRepository()).tokenValiditySeconds(86400);
+                .tokenRepository(persistentTokenRepository()).tokenValiditySeconds(86400)
+                .userDetailsService(userDetailsService);
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authProvider);
+        auth.authenticationProvider(authProvider)
+                .userDetailsService(userDetailsService);
     }
 
     @Bean
