@@ -27,8 +27,12 @@ public class SetupDevEnv {
     @Value("${dev}")
     private Boolean dev = false;
 
+    @Value("${dev.generator.pages}")
+    private int pagesToGenerate = 64;
+
     @Value("${spring.jpa.hibernate.ddl-auto}")
     private String dllAuto;
+
 
     @Autowired
     private PageRepository pageRepository;
@@ -42,8 +46,6 @@ public class SetupDevEnv {
     @Autowired
     private Pbkdf2PasswordEncoder passwordEncoder;
 
-    private static int PAGES = 64;
-
     @PostConstruct
     public void postInit() {
         if (dev && dllAuto.equals("create")) {
@@ -55,7 +57,7 @@ public class SetupDevEnv {
 
     private void createPages() {
         Lorem lorem = LoremIpsum.getInstance();
-        for (int i = 0; i < PAGES; i++) {
+        for (int i = 0; i < pagesToGenerate; i++) {
             PageModel page = new PageModel();
             page.setVisibility(i % 4 == 0 ? PageModel.Visibility.AUTHORIZED : PageModel.Visibility.PUBLIC);
             page.setMaintainer(i % 6 == 0 ? userRepository.findOne(2l) : userRepository.findOne(1l));
