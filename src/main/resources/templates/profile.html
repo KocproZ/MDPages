@@ -20,10 +20,19 @@
                             <input type="password" name="oldpass"/>
                             <label> Old password </label>
                         </div>
+                        <label style='float: right;' th:if="${wrongOldPassword}">
+                            <a class='pink-text'><b>Wrong!</b></a>
+                        </label>
                         <div class="input-field col m12">
                             <input type="password" name="newpass"/>
                             <label> New password </label>
                         </div>
+                        <label style='float: right;' th:if="${emptyNewPassword}">
+                            <a class='red-text'><b>Can't be empty</b></a>
+                        </label>
+                        <label style='float: right;' th:if="${success}">
+                            <a class='green-text' href='#!'><b>Success!</b></a>
+                        </label>
                     </div>
                     <div class="row">
                         <input class="input-field btn col m4 offset-m7" type="submit" value="Change"/>
