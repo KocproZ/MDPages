@@ -20,22 +20,22 @@
                         <td>
                             <a class="waves-effect waves-light btn blue" th:href="${'/edit/' + p.stringId}">Edit</a>
                         </td>
-                        <td>
-                            <a class="waves-effect waves-light btn red">Delete</a>
-                        </td>
                     </tr>
                     </tbody>
                 </table>
                 <ul class="pagination">
-                    <li th:if="${page &lt;= 1}" class="disabled"><a><i class="material-icons">chevron_left</i></a></li>
-                    <li th:if="${page &gt; 1}" class="waves-effect"><a th:href="'?page=' + ${page - 1}"><i
+                    <li th:if="${pagesPage &lt;= 1}" class="disabled"><a><i class="material-icons">chevron_left</i></a>
+                    </li>
+                    <li th:if="${pagesPage &gt; 1}" class="waves-effect"><a
+                            th:href="'?pagesPage=' + ${pagesPage - 1}"><i
                             class="material-icons">chevron_left</i></a></li>
                     <li th:each="i : ${#numbers.sequence(1, pages.totalPages)}"
-                        th:class="${i} eq ${page} ? ${'active'} : ${'waves-effect'}">
-                        <a th:href="${'?page=' + i}" th:inline="text">[[${i}]]</a></li>
-                    <li th:if="${page &gt;= pages.totalPages}" class="disabled"><a><i class="material-icons">chevron_right</i></a>
+                        th:class="${i} eq ${pagesPage} ? ${'active'} : ${'waves-effect'}">
+                        <a th:href="${'?pagesPage=' + i}" th:inline="text">[[${i}]]</a></li>
+                    <li th:if="${pagesPage &gt;= pages.totalPages}" class="disabled"><a><i class="material-icons">chevron_right</i></a>
                     </li>
-                    <li th:if="${page &lt; pages.totalPages}" class="waves-effect"><a th:href="'?page=' + ${page+1}"><i
+                    <li th:if="${pagesPage &lt; pages.totalPages}" class="waves-effect"><a
+                            th:href="'?pagesPage=' + ${pagesPage+1}"><i
                             class="material-icons">chevron_right</i></a></li>
                 </ul>
             </div>
@@ -50,24 +50,36 @@
                     </thead>
                     <tbody>
                     <tr th:each="u: ${users}">
-                        <td>
+                        <td class="m7">
                             <span th:text="${u.getUsername()}"></span>
                         </td>
                         <td>
-                            <div class="input-field slim-dropdown">
-                                <select name="role">
-                                    <option value="ROLE_USER" th:selected="${u.role == 'ROLE_USER'}">User</option>
-                                    <option value="ROLE_ADMIN" th:selected="${u.role == 'ROLE_ADMIN'}">Admin</option>
-                                </select>
-                            </div>
+                            <span th:if="${u.role == 'ROLE_USER'}">User</span>
+                            <span th:if="${u.role == 'ROLE_ADMIN'}">Admin</span>
                         </td>
                         <td>
-                            <input class="col m12 btn waves-effect waves-light"
-                                   value="submit" type="submit"/>
+                            <a class="col m10 btn waves-effect waves-light"
+                               href="">User</a>
+                            <!--TODO Page for every user-->
                         </td>
                     </tr>
                     </tbody>
                 </table>
+                <ul class="pagination">
+                    <li th:if="${usersPage &lt;= 1}" class="disabled"><a><i class="material-icons">chevron_left</i></a>
+                    </li>
+                    <li th:if="${usersPage &gt; 1}" class="waves-effect"><a
+                            th:href="'?usersPage=' + ${usersPage - 1}"><i
+                            class="material-icons">chevron_left</i></a></li>
+                    <li th:each="i : ${#numbers.sequence(1, users.totalPages)}"
+                        th:class="${i} eq ${usersPage} ? ${'active'} : ${'waves-effect'}">
+                        <a th:href="${'?usersPage=' + i}" th:inline="text">[[${i}]]</a></li>
+                    <li th:if="${usersPage &gt;= users.totalPages}" class="disabled"><a><i class="material-icons">chevron_right</i></a>
+                    </li>
+                    <li th:if="${usersPage &lt; users.totalPages}" class="waves-effect"><a
+                            th:href="'?usersPage=' + ${usersPage+1}"><i
+                            class="material-icons">chevron_right</i></a></li>
+                </ul>
                 <div class="row">
                     <div class="m10 col card blue lighten-5">
                         <form th:action="@{/admin/useradd}" method="post">

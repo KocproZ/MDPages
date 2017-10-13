@@ -26,22 +26,30 @@ public class AdminController {
     private Pbkdf2PasswordEncoder passwordEncoder;
 
     @GetMapping("")
-    public String admin(Model model, @RequestParam(defaultValue = "1") int page) {
+    public String admin(Model model,
+                        @RequestParam(defaultValue = "1") int pagesPage,
+                        @RequestParam(defaultValue = "1") int usersPage) {
+        model.addAttribute("pagesPage", pagesPage);
         model.addAttribute("pages", pageRepository.findAll(
-                new PageRequest(page - 1, 10, Sort.Direction.ASC, "name")
+                new PageRequest(pagesPage - 1, 10, Sort.Direction.ASC, "name")
         ));
-        model.addAttribute("page", page);
-        model.addAttribute("users", userRepository.findAll());
+
+        model.addAttribute("usersPage", usersPage);
+        model.addAttribute("users", userRepository.findAll(
+                new PageRequest(usersPage - 1, 10, Sort.Direction.ASC, "username")
+        ));
         return "admin";
     }
 
     @PostMapping("/useradd")
     public String addUser(@RequestParam String username, @RequestParam String password, @RequestParam String role) {
-        UserModel user = new UserModel();
-        user.setUsername(username);
-        user.setPassword(passwordEncoder.encode(password));
-        user.setRole(role);
-        userRepository.save(user);
+        if (!username.isEmpty() && !password.isEmpty() && !role.isEmpty()) {
+            UserModel user = new UserModel();
+            user.setUsername(username);
+            user.setPassword(passwordEncoder.encode(password));
+            user.setRole(role);
+            userRepository.save(user);
+        }
         return "redirect:/admin";
     }
 
