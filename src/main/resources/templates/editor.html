@@ -5,7 +5,8 @@
 <div layout:fragment="content">
     <div class="container">
         <div class="row">
-            <form method="post" th:action="${page != null} ? '/update' : '/add'">
+            <form id="pageForm" method="post" th:action="${page != null} ? '/update' : '/add'">
+                <input type="hidden" name="tags" id="tags-input"/>
                 <div class="row wrapper">
                     <div class="mdref">test</div>
                     <div class="options">
@@ -16,14 +17,25 @@
                                        th:value="${page != null} ? ${page.name} : ''" maxlength="128"/>
                             </div>
                         </div>
+                        <div class="row input-field">
+                            <div class="col m12">
+                                <div id="tags" class="chips chips-autocomplete"></div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col m10 input-field">
                                 <select name="visibility">
-                                    <option value="PUBLIC" th:selected="${visibility eq 'PUBLIC'}">everyone
+                                    <option value="PUBLIC"
+                                            th:selected="${visibility eq T(me.matrix89.markpages.data.model.PageModel.Visibility).PUBLIC}">
+                                        Public
                                     </option>
-                                    <option value="AUTHORIZED" th:selected="${visibility eq 'AUTHORIZED'}">authorized
+                                    <option value="AUTHORIZED"
+                                            th:selected="${visibility eq T(me.matrix89.markpages.data.model.PageModel.Visibility).AUTHORIZED}">
+                                        Authorized
                                     </option>
-                                    <option value="HIDDEN" th:selected="${visibility eq 'HIDDEN'}">hidden
+                                    <option value="HIDDEN"
+                                            th:selected="${visibility eq T(me.matrix89.markpages.data.model.PageModel.Visibility).HIDDEN}">
+                                        Hidden
                                     </option>
                                 </select>
                             </div>
@@ -82,6 +94,7 @@
             converter.setOption('tasklists', true);
             converter.setOption('ghCodeBlocks', true);
             converter.setOption('tables', true);
+            converter.setOption('simpleLineBreaks', true);
             var text = editor.getValue();
             var html = converter.makeHtml(text);
             document.getElementById("preview").innerHTML = html;
@@ -89,11 +102,32 @@
             $('pre code').each(function (i, block) {
                 hljs.highlightBlock(block);
             });
-
-            $(document).ready(function () {
-                $('#name-input').characterCounter();
-            });
         }
+
+        $(document).ready(function () {
+            $.ajax({//TODO post request
+                url: "http://localhost:8080/editor/tags" //TODO Nie localhost, coś typu /alltags
+            }).then(function (response) {
+                $('#tags').material_chip({
+                    autocompleteOptions: {
+                        data: response,
+                        limit: Infinity,
+                        minLength: 1
+                    }
+                });
+            })
+            $('#name-input').characterCounter();
+            $('#pageForm').submit(function () {
+                var tagsInput = $('#tags-input');
+                var chips = $('#tags').material_chip('data');
+                chips.forEach(function (element, index) {
+                    if (index == 0)
+                        tagsInput.val(element.tag);
+                    else
+                        tagsInput.val(tagsInput.val() + "," + element.tag);
+                })
+            })
+        });
 
         setTimeout(update, 500);
     </script>

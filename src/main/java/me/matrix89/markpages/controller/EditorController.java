@@ -2,8 +2,10 @@ package me.matrix89.markpages.controller;
 
 import me.matrix89.markpages.Util;
 import me.matrix89.markpages.data.model.PageModel;
+import me.matrix89.markpages.data.model.TagModel;
 import me.matrix89.markpages.data.model.UserModel;
 import me.matrix89.markpages.data.repository.PageRepository;
+import me.matrix89.markpages.data.repository.TagRepository;
 import me.matrix89.markpages.data.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @ControllerAdvice
@@ -23,14 +28,27 @@ public class EditorController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/editor")
-    public String editor(@RequestParam(defaultValue = "ace") String e) {
-        if (e != null) {
-            if (e.equals("cke"))
-                return "editor-cke";
-            else if (e.equals("ace"))
-                return "editor";
+    @Autowired
+    private TagRepository tagRepository;
+
+    @RequestMapping("/editor/tags") //TODO post request, move to other class
+    public @ResponseBody
+    Map<String, String> test() {
+        Iterable<TagModel> a = tagRepository.findAll();
+        Map<String, String> list = new HashMap<>();
+        a.forEach(tagModel -> list.put(tagModel.getName(), null));
+        return list;
+    }//TODO https://github.com/showdownjs/showdown/wiki/Showdown's-Markdown-syntax#ordered-lists
+
+    @GetMapping("/edit")
+    public String editor(@RequestParam(defaultValue = "ace") String e, Model model) {
+        if (e.equals("cke")) {
+            return "editor-cke";
+        } else if (e.equals("ace")) {
+            model.addAttribute("tags", tagRepository.findAll());
+            return "editor";
         }
+
         return "editor";
     }
 
@@ -61,23 +79,30 @@ public class EditorController {
         p.setVisibility(visibility);
         p.setStringId(Util.randomString(8));
         pageRepository.save(p);
-        return String.format("redirect:%s", p.getStringId());
+        return String.format("redirect:/p/%s", p.getStringId());
     }
 
     @RequestMapping("/update")
     public String update(@RequestParam String stringId, @RequestParam String mdPage,
                          @RequestParam PageModel.Visibility visibility, @RequestParam String name,
+                         @RequestParam List<String> tags,
                          Principal principal) {
         if (principal != null &&
                 userRepository.getByUsername(principal.getName()).canEdit(pageRepository.findAllByStringId(stringId))) {
-            PageModel m = pageRepository.findAllByStringId(stringId);
-            m.setName(name);
-            m.setContent(mdPage);
-            m.setVisibility(visibility);
-            m.setLastEdited(new Date());
-            pageRepository.save(m);
+            PageModel page = pageRepository.findAllByStringId(stringId);
+            page.setName(name);
+            page.setContent(mdPage);
+            page.setVisibility(visibility);
+            page.setLastEdited(new Date());
+            tags.forEach(tag -> {
+                List<TagModel> foundTag = tagRepository.findAllByName(tag);
+                if (!foundTag.isEmpty()) {
+                    page.addTag(foundTag.get(0));
+                }
+            });//TODO wczytywanie tagów w editor.html
+            pageRepository.save(page);
         }
-        return String.format("redirect:%s", stringId);
+        return String.format("redirect:/p/%s", stringId);
     }
 
 }

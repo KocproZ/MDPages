@@ -28,6 +28,7 @@
         converter.setOption('tasklists', true);
         converter.setOption('ghCodeBlocks', true);
         converter.setOption('tables', true);
+        converter.setOption('simpleLineBreaks', true);
         var text = [[${page.content}]];
         var html      = converter.makeHtml(text);
         document.getElementById("content").innerHTML = html;

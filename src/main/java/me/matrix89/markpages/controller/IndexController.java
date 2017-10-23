@@ -50,7 +50,7 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/p/{id}")
     public String mdPage(@PathVariable(name = "id") String pageId, Model model, Principal principal) {
         PageModel page = pageRepository.findAllByStringId(pageId);
         if (page == null) {
