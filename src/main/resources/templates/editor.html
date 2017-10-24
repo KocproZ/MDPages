@@ -81,6 +81,7 @@
     <script src="/js/highlight.min.js"></script>
     <script src="/js/ace/ace.js"></script>
     <script th:inline="javascript">
+
         var editor = ace.edit("editor");
         editor.setOptions({
             maxLines: Infinity
@@ -104,9 +105,16 @@
             });
         }
 
+        /* <![CDATA[ */
+
+        var pageTags = [[${pageTags}]];//Works, but not implemented
+        console.log(pageTags);
+
+        /* ]]> */
         $(document).ready(function () {
-            $.ajax({//TODO post request
-                url: "http://localhost:8080/editor/tags" //TODO Nie localhost, coś typu /alltags
+            $.ajax({//TODO Better solution
+                url: "/tags/all",
+                type: "POST"
             }).then(function (response) {
                 $('#tags').material_chip({
                     autocompleteOptions: {
@@ -115,7 +123,7 @@
                         minLength: 1
                     }
                 });
-            })
+            });
             $('#name-input').characterCounter();
             $('#pageForm').submit(function () {
                 var tagsInput = $('#tags-input');
