@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/admin", "/admin/*")
                 .hasAuthority("ROLE_ADMIN")
-                .antMatchers("/editor", "/edit/*", "/user/profile", "/update")
+                .antMatchers("/edit", "/edit/*", "/user/profile", "/update", "/tags", "/tags/*")
                 .hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .antMatchers("/").permitAll()
                 .and()
@@ -49,7 +49,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .rememberMe().rememberMeParameter("remember-me")
                 .tokenRepository(persistentTokenRepository()).tokenValiditySeconds(86400)
-                .userDetailsService(userDetailsService);
+                .userDetailsService(userDetailsService)
+                .and()
+                .csrf().ignoringAntMatchers("/tags/*");
     }
 
     @Override

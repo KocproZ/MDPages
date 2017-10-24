@@ -10,16 +10,17 @@ import me.matrix89.markpages.data.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 @Controller
-@ControllerAdvice
 public class EditorController {
 
     @Autowired
@@ -30,15 +31,6 @@ public class EditorController {
 
     @Autowired
     private TagRepository tagRepository;
-
-    @RequestMapping("/editor/tags") //TODO post request, move to other class
-    public @ResponseBody
-    Map<String, String> test() {
-        Iterable<TagModel> a = tagRepository.findAll();
-        Map<String, String> list = new HashMap<>();
-        a.forEach(tagModel -> list.put(tagModel.getName(), null));
-        return list;
-    }//TODO https://github.com/showdownjs/showdown/wiki/Showdown's-Markdown-syntax#ordered-lists
 
     @GetMapping("/edit")
     public String editor(@RequestParam(defaultValue = "ace") String e, Model model) {
@@ -52,15 +44,20 @@ public class EditorController {
         return "editor";
     }
 
-    @GetMapping("/edit/{StringId}")
-    public String edit(@PathVariable String StringId, Model model, Principal principal) {
-        PageModel page = pageRepository.findAllByStringId(StringId);
+    @GetMapping("/edit/{stringId}")
+    public String edit(@PathVariable String stringId, Model model, Principal principal) {
+        PageModel page = pageRepository.findAllByStringId(stringId);
         UserModel user = userRepository.getByUsername(principal.getName());
+        Set<TagModel> tags = page.getTags();
+        tags.forEach(t -> {
+            t.setPages(null);
+        });
         if (user == null || page == null)
             return "redirect:/editor";
         if (user.canEdit(page)) {
             model.addAttribute("visibility", page.getVisibility());
             model.addAttribute("page", page);
+            model.addAttribute("pageTags", tags);
             return "editor";
         } else {
             return "redirect:/";
