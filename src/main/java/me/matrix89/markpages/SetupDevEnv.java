@@ -93,7 +93,6 @@ public class SetupDevEnv {
     private void createTags() {
         TagModel basicTag = new TagModel();
         basicTag.setName("Basic");
-        basicTag.setDescription("Basic test tag for test purpołses.");
         tagRepository.save(basicTag);
         TagModel emptyTag = new TagModel();
         emptyTag.setName("Empty");

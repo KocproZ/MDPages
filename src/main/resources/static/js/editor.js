@@ -1,4 +1,4 @@
-function setupTags(allTags, pageTags) {
+function setupForm(allTags, pageTags) {
 
     $('#name-input').characterCounter();
 
@@ -9,10 +9,10 @@ function setupTags(allTags, pageTags) {
     });
 
     var convertedPageTags = [];
-
-    pageTags.forEach(function (tag) {
-        convertedPageTags.push({tag: tag})
-    });
+    if (pageTags)
+        pageTags.forEach(function (tag) {
+            convertedPageTags.push({tag: tag})
+        });
     console.log(convertedPageTags);
     $('#tags').material_chip({
         data: convertedPageTags,
@@ -22,4 +22,15 @@ function setupTags(allTags, pageTags) {
             minLength: 1
         }
     });
+
+    $('#pageForm').submit(function () {
+        var tagsInput = $('#tags-input');
+        var chips = $('#tags').material_chip('data');
+        chips.forEach(function (element, index) {
+            if (index == 0)
+                tagsInput.val(element.tag);
+            else
+                tagsInput.val(tagsInput.val() + "," + element.tag);
+        })
+    })
 }

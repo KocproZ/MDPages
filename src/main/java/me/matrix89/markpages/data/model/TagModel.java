@@ -18,9 +18,6 @@ public class TagModel {
     @Column(name = "name", unique = true, length = 32, nullable = false, updatable = false)
     private String name;
 
-    @Column(name = "description", length = 512)
-    private String description;
-
     @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
     private Set<PageModel> pages = new HashSet<>();
 
@@ -52,11 +49,4 @@ public class TagModel {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

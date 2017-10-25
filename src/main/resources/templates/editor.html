@@ -107,38 +107,13 @@
         }
 
         /* <![CDATA[ */
-
-        var pageTags = [[${@tagService.getPageTags(page.getStringId())}]];//Works, but not implemented
-        var allTags = [[${@tagService.getAllTags()}]];//Works, but not implemented
+        var pageTags = [[${page != null} ? ${@tagService.getPageTags(page.getStringId())} : ${null}]];//Works, but not implemented
         console.log(pageTags);
-        console.log(allTags);
-
+        var allTags = [[${@tagService.getAllTags()}]];//Works, but not implemented
         /* ]]> */
         $(document).ready(function () {
-            setupTags(allTags, pageTags)
-//            $.ajax({//TODO Better solution
-//                url: "/tags/all",
-//                type: "POST"
-//            }).then(function (response) {
-//                $('#tags').material_chip({
-//                    autocompleteOptions: {
-//                        data: response,
-//                        limit: Infinity,
-//                        minLength: 1
-//                    }
-//                });
-//            });
-//            $('#name-input').characterCounter();
-//            $('#pageForm').submit(function () {
-//                var tagsInput = $('#tags-input');
-//                var chips = $('#tags').material_chip('data');
-//                chips.forEach(function (element, index) {
-//                    if (index == 0)
-//                        tagsInput.val(element.tag);
-//                    else
-//                        tagsInput.val(tagsInput.val() + "," + element.tag);
-//                })
-//            })
+            setupForm(allTags, pageTags)
+
         });
 
         setTimeout(update, 500);

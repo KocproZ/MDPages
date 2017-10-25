@@ -98,10 +98,13 @@ public class EditorController {
             page.setVisibility(visibility);
             page.setLastEdited(new Date());
             tags.forEach(tag -> {
-                List<TagModel> foundTag = tagRepository.findAllByName(tag);
-                if (!foundTag.isEmpty()) {
-                    page.addTag(foundTag.get(0));
+                TagModel foundTag = tagRepository.findFirstByName(tag);
+                if (foundTag == null) {
+                    foundTag = new TagModel();
+                    foundTag.setName(tag);
+                    tagRepository.save(foundTag);
                 }
+                page.addTag(foundTag);
             });
             pageRepository.save(page);
         }
