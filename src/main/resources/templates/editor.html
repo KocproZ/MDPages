@@ -19,7 +19,7 @@
                         </div>
                         <div class="row input-field">
                             <div class="col m12">
-                                <div id="tags" class="chips chips-autocomplete"></div>
+                                <div id="tags" class="chips chips-autocomplete chips-initial"></div>
                             </div>
                         </div>
                         <div class="row">
@@ -80,6 +80,7 @@
     <script src="/js/showdown.min.js"></script>
     <script src="/js/highlight.min.js"></script>
     <script src="/js/ace/ace.js"></script>
+    <script src="/js/editor.js"></script>
     <script th:inline="javascript">
 
         var editor = ace.edit("editor");
@@ -107,34 +108,37 @@
 
         /* <![CDATA[ */
 
-        var pageTags = [[${pageTags}]];//Works, but not implemented
+        var pageTags = [[${@tagService.getPageTags(page.getStringId())}]];//Works, but not implemented
+        var allTags = [[${@tagService.getAllTags()}]];//Works, but not implemented
         console.log(pageTags);
+        console.log(allTags);
 
         /* ]]> */
         $(document).ready(function () {
-            $.ajax({//TODO Better solution
-                url: "/tags/all",
-                type: "POST"
-            }).then(function (response) {
-                $('#tags').material_chip({
-                    autocompleteOptions: {
-                        data: response,
-                        limit: Infinity,
-                        minLength: 1
-                    }
-                });
-            });
-            $('#name-input').characterCounter();
-            $('#pageForm').submit(function () {
-                var tagsInput = $('#tags-input');
-                var chips = $('#tags').material_chip('data');
-                chips.forEach(function (element, index) {
-                    if (index == 0)
-                        tagsInput.val(element.tag);
-                    else
-                        tagsInput.val(tagsInput.val() + "," + element.tag);
-                })
-            })
+            setupTags(allTags, pageTags)
+//            $.ajax({//TODO Better solution
+//                url: "/tags/all",
+//                type: "POST"
+//            }).then(function (response) {
+//                $('#tags').material_chip({
+//                    autocompleteOptions: {
+//                        data: response,
+//                        limit: Infinity,
+//                        minLength: 1
+//                    }
+//                });
+//            });
+//            $('#name-input').characterCounter();
+//            $('#pageForm').submit(function () {
+//                var tagsInput = $('#tags-input');
+//                var chips = $('#tags').material_chip('data');
+//                chips.forEach(function (element, index) {
+//                    if (index == 0)
+//                        tagsInput.val(element.tag);
+//                    else
+//                        tagsInput.val(tagsInput.val() + "," + element.tag);
+//                })
+//            })
         });
 
         setTimeout(update, 500);

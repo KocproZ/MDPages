@@ -102,7 +102,7 @@ public class EditorController {
                 if (!foundTag.isEmpty()) {
                     page.addTag(foundTag.get(0));
                 }
-            });//TODO wczytywanie tagów w editor.html
+            });
             pageRepository.save(page);
         }
         return String.format("redirect:/p/%s", stringId);
