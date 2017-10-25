@@ -7,7 +7,7 @@ import me.matrix89.markpages.data.model.UserModel;
 import me.matrix89.markpages.data.repository.PageRepository;
 import me.matrix89.markpages.data.repository.TagRepository;
 import me.matrix89.markpages.data.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import me.matrix89.markpages.service.EditService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,14 +23,20 @@ import java.util.Set;
 @Controller
 public class EditorController {
 
-    @Autowired
     private PageRepository pageRepository;
-
-    @Autowired
     private UserRepository userRepository;
-
-    @Autowired
     private TagRepository tagRepository;
+    private EditService editService;
+
+    public EditorController(PageRepository pageRepository,
+                            UserRepository userRepository,
+                            TagRepository tagRepository,
+                            EditService editService) {
+        this.pageRepository = pageRepository;
+        this.userRepository = userRepository;
+        this.tagRepository = tagRepository;
+        this.editService = editService;
+    }
 
     @GetMapping("/edit")
     public String editor(@RequestParam(defaultValue = "ace") String e, Model model) {
@@ -54,7 +60,7 @@ public class EditorController {
         });
         if (user == null || page == null)
             return "redirect:/editor";
-        if (user.canEdit(page)) {
+        if (editService.canEdit(user, page)) {
             model.addAttribute("visibility", page.getVisibility());
             model.addAttribute("page", page);
             model.addAttribute("pageTags", tags);
@@ -85,7 +91,7 @@ public class EditorController {
                          @RequestParam List<String> tags,
                          Principal principal) {
         if (principal != null &&
-                userRepository.getByUsername(principal.getName()).canEdit(pageRepository.findAllByStringId(stringId))) {
+                editService.canEdit(userRepository.getByUsername(principal.getName()), pageRepository.findAllByStringId(stringId))) {
             PageModel page = pageRepository.findAllByStringId(stringId);
             page.setName(name);
             page.setContent(mdPage);

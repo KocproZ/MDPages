@@ -14,7 +14,7 @@
                 <div><span class="grey-text" th:inline="text">Edited: [[${page.formattedLastEditedDate}]]</span></div>
             </div>
             <a class="col m1 btn" th:href="'/edit/' + ${page.stringId}"
-               th:if="${user != null and user.canEdit(page)}">Edit</a>
+               th:if="${user != null and @editService.canEdit(user, page)}">Edit</a>
         </div>
         <div class="row">
             <div id="content"></div>
