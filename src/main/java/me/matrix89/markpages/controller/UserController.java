@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
-import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -40,11 +39,11 @@ public class UserController {
     @RequestMapping("/profile")
     public String profile(Model model, Principal principal) {
         UserModel user = userRepository.getByUsername(principal.getName());
-        List pages = pageRepository.findAllByMaintainer_Id(user.getId());
+//        List pages = pageRepository.findAllByMaintainer_Id(user.getId());
 
         model.addAttribute("page_title", String.format("%s profile | md pages", user.getUsername()));
         model.addAttribute("user", user);
-        model.addAttribute("pages", pages);
+//        model.addAttribute("pages", pages);
         return "profile";
     }
 

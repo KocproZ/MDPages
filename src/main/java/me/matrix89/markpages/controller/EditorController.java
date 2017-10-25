@@ -72,7 +72,7 @@ public class EditorController {
         p.setContent(mdPage);
         p.setCreationDate(new Date());
         p.setLastEdited(new Date());
-        p.setMaintainer(userRepository.getByUsername(principal.getName()));
+//        p.setMaintainer(userRepository.getByUsername(principal.getName()));
         p.setVisibility(visibility);
         p.setStringId(Util.randomString(8));
         pageRepository.save(p);

@@ -3,7 +3,7 @@ package me.matrix89.markpages.data.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Entity
+@Entity(name = "User")
 @Table(name = "users")
 public class UserModel {
 
@@ -56,7 +56,8 @@ public class UserModel {
             return false;
         if (getRole().equals("ROLE_ADMIN"))
             return true;
-        return page.getMaintainer().equals(this);
+//        return page.getMaintainer().equals(this);
+        return true;
     }
 
     @Override

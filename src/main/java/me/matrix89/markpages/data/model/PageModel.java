@@ -41,9 +41,6 @@ public class PageModel {
     @Column(name = "lastEdited", columnDefinition = "DATETIME", nullable = false)
     private Date lastEdited;
 
-    @ManyToOne
-    private UserModel maintainer;
-
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinTable(name = "tags_pages",
             joinColumns = @JoinColumn(name = "page_id", referencedColumnName = "id"),
@@ -91,14 +88,6 @@ public class PageModel {
 
     public void setCreationDate(Date created) {
         this.created = created;
-    }
-
-    public UserModel getMaintainer() {
-        return maintainer;
-    }
-
-    public void setMaintainer(UserModel maintainer) {
-        this.maintainer = maintainer;
     }
 
     public Visibility getVisibility() {

@@ -2,9 +2,11 @@ package me.matrix89.markpages;
 
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
+import me.matrix89.markpages.data.model.PageMaintainerModel;
 import me.matrix89.markpages.data.model.PageModel;
 import me.matrix89.markpages.data.model.TagModel;
 import me.matrix89.markpages.data.model.UserModel;
+import me.matrix89.markpages.data.repository.PageMaintainerRepository;
 import me.matrix89.markpages.data.repository.PageRepository;
 import me.matrix89.markpages.data.repository.TagRepository;
 import me.matrix89.markpages.data.repository.UserRepository;
@@ -50,6 +52,9 @@ public class SetupDevEnv {
     @Autowired
     private Logger logger;
 
+    @Autowired
+    private PageMaintainerRepository maintainerRepository;
+
     @PostConstruct
     public void postInit() {
         if (dev && dllAuto.equals("create")) {
@@ -65,7 +70,11 @@ public class SetupDevEnv {
         for (int i = 0; i < pagesToGenerate; i++) {
             PageModel page = new PageModel();
             page.setVisibility(i % 4 == 0 ? PageModel.Visibility.AUTHORIZED : PageModel.Visibility.PUBLIC);
-            page.setMaintainer(i % 6 == 0 ? userRepository.findOne(2l) : userRepository.findOne(1l));
+//            page.setMaintainer(i % 6 == 0 ? userRepository.findOne(2l) : userRepository.findOne(1l));
+            PageMaintainerModel maintainerModel = new PageMaintainerModel();
+            maintainerModel.setPage(page);
+            maintainerModel.setRole(i % 3 == 0 ? PageMaintainerModel.Role.OWNER : PageMaintainerModel.Role.MAINTAINER);
+            maintainerModel.setUser(i % 6 == 0 ? userRepository.findOne(2l) : userRepository.findOne(1l));
             page.setLastEdited(new Date());
             page.setCreationDate(new Date());
             String randomMarkdown = randomMarkdown();
@@ -77,6 +86,7 @@ public class SetupDevEnv {
             if (i % 2 == 0)
                 page.addTag(tagRepository.findOne(2l));
             pageRepository.save(page);
+            maintainerRepository.save(maintainerModel);
         }
     }
 
