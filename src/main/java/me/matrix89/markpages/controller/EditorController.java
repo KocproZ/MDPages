@@ -8,6 +8,7 @@ import me.matrix89.markpages.data.repository.PageRepository;
 import me.matrix89.markpages.data.repository.TagRepository;
 import me.matrix89.markpages.data.repository.UserRepository;
 import me.matrix89.markpages.service.EditService;
+import me.matrix89.markpages.service.PermissionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,15 +28,18 @@ public class EditorController {
     private UserRepository userRepository;
     private TagRepository tagRepository;
     private EditService editService;
+    private PermissionService permissionService;
 
     public EditorController(PageRepository pageRepository,
                             UserRepository userRepository,
                             TagRepository tagRepository,
-                            EditService editService) {
+                            EditService editService,
+                            PermissionService permissionService) {
         this.pageRepository = pageRepository;
         this.userRepository = userRepository;
         this.tagRepository = tagRepository;
         this.editService = editService;
+        this.permissionService = permissionService;
     }
 
     @GetMapping("/edit")
@@ -60,7 +64,7 @@ public class EditorController {
         });
         if (user == null || page == null)
             return "redirect:/editor";
-        if (editService.canEdit(user, page)) {
+        if (permissionService.canEdit(user, page)) {
             model.addAttribute("visibility", page.getVisibility());
             model.addAttribute("page", page);
             model.addAttribute("pageTags", tags);
@@ -91,7 +95,9 @@ public class EditorController {
                          @RequestParam List<String> tags,
                          Principal principal) {
         if (principal != null &&
-                editService.canEdit(userRepository.getByUsername(principal.getName()), pageRepository.findAllByStringId(stringId))) {
+                permissionService.canEdit(
+                        userRepository.getByUsername(principal.getName()),
+                        pageRepository.findAllByStringId(stringId))) {
             PageModel page = pageRepository.findAllByStringId(stringId);
             page.setName(name);
             page.setContent(mdPage);

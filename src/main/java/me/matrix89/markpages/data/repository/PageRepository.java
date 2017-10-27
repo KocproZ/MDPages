@@ -13,7 +13,6 @@ import java.util.Set;
 public interface PageRepository extends JpaRepository<PageModel, Long> {
     PageModel findAllByStringId(String stringId);
 
-    //    List<PageModel> findAllByMaintainer_Id(Long maintainer_id); //TODO write a replacement
     List<PageModel> findAllByVisibility(PageModel.Visibility visibility, Sort sort);
     List<PageModel> findAllByVisibilityNot(PageModel.Visibility visibility, Sort sort);
 

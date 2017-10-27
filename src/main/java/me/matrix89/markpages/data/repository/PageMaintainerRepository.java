@@ -17,5 +17,8 @@ public interface PageMaintainerRepository extends JpaRepository<PageMaintainerMo
 
     List<PageMaintainerModel> findAllByPage_Id(Long id);
 
+    List<PageMaintainerModel> findAllByUser(UserModel user);
+
     PageMaintainerModel findFirstByPageAndUser(PageModel page, UserModel user);
+    PageMaintainerModel findFirstByPage_StringIdAndUser(String pageStringId, UserModel user);
 }
