@@ -108,7 +108,7 @@
 
         /* <![CDATA[ */
         var pageTags = [[${page != null} ? ${@tagService.getPageTags(page.getStringId())} : ${null}]];//Works, but not implemented
-        var allTags = [[${page != null} ? ${@tagService.getAllTags()} : ${null}]];//Works, but not implemented
+        var allTags = [[${@tagService.getAllTags()}]];//Works, but not implemented
         /* ]]> */
         $(document).ready(function () {
             setupForm(allTags, pageTags)
