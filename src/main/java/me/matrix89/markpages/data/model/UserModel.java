@@ -1,5 +1,7 @@
 package me.matrix89.markpages.data.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -16,8 +18,9 @@ public class UserModel {
     private String username;
 
     @NotNull
+    @JsonIgnore
     @Column(name = "password", columnDefinition = "TEXT", length = 160)
-    private String password;  //TODO page model exposes user password
+    private String password;
 
     @NotNull
     @Column(name = "role", length = 16)
@@ -62,8 +65,6 @@ public class UserModel {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof UserModel))
-            return false;
-        return this.getId() == ((UserModel) obj).getId();
+        return obj instanceof UserModel && this.getId() == ((UserModel) obj).getId();
     }
 }

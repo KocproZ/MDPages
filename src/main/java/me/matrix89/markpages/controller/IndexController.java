@@ -7,7 +7,6 @@ import me.matrix89.markpages.data.repository.PageRepository;
 import me.matrix89.markpages.data.repository.TagRepository;
 import me.matrix89.markpages.data.repository.UserRepository;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,17 +21,20 @@ import java.security.Principal;
 @Controller
 public class IndexController {
 
-    @Autowired
     private PageRepository pageRepository;
-
-    @Autowired
     private UserRepository userRepository;
-
-    @Autowired
     private TagRepository tagRepository;
+    private Logger logger;
 
-    @Autowired
-    Logger logger;
+    public IndexController(PageRepository pageRepository,
+                           UserRepository userRepository,
+                           TagRepository tagRepository,
+                           Logger logger) {
+        this.pageRepository = pageRepository;
+        this.userRepository = userRepository;
+        this.tagRepository = tagRepository;
+        this.logger = logger;
+    }
 
     @GetMapping("/")
     public String index(Model m, Principal principal) {
