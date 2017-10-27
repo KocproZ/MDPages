@@ -5,10 +5,6 @@
 <div layout:fragment="content">
     <div class="container">
         <div class="row">
-            <p class="col s12">
-                <input type="checkbox" id="remember-me" name="remember-me"/>
-                <label for="remember-me">Remember me</label>
-            </p>
             <div class="col m6">
                 <table class="m6 striped">
                     <thead>
@@ -27,7 +23,7 @@
                     </tr>
                     </tbody>
                 </table>
-                <ul class="pagination">
+                <ul class="pagination"><!-- TODO changing pages without changing another page -->
                     <li th:if="${pagesPage &lt;= 1}" class="disabled"><a><i class="material-icons">chevron_left</i></a>
                     </li>
                     <li th:if="${pagesPage &gt; 1}" class="waves-effect"><a

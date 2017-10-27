@@ -19,7 +19,7 @@
 <nav>
     <div class="nav-wrapper blue">
         <a href="/" class="brand-logo"><img src="/img/mdp.png" style="width: 50%;"/></a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <ul id="nav-mobile" class="right">
             <li><a th:if="${#httpServletRequest.isUserInRole('ROLE_ADMIN')}" href="/admin">Admin panel</a></li>
             <li><a th:if="${#httpServletRequest.remoteUser != null}" href="/edit">Create new</a></li>
             <li><a href="/login" th:if="${#httpServletRequest.remoteUser == null}">Login</a></li>
