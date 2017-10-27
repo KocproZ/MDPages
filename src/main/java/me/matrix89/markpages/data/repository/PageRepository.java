@@ -1,6 +1,7 @@
 package me.matrix89.markpages.data.repository;
 
 import me.matrix89.markpages.data.model.PageModel;
+import me.matrix89.markpages.data.model.TagModel;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,6 +16,8 @@ public interface PageRepository extends JpaRepository<PageModel, Long> {
 //    List<PageModel> findAllByMaintainer_Id(Long maintainer_id);
     List<PageModel> findAllByVisibility(PageModel.Visibility visibility, Sort sort);
     List<PageModel> findAllByVisibilityNot(PageModel.Visibility visibility, Sort sort);
+
+    PageModel findFirstByTags(TagModel tag);
 
     @Query(value = "select p from Page p " +
             "join p.tags as t " +

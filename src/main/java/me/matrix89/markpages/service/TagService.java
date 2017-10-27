@@ -4,6 +4,7 @@ import me.matrix89.markpages.data.model.PageModel;
 import me.matrix89.markpages.data.model.TagModel;
 import me.matrix89.markpages.data.repository.PageRepository;
 import me.matrix89.markpages.data.repository.TagRepository;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -42,5 +43,15 @@ public class TagService {
         }
         return tagNames;
 
+    }
+
+    @Scheduled(fixedRate = 1000 * 60 * 60)
+    private void cleanupTags() {
+        Iterable<TagModel> tags = tagRepository.findAll();
+
+        for (TagModel tag : tags) {
+            PageModel page = pageRepository.findFirstByTags(tag);
+            if (page == null) tagRepository.delete(tag.getId());
+        }
     }
 }
