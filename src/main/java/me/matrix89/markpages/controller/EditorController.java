@@ -1,9 +1,11 @@
 package me.matrix89.markpages.controller;
 
 import me.matrix89.markpages.Util;
+import me.matrix89.markpages.data.model.PageMaintainerModel;
 import me.matrix89.markpages.data.model.PageModel;
 import me.matrix89.markpages.data.model.TagModel;
 import me.matrix89.markpages.data.model.UserModel;
+import me.matrix89.markpages.data.repository.PageMaintainerRepository;
 import me.matrix89.markpages.data.repository.PageRepository;
 import me.matrix89.markpages.data.repository.TagRepository;
 import me.matrix89.markpages.data.repository.UserRepository;
@@ -27,17 +29,20 @@ public class EditorController {
     private PageRepository pageRepository;
     private UserRepository userRepository;
     private TagRepository tagRepository;
+    private PageMaintainerRepository pageMaintainerRepository;
     private EditService editService;
     private PermissionService permissionService;
 
     public EditorController(PageRepository pageRepository,
                             UserRepository userRepository,
                             TagRepository tagRepository,
+                            PageMaintainerRepository pageMaintainerRepository,
                             EditService editService,
                             PermissionService permissionService) {
         this.pageRepository = pageRepository;
         this.userRepository = userRepository;
         this.tagRepository = tagRepository;
+        this.pageMaintainerRepository = pageMaintainerRepository;
         this.editService = editService;
         this.permissionService = permissionService;
     }
@@ -78,6 +83,7 @@ public class EditorController {
     public String add(@RequestParam String name, @RequestParam String mdPage,
                       @RequestParam PageModel.Visibility visibility, Principal principal) {
         PageModel p = new PageModel();
+        PageMaintainerModel pm = new PageMaintainerModel();
         p.setName(name);
         p.setContent(mdPage);
         p.setCreationDate(new Date());
@@ -85,7 +91,11 @@ public class EditorController {
 //        p.setMaintainer(userRepository.getByUsername(principal.getName()));
         p.setVisibility(visibility);
         p.setStringId(Util.randomString(8));
+        pm.setPage(p);
+        pm.setUser(userRepository.getByUsername(principal.getName()));
+        pm.setRole(PageMaintainerModel.Role.OWNER);
         pageRepository.save(p);
+        pageMaintainerRepository.save(pm);
         return String.format("redirect:/p/%s", p.getStringId());
     }
 
