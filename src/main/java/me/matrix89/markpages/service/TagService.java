@@ -25,6 +25,18 @@ public class TagService {
         this.pageRepository = pageRepository;
     }
 
+    public void addTags(List<String> tags, PageModel page) {
+        tags.forEach(tag -> {
+            TagModel foundTag = tagRepository.findFirstByName(tag);
+            if (foundTag == null) {
+                foundTag = new TagModel();
+                foundTag.setName(tag);
+                tagRepository.save(foundTag);
+            }
+            page.addTag(foundTag);
+        });
+    }
+
     public List<String> getAllTags() {
         Iterable<TagModel> tags = tagRepository.findAll();
         return convert(tags);

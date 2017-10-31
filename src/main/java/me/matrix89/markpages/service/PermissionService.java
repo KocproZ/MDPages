@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class PermissionService {
 
-
     private PageMaintainerRepository maintainerRepository;
     private UserRepository userRepository;
 

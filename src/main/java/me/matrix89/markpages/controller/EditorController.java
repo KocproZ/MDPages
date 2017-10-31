@@ -11,6 +11,7 @@ import me.matrix89.markpages.data.repository.TagRepository;
 import me.matrix89.markpages.data.repository.UserRepository;
 import me.matrix89.markpages.service.EditService;
 import me.matrix89.markpages.service.PermissionService;
+import me.matrix89.markpages.service.TagService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,7 @@ public class EditorController {
     private TagRepository tagRepository;
     private PageMaintainerRepository pageMaintainerRepository;
     private EditService editService;
+    private TagService tagService;
     private PermissionService permissionService;
 
     public EditorController(PageRepository pageRepository,
@@ -38,12 +40,14 @@ public class EditorController {
                             TagRepository tagRepository,
                             PageMaintainerRepository pageMaintainerRepository,
                             EditService editService,
+                            TagService tagService,
                             PermissionService permissionService) {
         this.pageRepository = pageRepository;
         this.userRepository = userRepository;
         this.tagRepository = tagRepository;
         this.pageMaintainerRepository = pageMaintainerRepository;
         this.editService = editService;
+        this.tagService = tagService;
         this.permissionService = permissionService;
     }
 
@@ -64,9 +68,7 @@ public class EditorController {
         PageModel page = pageRepository.findAllByStringId(stringId);
         UserModel user = userRepository.getByUsername(principal.getName());
         Set<TagModel> tags = page.getTags();
-        tags.forEach(t -> {
-            t.setPages(null);
-        });
+        tags.forEach(t -> t.setPages(null));
         if (user == null || page == null)
             return "redirect:/editor";
         if (permissionService.canEdit(user, page)) {
@@ -80,48 +82,41 @@ public class EditorController {
     }
 
     @RequestMapping("/add")
-    public String add(@RequestParam String name, @RequestParam String mdPage,
-                      @RequestParam PageModel.Visibility visibility, Principal principal) {
-        PageModel p = new PageModel();
+    public String add(@RequestParam String pageName, @RequestParam String pageContent,
+                      @RequestParam PageModel.Visibility visibility,
+                      @RequestParam List<String> tags,
+                      Principal principal) {
+        PageModel page = new PageModel();
         PageMaintainerModel pm = new PageMaintainerModel();
-        p.setName(name);
-        p.setContent(mdPage);
-        p.setCreationDate(new Date());
-        p.setLastEdited(new Date());
-//        p.setMaintainer(userRepository.getByUsername(principal.getName()));
-        p.setVisibility(visibility);
-        p.setStringId(Util.randomString(8));
-        pm.setPage(p);
+        page.setName(pageName);
+        page.setContent(pageContent);
+        page.setCreationDate(new Date());
+        page.setLastEdited(new Date());
+        page.setVisibility(visibility);
+        page.setStringId(Util.randomString(8));
+        pm.setPage(page);
         pm.setUser(userRepository.getByUsername(principal.getName()));
         pm.setRole(PageMaintainerModel.Role.OWNER);
-        pageRepository.save(p);
+        tagService.addTags(tags, page);
+        pageRepository.save(page);
         pageMaintainerRepository.save(pm);
-        return String.format("redirect:/p/%s", p.getStringId());
+        return String.format("redirect:/p/%s", page.getStringId());
     }
 
     @RequestMapping("/update")
-    public String update(@RequestParam String stringId, @RequestParam String mdPage,
-                         @RequestParam PageModel.Visibility visibility, @RequestParam String name,
+    public String update(@RequestParam String stringId, @RequestParam String pageContent,
+                         @RequestParam PageModel.Visibility visibility, @RequestParam String pageName,
                          @RequestParam List<String> tags,
                          Principal principal) {
-        if (principal != null &&
-                permissionService.canEdit(
-                        userRepository.getByUsername(principal.getName()),
-                        pageRepository.findAllByStringId(stringId))) {
-            PageModel page = pageRepository.findAllByStringId(stringId);
-            page.setName(name);
-            page.setContent(mdPage);
+        PageModel page = pageRepository.findAllByStringId(stringId);
+        UserModel user = userRepository.getByUsername(principal.getName());
+        if (principal != null && page != null && user != null &&
+                permissionService.canEdit(user, page)) {
+            page.setName(pageName);
+            page.setContent(pageContent);
             page.setVisibility(visibility);
             page.setLastEdited(new Date());
-            tags.forEach(tag -> {
-                TagModel foundTag = tagRepository.findFirstByName(tag);
-                if (foundTag == null) {
-                    foundTag = new TagModel();
-                    foundTag.setName(tag);
-                    tagRepository.save(foundTag);
-                }
-                page.addTag(foundTag);
-            });
+            tagService.addTags(tags, page);
             pageRepository.save(page);
         }
         return String.format("redirect:/p/%s", stringId);
