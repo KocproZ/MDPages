@@ -9,26 +9,38 @@ CKEDITOR.editorConfig = function (config) {
     // http://docs.ckeditor.com/#!/api/CKEDITOR.config
 
     // The toolbar groups arrangement, optimized for a single toolbar row.
+    // config.toolbarGroups = [
+    //     {name: 'document', groups:['mode', 'document', 'doctools']},
+    //     {name: 'clipboard', groups: ['clipboard', 'undo']},
+    //     {name: 'editing', groups: ['find', 'selection', 'spellchecker']},
+    //     {name: 'forms'},
+    //     {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
+    //     {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi']},
+    //     {name: 'links'},
+    //     {name: 'insert'},
+    //     {name: 'styles'},
+    //     {name: 'colors'},
+    //     {name: 'tools'},
+    //     {name: 'others'},
+    //     {name: 'about'}
+    // ];
     config.toolbarGroups = [
-        {name: 'document', groups: ['mode', 'document', 'doctools']},
-        {name: 'clipboard', groups: ['clipboard', 'undo']},
-        {name: 'editing', groups: ['find', 'selection', 'spellchecker']},
-        {name: 'forms'},
+        {name: 'tools'},
+        {name: 'links'},
         {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
         {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi']},
-        {name: 'links'},
-        {name: 'insert'},
         {name: 'styles'},
-        {name: 'colors'},
-        {name: 'tools'},
-        {name: 'others'},
-        {name: 'about'}
+        {name: 'others'}
     ];
+
+    config.extraPlugins = 'markdown';  // this is the point!
+    // Set the most common block elements.
+    config.format_tags = 'p;h1;h2;h3;pre'
 
     // The default plugins included in the basic setup define some buttons that
     // are not needed in a basic editor. They are removed here.
     config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Anchor,Underline,Strike,Subscript,Superscript';
 
     // Dialog windows are also simplified.
-    config.removeDialogTabs = 'link:advanced';
+    config.removeDialogTabs = 'link:advanced;image:advanced';
 };

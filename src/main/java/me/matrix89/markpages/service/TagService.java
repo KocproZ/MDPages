@@ -28,13 +28,15 @@ public class TagService {
     public void setTags(List<String> tags, PageModel page) {
         page.clearTags();
         tags.forEach(tag -> {
-            TagModel foundTag = tagRepository.findFirstByName(tag);
-            if (foundTag == null) {
-                foundTag = new TagModel();
-                foundTag.setName(tag);
-                tagRepository.save(foundTag);
+            if (!tag.isEmpty()) {
+                TagModel foundTag = tagRepository.findFirstByName(tag);
+                if (foundTag == null) {
+                    foundTag = new TagModel();
+                    foundTag.setName(tag);
+                    tagRepository.save(foundTag);
+                }
+                page.addTag(foundTag);
             }
-            page.addTag(foundTag);
         });
     }
 
