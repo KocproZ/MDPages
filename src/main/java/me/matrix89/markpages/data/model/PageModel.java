@@ -50,6 +50,10 @@ public class PageModel {
     @Transient
     final static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
+    public void clearTags() {
+        tags.clear();
+    }
+
     public String getStringId() {
         return stringId;
     }

@@ -25,7 +25,8 @@ public class TagService {
         this.pageRepository = pageRepository;
     }
 
-    public void addTags(List<String> tags, PageModel page) {
+    public void setTags(List<String> tags, PageModel page) {
+        page.clearTags();
         tags.forEach(tag -> {
             TagModel foundTag = tagRepository.findFirstByName(tag);
             if (foundTag == null) {

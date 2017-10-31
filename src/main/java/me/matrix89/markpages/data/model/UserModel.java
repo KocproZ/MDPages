@@ -54,14 +54,10 @@ public class UserModel {
         this.role = role;
     }
 
-//    public boolean canEdit(PageModel page) {
-//        if (page == null)
-//            return false;
-//        if (getRole().equals("ROLE_ADMIN"))
-//            return true;
-//        return page.getMaintainer().equals(this);
-//        return true;
-//    }
+    @Override
+    public String toString() {
+        return String.format("UserModel{%s}", username);
+    }
 
     @Override
     public boolean equals(Object obj) {

@@ -82,7 +82,8 @@ public class EditorController {
     }
 
     @RequestMapping("/add")
-    public String add(@RequestParam String pageName, @RequestParam String pageContent,
+    public String add(@RequestParam(name = "name") String pageName,
+                      @RequestParam(name = "mdPage") String pageContent,
                       @RequestParam PageModel.Visibility visibility,
                       @RequestParam List<String> tags,
                       Principal principal) {
@@ -97,15 +98,17 @@ public class EditorController {
         pm.setPage(page);
         pm.setUser(userRepository.getByUsername(principal.getName()));
         pm.setRole(PageMaintainerModel.Role.OWNER);
-        tagService.addTags(tags, page);
+        tagService.setTags(tags, page);
         pageRepository.save(page);
         pageMaintainerRepository.save(pm);
         return String.format("redirect:/p/%s", page.getStringId());
     }
 
     @RequestMapping("/update")
-    public String update(@RequestParam String stringId, @RequestParam String pageContent,
-                         @RequestParam PageModel.Visibility visibility, @RequestParam String pageName,
+    public String update(@RequestParam String stringId,
+                         @RequestParam(name = "mdPage") String pageContent,
+                         @RequestParam PageModel.Visibility visibility,
+                         @RequestParam(name = "name") String pageName,
                          @RequestParam List<String> tags,
                          Principal principal) {
         PageModel page = pageRepository.findAllByStringId(stringId);
@@ -116,7 +119,7 @@ public class EditorController {
             page.setContent(pageContent);
             page.setVisibility(visibility);
             page.setLastEdited(new Date());
-            tagService.addTags(tags, page);
+            tagService.setTags(tags, page);
             pageRepository.save(page);
         }
         return String.format("redirect:/p/%s", stringId);
