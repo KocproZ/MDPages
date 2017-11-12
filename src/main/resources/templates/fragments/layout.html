@@ -18,17 +18,23 @@
 
 <nav>
     <div class="nav-wrapper blue">
-        <a href="/" class="brand-logo"><img src="/img/mdp.png" style="width: 50%;"/></a>
-        <ul id="nav-mobile" class="right">
-            <li><a th:if="${#httpServletRequest.isUserInRole('ROLE_ADMIN')}" href="/admin">Admin panel</a></li>
-            <li><a th:if="${#httpServletRequest.remoteUser != null}" href="/edit">Create new</a></li>
-            <li><a href="/login" th:if="${#httpServletRequest.remoteUser == null}">Login</a></li>
-            <li><a class="dropdown-button" href="#!" data-activates="user-dropdown" data-beloworigin="true"
-                   th:inline="text"
-                   th:if="${#httpServletRequest.remoteUser != null}">
-                [[${#httpServletRequest.remoteUser}]]<i class="material-icons right">arrow_drop_down</i>
-            </a></li>
-        </ul>
+        <div class="row">
+            <div class="col m3">
+                <a href="/" style="float: left;"><img class="logo" src="/img/mdp.png"/></a>
+            </div>
+            <div class="col m9" style="float: right;">
+                <ul id="nav-mobile" class="right">
+                    <li><a th:if="${#httpServletRequest.isUserInRole('ROLE_ADMIN')}" href="/admin">Admin panel</a></li>
+                    <li><a th:if="${#httpServletRequest.remoteUser != null}" href="/edit">Create new</a></li>
+                    <li><a href="/login" th:if="${#httpServletRequest.remoteUser == null}">Login</a></li>
+                    <li><a class="dropdown-button" href="#!" data-activates="user-dropdown" data-beloworigin="true"
+                           th:inline="text"
+                           th:if="${#httpServletRequest.remoteUser != null}">
+                        [[${#httpServletRequest.remoteUser}]]<i class="material-icons right">arrow_drop_down</i>
+                    </a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 </nav>
 
