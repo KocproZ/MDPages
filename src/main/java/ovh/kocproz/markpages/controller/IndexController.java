@@ -51,6 +51,21 @@ public class IndexController {
 
         return "index";
     }
+    @GetMapping("/list")
+    public String list(Model m, Principal principal) {
+        if (principal != null) {
+            m.addAttribute("pages", pageRepository.findAllByVisibilityNot(
+                    PageModel.Visibility.HIDDEN, new Sort(Sort.Direction.ASC, "name")
+            ));
+            m.addAttribute("user", userRepository.getByUsername(principal.getName()));
+        } else {
+            m.addAttribute("pages", pageRepository.findAllByVisibility(
+                    PageModel.Visibility.PUBLIC, new Sort(Sort.Direction.ASC, "name")
+            ));
+        }
+
+        return "list";
+    }
 
     @GetMapping("/p/{id}")
     public String mdPage(@PathVariable(name = "id") String pageId, Model model, Principal principal) {

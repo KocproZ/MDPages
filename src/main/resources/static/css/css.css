@@ -5,3 +5,8 @@
 .slim-dropdown {
     margin-top: 0 !important;
 }
+.logo {
+    position: absolute;
+    height: 60px;
+    float: left;
+}

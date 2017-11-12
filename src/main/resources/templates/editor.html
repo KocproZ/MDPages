@@ -4,6 +4,18 @@
 
 <div layout:fragment="content">
     <div class="container">
+        <ul id="slide-out" class="side-nav" style="width:850px; background-color:#1B1B1B;">
+            <div class="editor-wrapper" style="width: 100%;">
+                <div class="" id="editor" th:text="${page != null} ? ${page.content} : ''"></div>
+                <input type="hidden" id="contentValue" name="mdPage"/>
+            </div>
+        </ul>
+        <a href="#" data-activates="slide-out" class="button-collapse">
+            <div class="valign-wrapper center-align" style="position:fixed; left:0px;top:50vh;width:50px;height:50px;">
+                <img src="http://www.cadencesound.com/wp-content/uploads/2017/08/arrow-right.png" style="width:50px;"/>
+            </div>
+        </a>
+        <script>$(".button-collapse").sideNav();</script>
         <div class="row">
             <form id="pageForm" method="post" th:action="${page != null} ? '/update' : '/add'">
                 <input type="hidden" name="tags" id="tags-input"/>
@@ -46,11 +58,7 @@
                             <!--<input class="col m2 input-field waves-effect waves-light btn" value="save" type="submit"/>-->
                         </div>
                     </div>
-                    <div class="editor-wrapper">
-                        <div class="col m12" id="editor" th:text="${page != null} ? ${page.content} : ''"></div>
-                        <input type="hidden" id="contentValue" name="mdPage"/>
-                    </div>
-                    <div class="preview-wrapper" id="preview"></div>
+                    <div id="preview"></div>
                 </div>
             </form>
         </div>
