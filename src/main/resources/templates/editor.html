@@ -5,10 +5,7 @@
 <div layout:fragment="content">
     <div class="container">
         <ul id="slide-out" class="side-nav" style="width:850px; background-color:#1B1B1B;">
-            <div class="editor-wrapper" style="width: 100%;">
-                <div class="" id="editor" th:text="${page != null} ? ${page.content} : ''"></div>
-                <input type="hidden" id="contentValue" name="mdPage"/>
-            </div>
+            <div class="" id="editor" th:text="${page != null} ? ${page.content} : ''"></div>
         </ul>
         <a href="#" data-activates="slide-out" class="button-collapse">
             <div class="valign-wrapper center-align" style="position:fixed; left:0px;top:50vh;width:50px;height:50px;">
@@ -70,15 +67,11 @@
             display: grid;
             grid-gap: 50px;
             grid-template-columns: 1fr 1fr;
-            grid-template-areas: "options mdref" "editor preview";
+            grid-template-areas: "options mdref" "preview preview";
         }
 
         .preview-wrapper {
             grid-area: preview;
-        }
-
-        .editor-wrapper {
-            grid-area: editor;
         }
 
         .mdref {
@@ -114,7 +107,7 @@
             var text = editor.getValue();
             var html = converter.makeHtml(text);
             document.getElementById("preview").innerHTML = html;
-            document.getElementById("contentValue").value = text;
+            document.getElementById("pageContent").value = text;
             $('pre code').each(function (i, block) {
                 hljs.highlightBlock(block);
             });

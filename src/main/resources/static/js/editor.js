@@ -24,7 +24,6 @@ function setupForm(allTags, pageTags) {
     });
 
     $('#pageForm').submit(function () {
-        $('#pageContent').val($('#contentValue').val());
         var tagsInput = $('#tags-input');
         var chips = $('#tags').material_chip('data');
         chips.forEach(function (element, index) {
