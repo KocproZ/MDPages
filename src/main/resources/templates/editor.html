@@ -19,6 +19,7 @@
         <div class="row">
             <form id="pageForm" method="post" th:action="${page != null} ? '/update' : '/add'">
                 <input type="hidden" name="tags" id="tags-input"/>
+                <input type="hidden" name="pageContent" id="pageContent"/>
                 <div class="row wrapper">
                     <div class="mdref">test</div>
                     <div class="options">
@@ -97,7 +98,8 @@
 
         var editor = ace.edit("editor");
         editor.setOptions({
-            maxLines: Infinity
+            maxLines: Infinity,
+            minLines: 32    //TODO: This is arbitrary number
         });
         editor.setTheme("ace/theme/twilight");
         editor.session.setMode("ace/mode/markdown");
@@ -119,8 +121,8 @@
         }
 
         /* <![CDATA[ */
-        var pageTags = [[${page != null} ? ${@tagService.getPageTags(page.getStringId())} : ${null}]];//Works, but not implemented
-        var allTags = [[${@tagService.getAllTags()}]];//Works, but not implemented
+        var pageTags = [[${page != null} ? ${@tagService.getPageTags(page.getStringId())} : ${null}]];
+        var allTags = [[${@tagService.getAllTags()}]];
         /* ]]> */
         $(document).ready(function () {
             setupForm(allTags, pageTags)

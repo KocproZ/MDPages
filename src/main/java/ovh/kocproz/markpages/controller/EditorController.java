@@ -83,7 +83,7 @@ public class EditorController {
 
     @RequestMapping("/add")
     public String add(@RequestParam(name = "name") String pageName,
-                      @RequestParam(name = "mdPage") String pageContent,
+                      @RequestParam(name = "pageContent") String pageContent,
                       @RequestParam PageModel.Visibility visibility,
                       @RequestParam List<String> tags,
                       Principal principal) {
@@ -106,7 +106,7 @@ public class EditorController {
 
     @RequestMapping("/update")
     public String update(@RequestParam String stringId,
-                         @RequestParam(name = "mdPage") String pageContent,
+                         @RequestParam(name = "pageContent") String pageContent,
                          @RequestParam PageModel.Visibility visibility,
                          @RequestParam(name = "name") String pageName,
                          @RequestParam List<String> tags,

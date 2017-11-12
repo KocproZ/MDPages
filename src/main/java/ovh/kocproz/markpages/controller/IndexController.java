@@ -110,7 +110,7 @@ public class IndexController {
             ));
         }
 
-        return "index";
+        return "list";
     }
 
     @RequestMapping("/login")
