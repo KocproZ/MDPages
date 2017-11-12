@@ -36,7 +36,7 @@ public class CustomAuthenticationProvider implements org.springframework.securit
             if (passwordEncoder.matches(password, user.getPassword())) {
                 ArrayList ar = new ArrayList<GrantedAuthority>();
                 ar.add(new SimpleGrantedAuthority(user.getRole()));
-                return new UsernamePasswordAuthenticationToken(username, password, ar);
+                return new UsernamePasswordAuthenticationToken(user.getUsername(), password, ar);
             }
         }
         return null;
