@@ -30,7 +30,7 @@
         converter.setOption('tables', true);
         converter.setOption('simpleLineBreaks', true);
         var text = [[${page.content}]];
-        var html      = converter.makeHtml(text);
+        var html = converter.makeHtml(text);
         document.getElementById("content").innerHTML = html;
         hljs.initHighlightingOnLoad();
     </script>

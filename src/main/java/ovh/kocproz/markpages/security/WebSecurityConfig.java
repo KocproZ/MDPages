@@ -30,7 +30,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http
+                .csrf()
+                .ignoringAntMatchers("/api/*")
+                .and()
+                .authorizeRequests()
                 .antMatchers("/admin", "/admin/*")
                 .hasAuthority("ROLE_ADMIN")
                 .antMatchers("/edit", "/edit/*", "/user/profile", "/update", "/tags", "/tags/*")

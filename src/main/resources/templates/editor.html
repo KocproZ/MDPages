@@ -15,7 +15,6 @@
         <script>$(".button-collapse").sideNav();</script>
         <div class="row">
             <form id="pageForm" method="post" th:action="${page != null} ? '/update' : '/add'">
-                <input type="hidden" name="tags" id="tags-input"/>
                 <input type="hidden" name="pageContent" id="pageContent"/>
                 <div class="row wrapper">
                     <div class="mdref">test</div>
@@ -29,7 +28,16 @@
                         </div>
                         <div class="row input-field">
                             <div class="col m12">
-                                <div id="tags" class="chips chips-autocomplete chips-initial"></div>
+                                <div class="autocomplete" id="tags">
+                                    <div class="ac-tags">
+                                    </div>
+                                    <div class="ac-input">
+                                        <input type="text" id="tagsInput" data-activates="multipleDropdown"
+                                               data-beloworigin="true" autocomplete="off"/>
+                                        <input type="hidden" class="validate" name="tags" id="hiddenTags"/>
+                                    </div>
+                                    <ul id="multipleDropdown" class="dropdown-content ac-dropdown"></ul>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -49,8 +57,7 @@
                                     </option>
                                 </select>
                             </div>
-                            <i class="col m2 input-field waves-effect waves-light btn waves-input-wrapper"
-                               onclick="$('#pageForm').submit()">
+                            <i class="col m2 input-field waves-effect waves-light btn waves-input-wrapper">
                                 <input class="waves-button-input" value="save" type="submit"/>
                             </i>
                             <!--<input class="col m2 input-field waves-effect waves-light btn" value="save" type="submit"/>-->
@@ -85,6 +92,7 @@
 
     <script src="/js/showdown.min.js"></script>
     <script src="/js/highlight.min.js"></script>
+    <script src="/js/jquery.materialize-autocomplete.min.js"></script>
     <script src="/js/ace/ace.js"></script>
     <script src="/js/editor.js"></script>
     <script th:inline="javascript">
@@ -115,10 +123,9 @@
 
         /* <![CDATA[ */
         var pageTags = [[${page != null} ? ${@tagService.getPageTags(page.getStringId())} : ${null}]];
-        var allTags = [[${@tagService.getAllTags()}]];
         /* ]]> */
         $(document).ready(function () {
-            setupForm(allTags, pageTags)
+            setupForm(pageTags)
 
         });
 

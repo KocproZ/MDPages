@@ -1,5 +1,7 @@
 package ovh.kocproz.markpages.service;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import ovh.kocproz.markpages.data.model.PageModel;
@@ -43,6 +45,24 @@ public class TagService {
     public List<String> getAllTags() {
         Iterable<TagModel> tags = tagRepository.findAll();
         return convert(tags);
+    }
+
+    public List<String> getTagsContaining(String fragment) {
+        Iterable<TagModel> tags = tagRepository.findAllByNameContaining(
+                fragment,
+                new PageRequest(0, 10, new Sort(Sort.Direction.DESC, "name")));
+        return convert(tags);
+    }
+
+    public String getPageTagsString(String pageId) {
+        PageModel page = pageRepository.findAllByStringId(pageId);
+        StringBuilder builder = new StringBuilder();
+        for (TagModel tag : page.getTags()) {
+            builder.append(tag.getName());
+            builder.append(",");
+        }
+        builder.delete(builder.length() - 1, builder.length() );
+        return builder.toString();
     }
 
     public List<String> getPageTags(String pageId) {
