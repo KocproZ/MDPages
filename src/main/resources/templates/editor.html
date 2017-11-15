@@ -14,83 +14,67 @@
         </a>
         <script>$(".button-collapse").sideNav();</script>
         <div class="row">
-            <form id="pageForm" method="post" th:action="${page != null} ? 'update' : '/add'">
-                <input type="hidden" name="pageContent" id="pageContent"/>
-                <div class="row wrapper">
-                    <div class="mdref">test</div>
-                    <div class="options">
-                        <input type="hidden" name="stringId" th:value="${page != null} ? ${page.stringId} : ${''}"/>
-                        <div class="row input-field">
-                            <div class="col m12">
-                                <input id="name-input" data-length="128" name="name"
-                                       th:value="${page != null} ? ${page.name} : ''" maxlength="128"/>
-                            </div>
-                        </div>
-                        <div class="row input-field">
-                            <div class="col m12">
-                                <div class="autocomplete" id="tags">
-                                    <div class="ac-tags">
-                                    </div>
-                                    <div class="ac-input">
-                                        <input type="text" id="tagsInput" data-activates="multipleDropdown"
-                                               data-beloworigin="true" autocomplete="off"/>
-                                        <input type="hidden" class="validate" name="tags" id="hiddenTags"/>
-                                    </div>
-                                    <ul id="multipleDropdown" class="dropdown-content ac-dropdown"></ul>
+            <div class="col">
+                <form id="pageForm" method="post" th:action="${page != null} ? 'update' : '/add'">
+                    <input type="hidden" name="pageContent" id="pageContent"/>
+                    <div class="row">
+                        <div class="col m6">
+                            <input type="hidden" name="stringId" th:value="${page != null} ? ${page.stringId} : ${''}"/>
+                            <div class="row input-field">
+                                <div class="col m12">
+                                    <input id="name-input" data-length="128" name="name"
+                                           th:value="${page != null} ? ${page.name} : ''" maxlength="128"/>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col m8 input-field">
-                                <select name="visibility">
-                                    <option value="PUBLIC"
-                                            th:selected="${visibility eq T(ovh.kocproz.markpages.data.model.PageModel.Visibility).PUBLIC}">
-                                        Public
-                                    </option>
-                                    <option value="AUTHORIZED"
-                                            th:selected="${visibility eq T(ovh.kocproz.markpages.data.model.PageModel.Visibility).AUTHORIZED}">
-                                        Authorized
-                                    </option>
-                                    <option value="HIDDEN"
-                                            th:selected="${visibility eq T(ovh.kocproz.markpages.data.model.PageModel.Visibility).HIDDEN}">
-                                        Hidden
-                                    </option>
-                                </select>
+                            <div class="row input-field">
+                                <div class="col m12">
+                                    <div class="autocomplete" id="tags">
+                                        <div class="ac-tags">
+                                        </div>
+                                        <div class="ac-input">
+                                            <input type="text" id="tagsInput" data-activates="multipleDropdown"
+                                                   data-beloworigin="true" autocomplete="off"/>
+                                            <input type="hidden" class="validate" name="tags" id="hiddenTags"/>
+                                        </div>
+                                        <ul id="multipleDropdown" class="dropdown-content ac-dropdown"></ul>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col m3 offset-m1">
-                                <button class="btn waves-effect waves-light" name="action" type="submit">Save
-                                    <i class="material-icons right">save</i>
-                                </button>
+                            <div class="row">
+                                <!--TODO Naprawić to coś-->
+                                <div class="col m6 input-field">
+                                    <select name="visibility">
+                                        <option value="PUBLIC"
+                                                th:selected="${visibility eq T(ovh.kocproz.markpages.data.model.PageModel.Visibility).PUBLIC}">
+                                            Public
+                                        </option>
+                                        <option value="AUTHORIZED"
+                                                th:selected="${visibility eq T(ovh.kocproz.markpages.data.model.PageModel.Visibility).AUTHORIZED}">
+                                            Authorized
+                                        </option>
+                                        <option value="HIDDEN"
+                                                th:selected="${visibility eq T(ovh.kocproz.markpages.data.model.PageModel.Visibility).HIDDEN}">
+                                            Hidden
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col m4 offset-m2">
+                                    <button class="btn waves-effect waves-light" name="action" type="submit"
+                                            style="padding: 0 1rem;">Save<i class="material-icons right">save</i>
+                                    </button>
+                                </div>
+                                <!--<input class="col m2 input-field waves-effect waves-light btn" value="save" type="submit"/>-->
                             </div>
-                            <!--<input class="col m2 input-field waves-effect waves-light btn" value="save" type="submit"/>-->
                         </div>
+                        <div class="col m6">test</div>
                     </div>
-                    <div id="preview"></div>
-                </div>
-            </form>
+                    <div class="row">
+                        <div id="preview"></div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-
-    <style>
-        .wrapper {
-            display: grid;
-            grid-gap: 50px;
-            grid-template-columns: 1fr 1fr;
-            grid-template-areas: "options mdref" "preview preview";
-        }
-
-        .preview-wrapper {
-            grid-area: preview;
-        }
-
-        .mdref {
-            grid-area: mdref;
-        }
-
-        .options {
-            grid-area: options;
-        }
-    </style>
 
     <script src="/js/showdown.min.js"></script>
     <script src="/js/highlight.min.js"></script>
