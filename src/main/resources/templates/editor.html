@@ -14,7 +14,7 @@
         </a>
         <script>$(".button-collapse").sideNav();</script>
         <div class="row">
-            <form id="pageForm" method="post" th:action="${page != null} ? '/update' : '/add'">
+            <form id="pageForm" method="post" th:action="${page != null} ? 'update' : '/add'">
                 <input type="hidden" name="pageContent" id="pageContent"/>
                 <div class="row wrapper">
                     <div class="mdref">test</div>
@@ -41,7 +41,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col m10 input-field">
+                            <div class="col m8 input-field">
                                 <select name="visibility">
                                     <option value="PUBLIC"
                                             th:selected="${visibility eq T(ovh.kocproz.markpages.data.model.PageModel.Visibility).PUBLIC}">
@@ -57,9 +57,11 @@
                                     </option>
                                 </select>
                             </div>
-                            <i class="col m2 input-field waves-effect waves-light btn waves-input-wrapper">
-                                <input class="waves-button-input" value="save" type="submit"/>
-                            </i>
+                            <div class="col m3 offset-m1">
+                                <button class="btn waves-effect waves-light" name="action" type="submit">Save
+                                    <i class="material-icons right">save</i>
+                                </button>
+                            </div>
                             <!--<input class="col m2 input-field waves-effect waves-light btn" value="save" type="submit"/>-->
                         </div>
                     </div>

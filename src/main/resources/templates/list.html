@@ -8,7 +8,7 @@
             <div class="col m8">
                 <ul th:each="p: ${pages}">
                     <li class="row">
-                        <a class="col m8" th:text="${p.getName()}" th:href="${'p/' + p.stringId}"></a>
+                        <a class="col m8" th:text="${p.getName()}" th:href="${'/p/' + p.stringId}"></a>
                         <a class="col m2 btn tooltipped" th:href="'/edit/' + ${p.stringId}"
                            th:attr="data-tooltip='Last edited: ' + ${p.lastEdited}"
                            th:if="${user != null and @permissionService.canEdit(user, p)}">Edit</a>

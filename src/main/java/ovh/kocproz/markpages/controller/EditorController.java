@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
+@RequestMapping("/edit")
 public class EditorController {
 
     private PageRepository pageRepository;
@@ -51,12 +52,12 @@ public class EditorController {
         this.permissionService = permissionService;
     }
 
-    @GetMapping("/edit")
+    @GetMapping("")
     public String editor() {
         return "editor";
     }
 
-    @GetMapping("/edit/{stringId}")
+    @GetMapping("/{stringId}")
     public String edit(@PathVariable String stringId, Model model, Principal principal) {
         PageModel page = pageRepository.findAllByStringId(stringId);
         UserModel user = userRepository.getByUsername(principal.getName());
