@@ -52,14 +52,7 @@ public class EditorController {
     }
 
     @GetMapping("/edit")
-    public String editor(@RequestParam(defaultValue = "ace") String e, Model model) {
-        if (e.equals("cke")) {
-            return "editor-cke";
-        } else if (e.equals("ace")) {
-            model.addAttribute("tags", tagRepository.findAll());
-            return "editor";
-        }
-
+    public String editor() {
         return "editor";
     }
 
