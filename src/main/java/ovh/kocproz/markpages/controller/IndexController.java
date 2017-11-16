@@ -51,6 +51,7 @@ public class IndexController {
 
         return "index";
     }
+
     @GetMapping("/list")
     public String list(Model m, Principal principal) {
         if (principal != null) {

@@ -1,7 +1,6 @@
 package ovh.kocproz.markpages.controller;
 
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,17 +18,20 @@ import java.security.Principal;
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
-    Logger logger;
-
-    @Autowired
+    private Logger logger;
     private UserRepository userRepository;
-
-    @Autowired
     private PageRepository pageRepository;
-
-    @Autowired
     private Pbkdf2PasswordEncoder passwordEncoder;
+
+    public UserController(Logger logger,
+                          UserRepository userRepository,
+                          PageRepository pageRepository,
+                          Pbkdf2PasswordEncoder passwordEncoder) {
+        this.logger = logger;
+        this.userRepository = userRepository;
+        this.pageRepository = pageRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @RequestMapping("")
     public String user() {
