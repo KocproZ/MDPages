@@ -42,6 +42,11 @@ function setupForm(pageTags) {
             text: tagsInput.value
         })
     }
+
+    $('#pageForm').submit(function () {
+        if ($('#name-input').val().length <= 3)
+            return false;
+    });
 }
 
 function convertTags(strings) {

@@ -28,8 +28,6 @@ public class EditService {
         this.tagService = tagService;
     }
 
-    //TODO Prevent empty names in javascript
-
     public PageModel addPage(String pageName,
                              String pageContent,
                              PageModel.Visibility visibility,
