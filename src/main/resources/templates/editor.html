@@ -15,7 +15,7 @@
         <script>$(".button-collapse").sideNav();</script>
         <div class="row">
             <div class="col m12">
-                <form id="pageForm" method="post" th:action="${page != null} ? 'update' : 'add'">
+                <form id="pageForm" method="post" th:action="${page != null} ? @{/edit/update} : @{/edit/add}">
                     <input type="hidden" name="pageContent" id="pageContent"/>
                     <div class="row">
                         <div class="col m6">

@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ovh.kocproz.markpages.Util;
 import ovh.kocproz.markpages.data.model.PageMaintainerModel;
 import ovh.kocproz.markpages.data.model.PageModel;
 import ovh.kocproz.markpages.data.model.TagModel;
@@ -20,7 +19,6 @@ import ovh.kocproz.markpages.service.PermissionService;
 import ovh.kocproz.markpages.service.TagService;
 
 import java.security.Principal;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -59,19 +57,22 @@ public class EditorController {
 
     @GetMapping("/{stringId}")
     public String edit(@PathVariable String stringId, Model model, Principal principal) {
-        PageModel page = pageRepository.findAllByStringId(stringId);
+        PageModel page = pageRepository.findOneByStringId(stringId);
         UserModel user = userRepository.getByUsername(principal.getName());
-        Set<TagModel> tags = page.getTags();
-        tags.forEach(t -> t.setPages(null));
+        Set<TagModel> tags = null;
+        if (page != null) {
+            tags = page.getTags();
+            tags.forEach(t -> t.setPages(null));
+        }
         if (user == null || page == null)
-            return "redirect:/editor";
+            return "redirect:/edit";
         if (permissionService.canEdit(user, page)) {
             model.addAttribute("visibility", page.getVisibility());
             model.addAttribute("page", page);
             model.addAttribute("pageTags", tags);
             return "editor";
         } else {
-            return "redirect:/";
+            return String.format("redirect:/p/%s", stringId);
         }
     }
 
@@ -81,20 +82,14 @@ public class EditorController {
                       @RequestParam PageModel.Visibility visibility,
                       @RequestParam List<String> tags,
                       Principal principal) {
-        PageModel page = new PageModel();
         PageMaintainerModel pm = new PageMaintainerModel();
-        page.setName(pageName);
-        page.setContent(pageContent);
-        page.setCreationDate(new Date());
-        page.setLastEdited(new Date());
-        page.setVisibility(visibility);
-        page.setStringId(Util.randomString(8));
+        PageModel page = editService.addPage(pageName, pageContent, visibility, tags);
+
         pm.setPage(page);
         pm.setUser(userRepository.getByUsername(principal.getName()));
         pm.setRole(PageMaintainerModel.Role.OWNER);
-        tagService.setTags(tags, page);
-        pageRepository.save(page);
         pageMaintainerRepository.save(pm);
+
         return String.format("redirect:/p/%s", page.getStringId());
     }
 
@@ -105,17 +100,13 @@ public class EditorController {
                          @RequestParam(name = "name") String pageName,
                          @RequestParam List<String> tags,
                          Principal principal) {
-        PageModel page = pageRepository.findAllByStringId(stringId);
         UserModel user = userRepository.getByUsername(principal.getName());
-        if (principal != null && page != null && user != null &&
-                permissionService.canEdit(user, page)) {
-            page.setName(pageName);
-            page.setContent(pageContent);
-            page.setVisibility(visibility);
-            page.setLastEdited(new Date());
-            tagService.setTags(tags, page);
-            pageRepository.save(page);
+
+        if (pageRepository.exists(stringId) && user != null &&
+                permissionService.canEdit(user, pageRepository.findOneByStringId(stringId))) {
+            editService.updatePage(pageName, pageContent, visibility, tags, stringId);
         }
+
         return String.format("redirect:/p/%s", stringId);
     }
 

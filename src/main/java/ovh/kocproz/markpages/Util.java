@@ -1,5 +1,7 @@
 package ovh.kocproz.markpages;
 
+import com.thedeanda.lorem.LoremIpsum;
+
 import java.util.Random;
 
 public class Util {
@@ -11,6 +13,10 @@ public class Util {
             out.append(chars[random.nextInt(chars.length)]);
         }
         return out.toString();
+    }
+
+    public static String randomTitle(int length) {
+        return LoremIpsum.getInstance().getTitle(length);
     }
 
 }

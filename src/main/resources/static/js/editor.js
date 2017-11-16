@@ -31,9 +31,10 @@ function setupForm(pageTags) {
             });
         }
     });
-    pageTags.forEach(function (tag) {
-        multiple.append({id: tag, text: tag})
-    });
+    if (pageTags !== null)
+        pageTags.forEach(function (tag) {
+            multiple.append({id: tag, text: tag})
+        });
     var tagsInput = document.querySelector('#tagsInput');
     tagsInput.onkeyup = function (e) {
         if (e.code === 'Enter' && tagsInput.value.length > 0) multiple.append({

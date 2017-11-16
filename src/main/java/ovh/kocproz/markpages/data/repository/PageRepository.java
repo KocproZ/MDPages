@@ -11,12 +11,15 @@ import java.util.List;
 import java.util.Set;
 
 public interface PageRepository extends JpaRepository<PageModel, Long> {
-    PageModel findAllByStringId(String stringId);
+    PageModel findOneByStringId(String stringId);
 
     List<PageModel> findAllByVisibility(PageModel.Visibility visibility, Sort sort);
     List<PageModel> findAllByVisibilityNot(PageModel.Visibility visibility, Sort sort);
 
     PageModel findFirstByTags(TagModel tag);
+
+    @Query(value = "select case when count(p)>0 then true else false end from Page p where p.stringId = :stringId")
+    boolean exists(@Param("stringId") String stringId);
 
     @Query(value = "select p from Page p " +
             "join p.tags as t " +
