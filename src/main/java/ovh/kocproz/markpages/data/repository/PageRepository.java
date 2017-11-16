@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface PageRepository extends JpaRepository<PageModel, Long> {
-    PageModel findAllByStringId(String stringId);
+    PageModel findOneByStringId(String stringId);
 
     List<PageModel> findAllByVisibility(PageModel.Visibility visibility, Sort sort);
     List<PageModel> findAllByVisibilityNot(PageModel.Visibility visibility, Sort sort);

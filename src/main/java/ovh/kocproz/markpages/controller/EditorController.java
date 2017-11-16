@@ -57,10 +57,13 @@ public class EditorController {
 
     @GetMapping("/{stringId}")
     public String edit(@PathVariable String stringId, Model model, Principal principal) {
-        PageModel page = pageRepository.findAllByStringId(stringId);
+        PageModel page = pageRepository.findOneByStringId(stringId);
         UserModel user = userRepository.getByUsername(principal.getName());
-        Set<TagModel> tags = page.getTags();
-        tags.forEach(t -> t.setPages(null));
+        Set<TagModel> tags = null;
+        if (page != null) {
+            tags = page.getTags();
+            tags.forEach(t -> t.setPages(null));
+        }
         if (user == null || page == null)
             return "redirect:/edit";
         if (permissionService.canEdit(user, page)) {
@@ -80,7 +83,7 @@ public class EditorController {
                       @RequestParam List<String> tags,
                       Principal principal) {
         PageMaintainerModel pm = new PageMaintainerModel();
-        PageModel page = editService.addOrUpdatePage(pageName, pageContent, visibility, tags, null);
+        PageModel page = editService.addPage(pageName, pageContent, visibility, tags);
 
         pm.setPage(page);
         pm.setUser(userRepository.getByUsername(principal.getName()));
@@ -100,8 +103,8 @@ public class EditorController {
         UserModel user = userRepository.getByUsername(principal.getName());
 
         if (pageRepository.exists(stringId) && user != null &&
-                permissionService.canEdit(user, pageRepository.findAllByStringId(stringId))) {
-            editService.addOrUpdatePage(pageName, pageContent, visibility, tags, stringId);
+                permissionService.canEdit(user, pageRepository.findOneByStringId(stringId))) {
+            editService.updatePage(pageName, pageContent, visibility, tags, stringId);
         }
 
         return String.format("redirect:/p/%s", stringId);
