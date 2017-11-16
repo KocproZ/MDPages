@@ -49,4 +49,8 @@ public class TagModel {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return String.format("TagModel{name: %s}", name);
+    }
 }

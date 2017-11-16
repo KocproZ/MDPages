@@ -56,7 +56,7 @@ public class UserModel {
 
     @Override
     public String toString() {
-        return String.format("UserModel{%s}", username);
+        return String.format("UserModel{username: %s}", username);
     }
 
     @Override

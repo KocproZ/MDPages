@@ -50,7 +50,7 @@ public class TagService {
     public List<String> getTagsContaining(String fragment) {
         Iterable<TagModel> tags = tagRepository.findAllByNameContaining(
                 fragment,
-                new PageRequest(0, 10, new Sort(Sort.Direction.DESC, "name")));
+                new PageRequest(0, 10, new Sort(Sort.Direction.ASC, "name")));
         return convert(tags);
     }
 
@@ -61,7 +61,7 @@ public class TagService {
             builder.append(tag.getName());
             builder.append(",");
         }
-        builder.delete(builder.length() - 1, builder.length() );
+        builder.delete(builder.length() - 1, builder.length());
         return builder.toString();
     }
 

@@ -132,7 +132,7 @@ public class PageModel {
 
     @Override
     public String toString() {
-        return String.format("PageModel{Name: %s}", getName());
+        return String.format("PageModel{name: %s}", getName());
     }
 
     public enum Visibility {

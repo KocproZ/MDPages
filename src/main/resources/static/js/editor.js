@@ -1,7 +1,8 @@
-var multiple;
+var tagsMultiple;
+var usersMultiple;
 
 function setupForm(pageTags) {
-    multiple = $('#tagsInput').materialize_autocomplete({
+    tagsMultiple = $('#tagsInput').materialize_autocomplete({
         multiple: {
             enable: true,
             maxSize: Infinity
@@ -12,7 +13,7 @@ function setupForm(pageTags) {
 
         },
         dropdown: {
-            el: '#multipleDropdown'
+            el: '#tagsMultipleDropdown'
         },
         hidden: {
             el: '#hiddenTags'
@@ -25,19 +26,49 @@ function setupForm(pageTags) {
                     fragment: value
                 },
                 success: function (data) {
-                    var convertedTags = convertTags(data);
+                    var convertedTags = convertForAutocomplete(data);
                     callback(value, convertedTags);
                 }
             });
         }
     });
+    /*usersMultiple = $('#usersInput').materialize_autocomplete({//TODO add in html
+        multiple: {
+            enable: true,
+            maxSize: Infinity
+        },
+        appender: {
+            el: '.ac-users',
+            tagTemplate: '<div class="chip" data-id="<%= item.id %>" data-text="<%= item.text %>"><%= item.text %><i class="material-icons close">close</i></div>'
+
+        },
+        dropdown: {
+            el: '#usersMultipleDropdown'
+        },
+        hidden: {
+            el: '#hiddenUsers'
+        },
+        getData: function (value, callback) {
+            request = $.ajax({
+                type: 'GET',
+                url: '/api/usersAutocomplete',
+                data: {
+                    fragment: value
+                },
+                success: function (data) {
+                    var convertedUsers = convertForAutocomplete(data);
+                    callback(value, convertedUsers);
+                }
+            });
+        }
+    });*/
     if (pageTags !== null)
         pageTags.forEach(function (tag) {
-            multiple.append({id: tag, text: tag})
+            tagsMultiple.append({id: tag, text: tag})
         });
     var tagsInput = document.querySelector('#tagsInput');
     tagsInput.onkeyup = function (e) {
-        if (e.code === 'Enter' && tagsInput.value.length > 0) multiple.append({
+        if (e.code === 'Enter' && tagsInput.value.length > 0) tagsMultiple.append({
             id: tagsInput.value,
             text: tagsInput.value
         })
@@ -49,11 +80,11 @@ function setupForm(pageTags) {
     });
 }
 
-function convertTags(strings) {
+function convertForAutocomplete(strings) {
 
-    var convertedAllTags = [];
-    strings.forEach(function (tag) {
-        convertedAllTags.push({id: tag, text: tag});
+    var convertedAll = [];
+    strings.forEach(function (string) {
+        convertedAll.push({id: string, text: string});
     });
-    return convertedAllTags;
+    return convertedAll;
 }
