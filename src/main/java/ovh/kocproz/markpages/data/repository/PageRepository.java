@@ -18,6 +18,9 @@ public interface PageRepository extends JpaRepository<PageModel, Long> {
 
     PageModel findFirstByTags(TagModel tag);
 
+    @Query(value = "select case when count(p)>0 then true else false end from Page p where p.stringId = :stringId")
+    boolean exists(@Param("stringId") String stringId);
+
     @Query(value = "select p from Page p " +
             "join p.tags as t " +
             "where t.name in :names and p.visibility = :visibility " +
