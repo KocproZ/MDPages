@@ -32,7 +32,7 @@ function setupForm(pageTags) {
             });
         }
     });
-    /*usersMultiple = $('#usersInput').materialize_autocomplete({//TODO add in html
+    usersMultiple = $('#usersInput').materialize_autocomplete({
         multiple: {
             enable: true,
             maxSize: Infinity
@@ -61,7 +61,7 @@ function setupForm(pageTags) {
                 }
             });
         }
-    });*/
+    });
     if (pageTags !== null)
         pageTags.forEach(function (tag) {
             tagsMultiple.append({id: tag, text: tag})
