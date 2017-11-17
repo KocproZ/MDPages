@@ -1,7 +1,7 @@
 var tagsMultiple;
 var usersMultiple;
 
-function setupForm(pageTags) {
+function setupForm(pageTags, users) {
     tagsMultiple = $('#tagsInput').materialize_autocomplete({
         multiple: {
             enable: true,
@@ -66,13 +66,18 @@ function setupForm(pageTags) {
         pageTags.forEach(function (tag) {
             tagsMultiple.append({id: tag, text: tag})
         });
+    if (users !== null)
+        users.forEach(function (user) {
+            usersMultiple.append({id: user, text: user})
+        });
+
     var tagsInput = document.querySelector('#tagsInput');
     tagsInput.onkeyup = function (e) {
-        if (e.code === 'Enter' && tagsInput.value.length > 0) tagsMultiple.append({
+        if (e.code === 'Enter' && tagsInput.value.length > 0) tagsMultiple.append({  //TODO customize notifications
             id: tagsInput.value,
             text: tagsInput.value
         })
-    }
+    };
 
     $('#pageForm').submit(function () {
         if ($('#name-input').val().length <= 3)

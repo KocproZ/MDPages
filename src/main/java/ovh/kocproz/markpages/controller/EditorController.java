@@ -91,6 +91,8 @@ public class EditorController {
         pm.setRole(PageMaintainerModel.Role.OWNER);
         pageMaintainerRepository.save(pm);
 
+        editService.setMaintainers(users, page);
+
         return String.format("redirect:/p/%s", page.getStringId());
     }
 
@@ -103,12 +105,13 @@ public class EditorController {
                          @RequestParam(name = "users") List<String> users,
                          Principal principal) {
         UserModel user = userRepository.getByUsername(principal.getName());
+        PageModel page = pageRepository.findOneByStringId(stringId);
 
         if (pageRepository.exists(stringId) && user != null &&
                 permissionService.canEdit(user, pageRepository.findOneByStringId(stringId))) {
             editService.updatePage(pageName, pageContent, visibility, tags, stringId);
+            editService.setMaintainers(users, page);
         }
-
 
         return String.format("redirect:/p/%s", stringId);
     }

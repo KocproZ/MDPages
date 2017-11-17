@@ -121,11 +121,11 @@
             });
         }
 
-        /* <![CDATA[ */
         var pageTags = [[${page != null} ? ${@tagService.getPageTags(page.getStringId())} : ${null}]];
-        /* ]]> */
+        var users = [[${page != null} ? ${@userService.getPageMaintainers(page)} : ${null}]]
+
         $(document).ready(function () {
-            setupForm(pageTags)
+            setupForm(pageTags, users)
         });
 
         setTimeout(update, 500);
