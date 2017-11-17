@@ -3,7 +3,6 @@ package ovh.kocproz.markpages;
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -36,25 +35,27 @@ public class SetupDevEnv {
     @Value("${spring.jpa.hibernate.ddl-auto}")
     private String dllAuto;
 
-
-    @Autowired
     private PageRepository pageRepository;
-
-    @Autowired
     private UserRepository userRepository;
-
-    @Autowired
     private TagRepository tagRepository;
-
-    @Autowired
     private Pbkdf2PasswordEncoder passwordEncoder;
-
-    @Autowired
     private Logger logger;
-
-    @Autowired
     private PageMaintainerRepository maintainerRepository;
 
+    public SetupDevEnv(PageRepository pageRepository,
+                       UserRepository userRepository,
+                       TagRepository tagRepository,
+                       Pbkdf2PasswordEncoder passwordEncoder,
+                       Logger logger,
+                       PageMaintainerRepository maintainerRepository) {
+        this.pageRepository = pageRepository;
+        this.userRepository = userRepository;
+        this.tagRepository = tagRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.logger = logger;
+        this.maintainerRepository = maintainerRepository;
+    }
+    
     @PostConstruct
     public void postInit() {
         if (dev && dllAuto.equals("create")) {
@@ -70,23 +71,26 @@ public class SetupDevEnv {
         for (int i = 0; i < pagesToGenerate; i++) {
             PageModel page = new PageModel();
             page.setVisibility(i % 4 == 0 ? PageModel.Visibility.AUTHORIZED : PageModel.Visibility.PUBLIC);
-//            page.setMaintainer(i % 6 == 0 ? userRepository.findOne(2l) : userRepository.findOne(1l));
-            PageMaintainerModel maintainerModel = new PageMaintainerModel();
-            maintainerModel.setPage(page);
-            maintainerModel.setRole(i % 3 == 0 ? PageMaintainerModel.Role.OWNER : PageMaintainerModel.Role.MAINTAINER);
-            maintainerModel.setUser(i % 6 == 0 ? userRepository.findOne(2l) : userRepository.findOne(1l));
+            PageMaintainerModel pm = new PageMaintainerModel();
+            pm.setPage(page);
+            pm.setRole(PageMaintainerModel.Role.OWNER);
+            pm.setUser(i % 6 == 0 ? userRepository.findOne(2l) : userRepository.findOne(1l));
+            maintainerRepository.save(pm);
+            pm = new PageMaintainerModel();
+            pm.setPage(page);
+            pm.setRole(PageMaintainerModel.Role.MAINTAINER);
+            pm.setUser(i % 6 == 0 ? userRepository.findOne(1l) : userRepository.findOne(2l));
+            maintainerRepository.save(pm);
             page.setLastEdited(new Date());
             page.setCreationDate(new Date());
             String randomMarkdown = randomMarkdown();
             page.setContent(randomMarkdown);
-//            page.setName(UUID.randomUUID().toString());
-            page.setName(lorem.getTitle(3, 10));
+            page.setName(lorem.getTitle(3, 6));
             page.setStringId(Util.randomString(8));
             page.addTag(tagRepository.findOne(1l));
             if (i % 2 == 0)
                 page.addTag(tagRepository.findOne(2l));
             pageRepository.save(page);
-            maintainerRepository.save(maintainerModel);
         }
     }
 

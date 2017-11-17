@@ -21,4 +21,6 @@ public interface PageMaintainerRepository extends JpaRepository<PageMaintainerMo
 
     PageMaintainerModel findFirstByPageAndUser(PageModel page, UserModel user);
     PageMaintainerModel findFirstByPage_StringIdAndUser(String pageStringId, UserModel user);
+
+    void deleteAllByRoleAndPage(PageMaintainerModel.Role role, PageModel page);
 }

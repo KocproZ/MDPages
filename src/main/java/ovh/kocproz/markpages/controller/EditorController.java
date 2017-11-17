@@ -79,12 +79,13 @@ public class EditorController {
     @RequestMapping("/add")
     public String add(@RequestParam(name = "name") String pageName,
                       @RequestParam(name = "pageContent") String pageContent,
-                      @RequestParam PageModel.Visibility visibility,
-                      @RequestParam List<String> tags,
+                      @RequestParam(name = "visibility") PageModel.Visibility visibility,
+                      @RequestParam(name = "tags") List<String> tags,
+                      @RequestParam(name = "users") List<String> users,
                       Principal principal) {
-        PageMaintainerModel pm = new PageMaintainerModel();
         PageModel page = editService.addPage(pageName, pageContent, visibility, tags);
 
+        PageMaintainerModel pm = new PageMaintainerModel();
         pm.setPage(page);
         pm.setUser(userRepository.getByUsername(principal.getName()));
         pm.setRole(PageMaintainerModel.Role.OWNER);
@@ -94,11 +95,12 @@ public class EditorController {
     }
 
     @RequestMapping("/update")
-    public String update(@RequestParam String stringId,
-                         @RequestParam(name = "pageContent") String pageContent,
-                         @RequestParam PageModel.Visibility visibility,
+    public String update(@RequestParam(name = "stringId") String stringId,
                          @RequestParam(name = "name") String pageName,
-                         @RequestParam List<String> tags,
+                         @RequestParam(name = "pageContent") String pageContent,
+                         @RequestParam(name = "visibility") PageModel.Visibility visibility,
+                         @RequestParam(name = "tags") List<String> tags,
+                         @RequestParam(name = "users") List<String> users,
                          Principal principal) {
         UserModel user = userRepository.getByUsername(principal.getName());
 
@@ -106,6 +108,7 @@ public class EditorController {
                 permissionService.canEdit(user, pageRepository.findOneByStringId(stringId))) {
             editService.updatePage(pageName, pageContent, visibility, tags, stringId);
         }
+
 
         return String.format("redirect:/p/%s", stringId);
     }
