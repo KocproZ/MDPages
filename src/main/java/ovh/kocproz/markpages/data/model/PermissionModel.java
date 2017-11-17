@@ -16,13 +16,33 @@ public class PermissionModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "id")
+    @ManyToOne
     private UserModel user;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "permission", nullable = false, updatable = false)
     private Permission permission;
+
+    public Long getId() {
+        return id;
+    }
+
+    public UserModel getUser() {
+        return user;
+    }
+
+    public void setUser(UserModel user) {
+        this.user = user;
+    }
+
+    public void setPermission(Permission permission) {
+        this.permission = permission;
+    }
+
+    public Permission getPermission() {
+        return permission;
+    }
 
     public enum Permission {
         CREATE,    //creating pages

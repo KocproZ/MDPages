@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "User")
 @Table(name = "users")
@@ -25,6 +27,9 @@ public class UserModel {
     @NotNull
     @Column(name = "role", length = 16)
     private String role;
+
+    @OneToMany(mappedBy = "user")
+    private Set<PermissionModel> permissions = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -52,6 +57,14 @@ public class UserModel {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Set<PermissionModel> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Set<PermissionModel> permissions) {
+        this.permissions = permissions;
     }
 
     @Override
