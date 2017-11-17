@@ -71,16 +71,6 @@ public class SetupDevEnv {
         for (int i = 0; i < pagesToGenerate; i++) {
             PageModel page = new PageModel();
             page.setVisibility(i % 4 == 0 ? PageModel.Visibility.AUTHORIZED : PageModel.Visibility.PUBLIC);
-            PageMaintainerModel pm = new PageMaintainerModel();
-            pm.setPage(page);
-            pm.setRole(PageMaintainerModel.Role.OWNER);
-            pm.setUser(i % 6 == 0 ? userRepository.findOne(2l) : userRepository.findOne(1l));
-            maintainerRepository.save(pm);
-            pm = new PageMaintainerModel();
-            pm.setPage(page);
-            pm.setRole(PageMaintainerModel.Role.MAINTAINER);
-            pm.setUser(i % 6 == 0 ? userRepository.findOne(1l) : userRepository.findOne(2l));
-            maintainerRepository.save(pm);
             page.setLastEdited(new Date());
             page.setCreationDate(new Date());
             String randomMarkdown = randomMarkdown();
@@ -91,6 +81,16 @@ public class SetupDevEnv {
             if (i % 2 == 0)
                 page.addTag(tagRepository.findOne(2l));
             pageRepository.save(page);
+            PageMaintainerModel pm = new PageMaintainerModel();
+            pm.setPage(page);
+            pm.setRole(PageMaintainerModel.Role.OWNER);
+            pm.setUser(i % 6 == 0 ? userRepository.findOne(2l) : userRepository.findOne(1l));
+            maintainerRepository.save(pm);
+            pm = new PageMaintainerModel();
+            pm.setPage(page);
+            pm.setRole(PageMaintainerModel.Role.MAINTAINER);
+            pm.setUser(i % 6 == 0 ? userRepository.findOne(1l) : userRepository.findOne(2l));
+            maintainerRepository.save(pm);
         }
     }
 
