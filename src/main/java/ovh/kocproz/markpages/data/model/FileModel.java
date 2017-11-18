@@ -1,0 +1,59 @@
+package ovh.kocproz.markpages.data.model;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+/**
+ * @author Hubertus
+ * Created 18.11.2017
+ */
+@Entity
+@Table(name = "files")
+public class FileModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull
+    private String name;
+
+    @NotNull
+    @ManyToOne
+    private UserModel creator;
+
+    @NotNull
+    @Column(name = "data", columnDefinition = "LONGBLOB")
+    private byte[] data;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public UserModel getCreator() {
+        return creator;
+    }
+
+    public void setCreator(UserModel creator) {
+        this.creator = creator;
+    }
+
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+}

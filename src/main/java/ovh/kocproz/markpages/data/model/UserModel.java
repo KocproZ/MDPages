@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "User")
 @Table(name = "users")
@@ -25,6 +27,9 @@ public class UserModel {
     @NotNull
     @Column(name = "role", length = 16)
     private String role;
+
+    @OneToMany(mappedBy = "creator")
+    private Set<FileModel> files = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -62,5 +67,13 @@ public class UserModel {
     @Override
     public boolean equals(Object obj) {
         return obj instanceof UserModel && this.getId() == ((UserModel) obj).getId();
+    }
+
+    public Set<FileModel> getFiles() {
+        return files;
+    }
+
+    public void setFiles(Set<FileModel> files) {
+        this.files = files;
     }
 }
