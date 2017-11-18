@@ -1,5 +1,7 @@
 package ovh.kocproz.markpages.data.model;
 
+import ovh.kocproz.markpages.Visibility;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -24,6 +26,11 @@ public class FileModel {
     @NotNull
     @Column(name = "data", columnDefinition = "LONGBLOB")
     private byte[] data;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "visibility", length = 16, nullable = false)
+    private Visibility visibility;
 
     public String getName() {
         return name;
@@ -55,5 +62,13 @@ public class FileModel {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Visibility getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(Visibility visibility) {
+        this.visibility = visibility;
     }
 }

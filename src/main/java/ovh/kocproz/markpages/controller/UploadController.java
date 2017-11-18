@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import ovh.kocproz.markpages.Visibility;
 import ovh.kocproz.markpages.data.model.UserModel;
 import ovh.kocproz.markpages.data.repository.UserRepository;
 import ovh.kocproz.markpages.exception.FilenameTakenException;
@@ -13,7 +14,6 @@ import ovh.kocproz.markpages.service.FileService;
 import ovh.kocproz.markpages.service.PermissionService;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Principal;
@@ -47,11 +47,12 @@ public class UploadController {
     @PostMapping(path = "/upload", headers = "content-type=multipart/*")
     public String postUpload(@RequestParam(name = "name") String name,
                              @RequestParam(name = "file") MultipartFile file,
+                             @RequestParam(name = "visibility") Visibility visibility,
                              Principal principal) {
         UserModel user = userRepository.getByUsername(principal.getName());
         if (permissionService.canUpload(user)) {
             try {
-                name = fileService.save(file, name, user);
+                name = fileService.save(file, name, user, visibility);
                 return "redirect:/edit/uploadComplete?name=" + name;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -65,10 +66,11 @@ public class UploadController {
     }
 
     @GetMapping("/file/{filename}")
-    public void showImage(@PathVariable String filename, HttpServletResponse response, HttpServletRequest request)
+    public void showImage(@PathVariable String filename, HttpServletResponse response, Principal principal)
             throws ServletException, IOException {
+        byte[] data = fileService.getData(principal != null, filename);
         response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
-        response.getOutputStream().write(fileService.getData(true, filename));
+        response.getOutputStream().write(data);
 
         response.getOutputStream().close();
     }

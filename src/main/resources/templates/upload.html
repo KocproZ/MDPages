@@ -6,8 +6,16 @@
 </head>
 <body>
 <form method="post" th:action="@{/upload}" enctype="multipart/form-data">
-    <input type="text" name="name"/>
-    <input type="file" name="file"/>
+    <input type="text" name="name"/><br/>
+    <input type="file" name="file"/><br/>
+    <select name="visibility">
+        <option value="PUBLIC">
+            Public
+        </option>
+        <option value="AUTHORIZED">
+            Authorized
+        </option>
+    </select><br/>
     <input type="submit"/>
 </form>
 </body>
