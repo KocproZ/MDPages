@@ -1,5 +1,6 @@
 package ovh.kocproz.markpages.controller;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,9 +57,9 @@ public class EditorController {
     }
 
     @GetMapping("/{stringId}")
-    public String edit(@PathVariable String stringId, Model model, Principal principal) {
+    public String edit(@PathVariable String stringId, Model model, Authentication auth) {
         PageModel page = pageRepository.findOneByStringId(stringId);
-        UserModel user = userRepository.getByUsername(principal.getName());
+        UserModel user = userRepository.getByUsername(auth.getName());
         Set<TagModel> tags = null;
         if (page != null) {
             tags = page.getTags();

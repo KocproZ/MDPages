@@ -8,12 +8,13 @@ import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ovh.kocproz.markpages.data.model.PageMaintainerModel;
 import ovh.kocproz.markpages.data.model.PageModel;
+import ovh.kocproz.markpages.data.model.PermissionModel;
 import ovh.kocproz.markpages.data.model.TagModel;
-import ovh.kocproz.markpages.data.model.UserModel;
 import ovh.kocproz.markpages.data.repository.PageMaintainerRepository;
 import ovh.kocproz.markpages.data.repository.PageRepository;
 import ovh.kocproz.markpages.data.repository.TagRepository;
 import ovh.kocproz.markpages.data.repository.UserRepository;
+import ovh.kocproz.markpages.service.UserService;
 
 import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
@@ -38,6 +39,7 @@ public class SetupDevEnv {
     private PageRepository pageRepository;
     private UserRepository userRepository;
     private TagRepository tagRepository;
+    private UserService userService;
     private Pbkdf2PasswordEncoder passwordEncoder;
     private Logger logger;
     private PageMaintainerRepository maintainerRepository;
@@ -45,12 +47,14 @@ public class SetupDevEnv {
     public SetupDevEnv(PageRepository pageRepository,
                        UserRepository userRepository,
                        TagRepository tagRepository,
+                       UserService userService,
                        Pbkdf2PasswordEncoder passwordEncoder,
                        Logger logger,
                        PageMaintainerRepository maintainerRepository) {
         this.pageRepository = pageRepository;
         this.userRepository = userRepository;
         this.tagRepository = tagRepository;
+        this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.logger = logger;
         this.maintainerRepository = maintainerRepository;
@@ -123,16 +127,15 @@ public class SetupDevEnv {
     }
 
     private void createUsers() {
-        UserModel admin = new UserModel();
-        admin.setPassword(passwordEncoder.encode("admin"));
-        admin.setRole("ROLE_ADMIN");
-        admin.setUsername("admin");
-        userRepository.save(admin);
+        userService.createUser("admin", "admin",
+                new PermissionModel.Permission[]{PermissionModel.Permission.CREATE,
+                        PermissionModel.Permission.UPLOAD,
+                        PermissionModel.Permission.ADMIN,
+                        PermissionModel.Permission.MODERATE,
+                        PermissionModel.Permission.REGISTER});
 
-        UserModel user = new UserModel();
-        user.setPassword(passwordEncoder.encode("user"));
-        user.setRole("ROLE_USER");
-        user.setUsername("user");
-        userRepository.save(user);
+        userService.createUser("user", "user",
+                new PermissionModel.Permission[]{PermissionModel.Permission.CREATE,
+                        PermissionModel.Permission.UPLOAD});
     }
 }

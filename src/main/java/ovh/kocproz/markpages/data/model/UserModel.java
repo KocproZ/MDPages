@@ -24,11 +24,7 @@ public class UserModel {
     @Column(name = "password", columnDefinition = "TEXT", length = 160)
     private String password;
 
-    @NotNull
-    @Column(name = "role", length = 16)
-    private String role;
-
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<PermissionModel> permissions = new HashSet<>();
 
     public Long getId() {
@@ -51,20 +47,16 @@ public class UserModel {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public Set<PermissionModel> getPermissions() {
         return permissions;
     }
 
     public void setPermissions(Set<PermissionModel> permissions) {
         this.permissions = permissions;
+    }
+
+    public void addPermission(PermissionModel permission) {
+        permissions.add(permission);
     }
 
     @Override
