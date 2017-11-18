@@ -64,8 +64,7 @@ public class EditorController {
             tags = page.getTags();
             tags.forEach(t -> t.setPages(null));
         }
-        if (user == null || page == null)
-            return "redirect:/edit";
+        if (user == null || page == null) return "redirect:/edit";
         if (permissionService.canEdit(user, page)) {
             model.addAttribute("visibility", page.getVisibility());
             model.addAttribute("page", page);

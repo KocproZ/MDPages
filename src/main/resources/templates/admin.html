@@ -12,13 +12,14 @@
                         <th>page name</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="shadowed">
                     <tr th:each="p: ${pages}">
                         <td>
-                            <a th:text="${p.getName()}" th:href="${'/p/' + p.stringId}"></a>
+                            <a th:text="${p.getName()}" th:href="@{/p/{stringId}(stringId=${p.stringId})}"></a>
                         </td>
                         <td>
-                            <a class="waves-effect waves-light btn blue" th:href="${'/edit/' + p.stringId}">Edit</a>
+                            <a class="waves-effect waves-light btn"
+                               th:href="@{/edit/{stringId}(stringId=${p.stringId})}">Edit</a>
                         </td>
                     </tr>
                     </tbody>
@@ -39,7 +40,7 @@
                             class="material-icons">chevron_right</i></a></li>
                 </ul>
             </div>
-            <div class="col m5 offset-m1">
+            <div class="col m5 offset-m1 nopadding">
                 <table class="row m12 striped mdtable">
                     <thead>
                     <tr>
@@ -48,7 +49,7 @@
                         <th></th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="shadowed">
                     <tr th:each="u: ${users}">
                         <td class="m7">
                             <span th:text="${u.getUsername()}"></span>
