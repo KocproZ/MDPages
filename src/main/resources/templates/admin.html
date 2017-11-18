@@ -18,7 +18,8 @@
                             <a th:text="${p.getName()}" th:href="@{/p/{stringId}(stringId=${p.stringId})}"></a>
                         </td>
                         <td>
-                            <a class="waves-effect waves-light btn blue" th:href="@{/edit/{stringId}(stringId=${p.stringId})}">Edit</a>
+                            <a class="waves-effect waves-light btn"
+                               th:href="@{/edit/{stringId}(stringId=${p.stringId})}">Edit</a>
                         </td>
                     </tr>
                     </tbody>
