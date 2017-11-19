@@ -1,0 +1,35 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorator="fragments/layout">
+
+<div layout:fragment="content">
+    <div class="container">
+        <table class="m6 striped mdtable">
+            <thead>
+            <tr>
+                <th>page name</th>
+            </tr>
+            </thead>
+            <tbody class="shadowed" id="results">
+            </tbody>
+        </table>
+        <ul class="pagination">
+            <li th:if="${pageCount &lt;= 1}" class="disabled"><a><i class="material-icons">chevron_left</i></a></li>
+            <li th:if="${pageCount &gt; 1}" class="wave-effect"><a onclick="moveLeft()">
+                <i class="material-icons">chevron_left</i></a></li>
+            <li th:each="i : ${#numbers.sequence(1, pageCount)}"
+                th:class="${i} eq ${query.p} ? ${'active'} : ${'waves-effect'}">
+                <a th:attr="onclick=${'moveToPage('}+${i}+${')'}" th:inline="text">[[${i}]]</a>
+            </li>
+            <li th:if="${pageCount &lt;= 1}" class="disabled"><a><i
+                    class="material-icons">chevron_right</i></a>
+            </li>
+            <li th:if="${pageCount &gt; 1}" class="waves-effect"><a
+                    onclick="moveRight()"><i
+                    class="material-icons">chevron_right</i></a></li>
+        </ul>
+    </div>
+    <script src="/js/tagSearch.js"></script>
+</div>
+
+</html>

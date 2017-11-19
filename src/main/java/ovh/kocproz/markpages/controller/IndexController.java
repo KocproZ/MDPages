@@ -40,13 +40,13 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model m, Principal principal) {
         if (principal != null) {
-            m.addAttribute("pages", pageRepository.findAllByVisibilityNot(
-                    Visibility.AUTHORIZED, new Sort(Sort.Direction.ASC, "name")
+            m.addAttribute("pages", pageRepository.findAllByVisibility(
+                    Visibility.PUBLIC, new Sort(Sort.Direction.ASC, "name")
             ));
             m.addAttribute("user", userRepository.getByUsername(principal.getName()));
         } else {
-            m.addAttribute("pages", pageRepository.findAllByVisibility(
-                    Visibility.PUBLIC, new Sort(Sort.Direction.ASC, "name")
+            m.addAttribute("pages", pageRepository.findAll(
+                    new Sort(Sort.Direction.ASC, "name")
             ));
         }
 
@@ -56,13 +56,13 @@ public class IndexController {
     @GetMapping("/list")
     public String list(Model m, Principal principal) {
         if (principal != null) {
-            m.addAttribute("pages", pageRepository.findAllByVisibilityNot(
-                    Visibility.AUTHORIZED, new Sort(Sort.Direction.ASC, "name")
+            m.addAttribute("pages", pageRepository.findAllByVisibility(
+                    Visibility.PUBLIC, new Sort(Sort.Direction.ASC, "name")
             ));
             m.addAttribute("user", userRepository.getByUsername(principal.getName()));
         } else {
-            m.addAttribute("pages", pageRepository.findAllByVisibility(
-                    Visibility.PUBLIC, new Sort(Sort.Direction.ASC, "name")
+            m.addAttribute("pages", pageRepository.findAll(
+                    new Sort(Sort.Direction.ASC, "name")
             ));
         }
 
@@ -91,6 +91,7 @@ public class IndexController {
         return "mdPage";
     }
 
+    //TODO: DTO validation
     @RequestMapping("/search")
     public String search(Model model, Principal principal, @Valid @ModelAttribute(name = "query") SearchDTO search) {
         if (principal != null)

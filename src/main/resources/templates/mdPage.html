@@ -6,7 +6,9 @@
     <div class="container">
         <h1 class="row m12" th:text="${page.name}"></h1>
         <div class="row">
-            <div class="chip" th:each="tag : ${page.tags}" th:inline="text">[[${tag.name}]]</div>
+            <a th:each="tag : ${page.tags}" th:href="@{/search/tag(tag=${tag.name},p=1)}">
+            <div class="chip"  th:inline="text">[[${tag.name}]]</div>
+            </a>
         </div>
         <div class="row">
             <div class="col m4">

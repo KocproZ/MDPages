@@ -1,5 +1,7 @@
 package ovh.kocproz.markpages.data.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,7 +17,28 @@ public interface PageRepository extends JpaRepository<PageModel, Long> {
     PageModel findOneByStringId(String stringId);
 
     List<PageModel> findAllByVisibility(Visibility visibility, Sort sort);
-    List<PageModel> findAllByVisibilityNot(Visibility visibility, Sort sort);
+
+    @Query(value = "select p from Page p " +
+            "join p.tags as t " +
+            "where t.name = :name ")
+    Page<PageModel> findAllByTagName(@Param("name") String tag, Pageable pageable);
+
+    @Query(value = "select p from Page p " +
+            "join p.tags as t " +
+            "where t.name = :name and p.visibility = :visibility ")
+    Page<PageModel> findAllByTagNameAndVisibility(@Param("name") String tag,
+                                                  @Param("visibility") Visibility visibility,
+                                                  Pageable pageable);
+
+    @Query(value = "select count(p) from Page p " +
+            "join p.tags as t " +
+            "where t.name = :name")
+    Long countAllByTagName(@Param("name") String tag);
+
+    @Query(value = "select count(p) from Page p " +
+            "join p.tags as t " +
+            "where t.name = :name and p.visibility = :visibility")
+    Long countAllByTagNameAndVisibility(@Param("name") String tag, @Param("visibility") Visibility visibility);
 
     PageModel findFirstByTags(TagModel tag);
 
@@ -47,5 +70,6 @@ public interface PageRepository extends JpaRepository<PageModel, Long> {
     }
 
     List<PageModel> findAllByVisibilityAndNameContaining(Visibility visibility, String name, Sort sort);
+
     List<PageModel> findAllByVisibilityNotAndNameContaining(Visibility visibility, String name, Sort sort);
 }
