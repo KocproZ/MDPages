@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ovh.kocproz.markpages.Visibility;
 import ovh.kocproz.markpages.data.dto.SearchDTO;
 import ovh.kocproz.markpages.data.model.PageModel;
 import ovh.kocproz.markpages.data.model.UserModel;
@@ -40,12 +41,12 @@ public class IndexController {
     public String index(Model m, Principal principal) {
         if (principal != null) {
             m.addAttribute("pages", pageRepository.findAllByVisibilityNot(
-                    PageModel.Visibility.HIDDEN, new Sort(Sort.Direction.ASC, "name")
+                    Visibility.AUTHORIZED, new Sort(Sort.Direction.ASC, "name")
             ));
             m.addAttribute("user", userRepository.getByUsername(principal.getName()));
         } else {
             m.addAttribute("pages", pageRepository.findAllByVisibility(
-                    PageModel.Visibility.PUBLIC, new Sort(Sort.Direction.ASC, "name")
+                    Visibility.PUBLIC, new Sort(Sort.Direction.ASC, "name")
             ));
         }
 
@@ -56,12 +57,12 @@ public class IndexController {
     public String list(Model m, Principal principal) {
         if (principal != null) {
             m.addAttribute("pages", pageRepository.findAllByVisibilityNot(
-                    PageModel.Visibility.HIDDEN, new Sort(Sort.Direction.ASC, "name")
+                    Visibility.AUTHORIZED, new Sort(Sort.Direction.ASC, "name")
             ));
             m.addAttribute("user", userRepository.getByUsername(principal.getName()));
         } else {
             m.addAttribute("pages", pageRepository.findAllByVisibility(
-                    PageModel.Visibility.PUBLIC, new Sort(Sort.Direction.ASC, "name")
+                    Visibility.PUBLIC, new Sort(Sort.Direction.ASC, "name")
             ));
         }
 
@@ -81,7 +82,7 @@ public class IndexController {
         }
 
 
-        if (user == null && page.getVisibility() == PageModel.Visibility.AUTHORIZED) {
+        if (user == null && page.getVisibility() == Visibility.AUTHORIZED) {
             return "redirect:/login";
         }
 
@@ -97,17 +98,17 @@ public class IndexController {
 
         if (principal != null && !search.getName().isEmpty()) {
             model.addAttribute("pages", pageRepository.findAllByVisibilityNotAndNameContaining(
-                    PageModel.Visibility.HIDDEN, search.getName(), new Sort(Sort.Direction.ASC, "name")));
+                    Visibility.AUTHORIZED, search.getName(), new Sort(Sort.Direction.ASC, "name")));
         } else if (principal == null && !search.getName().isEmpty()) {
             model.addAttribute("pages", pageRepository.findAllByVisibilityAndNameContaining(
-                    PageModel.Visibility.PUBLIC, search.getName(), new Sort(Sort.Direction.ASC, "name")));
+                    Visibility.PUBLIC, search.getName(), new Sort(Sort.Direction.ASC, "name")));
         } else if (principal != null && !search.getTags().isEmpty()) {
             model.addAttribute("pages", pageRepository.findAllByVisibilityNotAndTagNames(
-                    PageModel.Visibility.HIDDEN, search.getTags()
+                    Visibility.AUTHORIZED, search.getTags()
             ));
         } else if (principal == null && !search.getTags().isEmpty()) {
             model.addAttribute("pages", pageRepository.findAllByVisibilityAndTagNames(
-                    PageModel.Visibility.PUBLIC, search.getTags()
+                    Visibility.PUBLIC, search.getTags()
             ));
         }
 

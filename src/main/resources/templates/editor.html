@@ -45,13 +45,12 @@
                                 <div class="col m6 input-field">
                                     <select name="visibility">
                                         <option value="PUBLIC"
-                                                th:selected="${visibility eq T(ovh.kocproz.markpages.data.model.PageModel.Visibility).PUBLIC}"> Public
+                                                th:selected="${visibility eq T(ovh.kocproz.markpages.Visibility).PUBLIC}">
+                                            Public
                                         </option>
                                         <option value="AUTHORIZED"
-                                                th:selected="${visibility eq T(ovh.kocproz.markpages.data.model.PageModel.Visibility).AUTHORIZED}"> Authorized
-                                        </option>
-                                        <option value="HIDDEN"
-                                                th:selected="${visibility eq T(ovh.kocproz.markpages.data.model.PageModel.Visibility).HIDDEN}"> Hidden
+                                                th:selected="${visibility eq T(ovh.kocproz.markpages.Visibility).AUTHORIZED}">
+                                            Authorized
                                         </option>
                                     </select>
                                 </div>
@@ -119,7 +118,7 @@
         }
 
         var pageTags = [[${page != null} ? ${@tagService.getPageTags(page.getStringId())} : ${null}]];
-        var users = [[${page != null} ? ${@userService.getPageMaintainers(page)} : ${null}]]
+        var users = [[${page != null} ? ${@userService.getPageMaintainers(page)} : ${null}]];
 
         $(document).ready(function () {
             setupForm(pageTags, users)

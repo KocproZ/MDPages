@@ -58,7 +58,7 @@ public class SetupDevEnv {
         this.logger = logger;
         this.maintainerRepository = maintainerRepository;
     }
-    
+
     @PostConstruct
     public void postInit() {
         if (dev && dllAuto.equals("create")) {
@@ -73,26 +73,26 @@ public class SetupDevEnv {
         Lorem lorem = LoremIpsum.getInstance();
         for (int i = 0; i < pagesToGenerate; i++) {
             PageModel page = new PageModel();
-            page.setVisibility(i % 4 == 0 ? PageModel.Visibility.AUTHORIZED : PageModel.Visibility.PUBLIC);
+            page.setVisibility(i % 4 == 0 ? Visibility.AUTHORIZED : Visibility.PUBLIC);
             page.setLastEdited(new Date());
             page.setCreationDate(new Date());
             String randomMarkdown = randomMarkdown();
             page.setContent(randomMarkdown);
             page.setName(lorem.getTitle(3, 6));
             page.setStringId(Util.randomString(8));
-            page.addTag(tagRepository.findOne(1l));
+            page.addTag(tagRepository.findOne(1L));
             if (i % 2 == 0)
-                page.addTag(tagRepository.findOne(2l));
+                page.addTag(tagRepository.findOne(2L));
             pageRepository.save(page);
             PageMaintainerModel pm = new PageMaintainerModel();
             pm.setPage(page);
             pm.setRole(PageMaintainerModel.Role.OWNER);
-            pm.setUser(i % 6 == 0 ? userRepository.findOne(2l) : userRepository.findOne(1l));
+            pm.setUser(i % 6 == 0 ? userRepository.findOne(2L) : userRepository.findOne(1L));
             maintainerRepository.save(pm);
             pm = new PageMaintainerModel();
             pm.setPage(page);
             pm.setRole(PageMaintainerModel.Role.MAINTAINER);
-            pm.setUser(i % 6 == 0 ? userRepository.findOne(1l) : userRepository.findOne(2l));
+            pm.setUser(i % 6 == 0 ? userRepository.findOne(1L) : userRepository.findOne(2L));
             maintainerRepository.save(pm);
         }
     }

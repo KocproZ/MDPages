@@ -27,6 +27,9 @@ public class UserModel {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<PermissionModel> permissions = new HashSet<>();
 
+    @OneToMany(mappedBy = "creator")
+    private Set<FileModel> files = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -67,5 +70,13 @@ public class UserModel {
     @Override
     public boolean equals(Object obj) {
         return obj instanceof UserModel && this.getId() == ((UserModel) obj).getId();
+    }
+
+    public Set<FileModel> getFiles() {
+        return files;
+    }
+
+    public void setFiles(Set<FileModel> files) {
+        this.files = files;
     }
 }

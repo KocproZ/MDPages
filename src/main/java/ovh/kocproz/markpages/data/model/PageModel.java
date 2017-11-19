@@ -1,6 +1,8 @@
 package ovh.kocproz.markpages.data.model;
 
 
+import ovh.kocproz.markpages.Visibility;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.text.SimpleDateFormat;
@@ -135,11 +137,5 @@ public class PageModel {
         return String.format("PageModel{name: %s}", getName());
     }
 
-    public enum Visibility {
-        PUBLIC,
-        AUTHORIZED,
-        HIDDEN
-
-    }
 }
 

@@ -57,6 +57,12 @@ public class PermissionService {
                 || maintainerModel.getRole() == PageMaintainerModel.Role.MAINTAINER;
     }
 
+    public boolean canUpload(UserModel user){
+        //TODO implement permissions
+
+        return true;
+    }
+
     public PageMaintainerModel getRole(String pageStringId, String user) {
         return maintainerRepository.findFirstByPage_StringIdAndUser(pageStringId, userRepository.getByUsername(user));
     }

@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ovh.kocproz.markpages.Visibility;
+import ovh.kocproz.markpages.data.model.PageMaintainerModel;
 import ovh.kocproz.markpages.data.model.PageModel;
 import ovh.kocproz.markpages.data.model.TagModel;
 import ovh.kocproz.markpages.data.model.UserModel;
@@ -78,7 +80,7 @@ public class EditorController {
     @RequestMapping("/add")
     public String add(@RequestParam(name = "name") String pageName,
                       @RequestParam(name = "pageContent") String pageContent,
-                      @RequestParam(name = "visibility") PageModel.Visibility visibility,
+                      @RequestParam(name = "visibility") Visibility visibility,
                       @RequestParam(name = "tags") List<String> tags,
                       @RequestParam(name = "users") List<String> users,
                       Principal principal) {
@@ -94,7 +96,7 @@ public class EditorController {
     public String update(@RequestParam(name = "stringId") String stringId,
                          @RequestParam(name = "name") String pageName,
                          @RequestParam(name = "pageContent") String pageContent,
-                         @RequestParam(name = "visibility") PageModel.Visibility visibility,
+                         @RequestParam(name = "visibility") Visibility visibility,
                          @RequestParam(name = "tags") List<String> tags,
                          @RequestParam(name = "users") List<String> users,
                          Principal principal) {

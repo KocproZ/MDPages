@@ -3,6 +3,7 @@ package ovh.kocproz.markpages.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ovh.kocproz.markpages.Util;
+import ovh.kocproz.markpages.Visibility;
 import ovh.kocproz.markpages.data.model.PageMaintainerModel;
 import ovh.kocproz.markpages.data.model.PageModel;
 import ovh.kocproz.markpages.data.model.UserModel;
@@ -67,7 +68,7 @@ public class EditService {
 
     public PageModel addPage(String pageName,
                              String pageContent,
-                             PageModel.Visibility visibility,
+                             Visibility visibility,
                              List<String> tags) {
         String stringId = Util.randomString(8);
         PageModel page = updatePage(pageName, pageContent, visibility, tags, stringId);
@@ -80,7 +81,7 @@ public class EditService {
 
     public PageModel updatePage(String pageName,
                                 String pageContent,
-                                PageModel.Visibility visibility,
+                                Visibility visibility,
                                 List<String> tags,
                                 String stringId) {
         PageModel page = pageRepository.findOneByStringId(stringId);
