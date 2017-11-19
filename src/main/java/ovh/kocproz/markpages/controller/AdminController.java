@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ovh.kocproz.markpages.data.model.PermissionModel;
+import ovh.kocproz.markpages.Permission;
 import ovh.kocproz.markpages.data.repository.PageRepository;
 import ovh.kocproz.markpages.data.repository.UserRepository;
 import ovh.kocproz.markpages.service.UserService;
@@ -53,8 +53,8 @@ public class AdminController {
     public String addUser(@RequestParam String username, @RequestParam String password) {
         if (!username.isEmpty() && !password.isEmpty()) {
             userService.createUser(username, password,
-                    new PermissionModel.Permission[]{PermissionModel.Permission.CREATE,
-                            PermissionModel.Permission.UPLOAD});
+                    new Permission[]{Permission.CREATE,
+                            Permission.UPLOAD});
         }
         return "redirect:/admin";
     }

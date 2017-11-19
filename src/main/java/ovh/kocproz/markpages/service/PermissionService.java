@@ -3,6 +3,7 @@ package ovh.kocproz.markpages.service;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
+import ovh.kocproz.markpages.Permission;
 import ovh.kocproz.markpages.data.model.PageMaintainerModel;
 import ovh.kocproz.markpages.data.model.PageModel;
 import ovh.kocproz.markpages.data.model.PermissionModel;
@@ -20,12 +21,13 @@ public class PermissionService {
     private PageMaintainerRepository maintainerRepository;
     private UserRepository userRepository;
 
-    public PermissionService(PageMaintainerRepository maintainerRepository, UserRepository userRepository) {
+    public PermissionService(PageMaintainerRepository maintainerRepository,
+                             UserRepository userRepository) {
         this.maintainerRepository = maintainerRepository;
         this.userRepository = userRepository;
     }
 
-    public boolean hasPermission(UserModel user, PermissionModel.Permission permission) {
+    public boolean hasPermission(UserModel user, Permission permission) {
         for (PermissionModel p : user.getPermissions()) {
             if (p.getPermission() == permission)
                 return true;
@@ -33,7 +35,7 @@ public class PermissionService {
         return false;
     }
 
-    public boolean hasPermission(Authentication auth, PermissionModel.Permission permission) {
+    public boolean hasPermission(Authentication auth, Permission permission) {
         for (GrantedAuthority a : auth.getAuthorities()) {
             if (a.getAuthority().equals(permission.toString()))
                 return true;
@@ -41,8 +43,13 @@ public class PermissionService {
         return false;
     }
 
+    public boolean hasPermission(String username, Permission permission) {
+        UserModel user = userRepository.getByUsername(username);
+        return hasPermission(user, permission);
+    }
+
     public boolean canEdit(UserModel user, PageModel page) {
-        if (hasPermission(user, PermissionModel.Permission.MODERATE)) return true;
+        if (hasPermission(user, Permission.MODERATE)) return true;
 
         PageMaintainerModel maintainerModel = maintainerRepository.findFirstByPageAndUser(page, user);
         if (maintainerModel == null) return false;

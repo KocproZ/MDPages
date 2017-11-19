@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import ovh.kocproz.markpages.data.model.PermissionModel;
+import ovh.kocproz.markpages.Permission;
 
 import javax.sql.DataSource;
 
@@ -37,10 +37,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/admin", "/admin/*")
-                .hasAuthority(PermissionModel.Permission.ADMIN.toString())
+                .hasAuthority(Permission.ADMIN.toString())
                 .antMatchers("/edit", "/edit/*", "/user/profile", "/update", "/tags", "/tags/*")
-                .hasAnyAuthority(PermissionModel.Permission.CREATE.toString(),
-                        PermissionModel.Permission.MODERATE.toString())
+                .hasAnyAuthority(Permission.CREATE.toString(),
+                        Permission.MODERATE.toString())
                 .antMatchers("/").permitAll()
                 .and()
                 .formLogin()

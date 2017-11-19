@@ -8,7 +8,6 @@ import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ovh.kocproz.markpages.data.model.PageMaintainerModel;
 import ovh.kocproz.markpages.data.model.PageModel;
-import ovh.kocproz.markpages.data.model.PermissionModel;
 import ovh.kocproz.markpages.data.model.TagModel;
 import ovh.kocproz.markpages.data.repository.PageMaintainerRepository;
 import ovh.kocproz.markpages.data.repository.PageRepository;
@@ -128,14 +127,14 @@ public class SetupDevEnv {
 
     private void createUsers() {
         userService.createUser("admin", "admin",
-                new PermissionModel.Permission[]{PermissionModel.Permission.CREATE,
-                        PermissionModel.Permission.UPLOAD,
-                        PermissionModel.Permission.ADMIN,
-                        PermissionModel.Permission.MODERATE,
-                        PermissionModel.Permission.REGISTER});
+                new Permission[]{Permission.CREATE,
+                        Permission.UPLOAD,
+                        Permission.ADMIN,
+                        Permission.MODERATE,
+                        Permission.REGISTER});
 
         userService.createUser("user", "user",
-                new PermissionModel.Permission[]{PermissionModel.Permission.CREATE,
-                        PermissionModel.Permission.UPLOAD});
+                new Permission[]{Permission.CREATE,
+                        Permission.UPLOAD});
     }
 }

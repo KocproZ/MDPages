@@ -4,6 +4,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ovh.kocproz.markpages.Permission;
 import ovh.kocproz.markpages.data.model.PageMaintainerModel;
 import ovh.kocproz.markpages.data.model.PageModel;
 import ovh.kocproz.markpages.data.model.PermissionModel;
@@ -40,12 +41,12 @@ public class UserService {
 
     public void createUser(String username,
                            String password,
-                           PermissionModel.Permission[] permissions) {
+                           Permission[] permissions) {
         UserModel user = new UserModel();
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));
         userRepository.save(user);
-        for (PermissionModel.Permission permission : permissions) {
+        for (Permission permission : permissions) {
             PermissionModel pm = new PermissionModel();
             pm.setPermission(permission);
             pm.setUser(user);

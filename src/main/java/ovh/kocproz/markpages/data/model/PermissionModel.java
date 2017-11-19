@@ -1,5 +1,7 @@
 package ovh.kocproz.markpages.data.model;
 
+import ovh.kocproz.markpages.Permission;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -42,14 +44,6 @@ public class PermissionModel {
 
     public Permission getPermission() {
         return permission;
-    }
-
-    public enum Permission {
-        CREATE,    //creating pages
-        UPLOAD,    //uploading files
-        MODERATE,  //editing everything
-        REGISTER,  //registering users
-        ADMIN      //changing page settings
     }
 
 }
