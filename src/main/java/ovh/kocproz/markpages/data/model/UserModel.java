@@ -24,9 +24,8 @@ public class UserModel {
     @Column(name = "password", columnDefinition = "TEXT", length = 160)
     private String password;
 
-    @NotNull
-    @Column(name = "role", length = 16)
-    private String role;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<PermissionModel> permissions = new HashSet<>();
 
     @OneToMany(mappedBy = "creator")
     private Set<FileModel> files = new HashSet<>();
@@ -51,12 +50,16 @@ public class UserModel {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
+    public Set<PermissionModel> getPermissions() {
+        return permissions;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setPermissions(Set<PermissionModel> permissions) {
+        this.permissions = permissions;
+    }
+
+    public void addPermission(PermissionModel permission) {
+        permissions.add(permission);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package ovh.kocproz.markpages.controller;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,15 +58,15 @@ public class EditorController {
     }
 
     @GetMapping("/{stringId}")
-    public String edit(@PathVariable String stringId, Model model, Principal principal) {
+    public String edit(@PathVariable String stringId, Model model, Authentication auth) {
         PageModel page = pageRepository.findOneByStringId(stringId);
-        UserModel user = userRepository.getByUsername(principal.getName());
+        UserModel user = userRepository.getByUsername(auth.getName());
         Set<TagModel> tags = null;
+        if (user == null || page == null) return "redirect:/edit";
         if (page != null) {
             tags = page.getTags();
             tags.forEach(t -> t.setPages(null));
         }
-        if (user == null || page == null) return "redirect:/edit";
         if (permissionService.canEdit(user, page)) {
             model.addAttribute("visibility", page.getVisibility());
             model.addAttribute("page", page);
@@ -85,12 +86,7 @@ public class EditorController {
                       Principal principal) {
         PageModel page = editService.addPage(pageName, pageContent, visibility, tags);
 
-        PageMaintainerModel pm = new PageMaintainerModel();
-        pm.setPage(page);
-        pm.setUser(userRepository.getByUsername(principal.getName()));
-        pm.setRole(PageMaintainerModel.Role.OWNER);
-        pageMaintainerRepository.save(pm);
-
+        editService.setOwner(page, principal.getName());
         editService.setMaintainers(users, page);
 
         return String.format("redirect:/p/%s", page.getStringId());

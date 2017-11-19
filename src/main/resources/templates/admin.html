@@ -45,18 +45,13 @@
                     <thead>
                     <tr>
                         <th>username</th>
-                        <th>role</th>
-                        <th></th>
+                        <th>button</th>
                     </tr>
                     </thead>
                     <tbody class="shadowed">
                     <tr th:each="u: ${users}">
                         <td class="m7">
                             <span th:text="${u.getUsername()}"></span>
-                        </td>
-                        <td>
-                            <span th:if="${u.role == 'ROLE_USER'}">User</span>
-                            <span th:if="${u.role == 'ROLE_ADMIN'}">Admin</span>
                         </td>
                         <td>
                             <a class="col m10 btn waves-effect waves-light"
@@ -95,14 +90,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="input-field col m6">
-                                    <select name="role">
-                                        <option value="ROLE_USER" th:selected="true">User</option>
-                                        <option value="ROLE_ADMIN">Admin</option>
-                                    </select>
-                                    <label>Role</label>
-                                </div>
-                                <input class="input-field btn col m5" type="submit" value="Create"/>
+                                <input class="input-field btn col m10 offset-m1" type="submit" value="Create"/>
                             </div>
                         </form>
                     </div>
