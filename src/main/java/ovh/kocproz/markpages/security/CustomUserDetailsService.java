@@ -1,6 +1,5 @@
 package ovh.kocproz.markpages.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -8,16 +7,24 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import ovh.kocproz.markpages.data.model.PermissionModel;
 import ovh.kocproz.markpages.data.model.UserModel;
 import ovh.kocproz.markpages.data.repository.UserRepository;
+import ovh.kocproz.markpages.service.UserService;
 
 import java.util.ArrayList;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    @Autowired
     private UserRepository userRepository;
+    private UserService userService;
+
+    public CustomUserDetailsService(UserRepository userRepository,
+                                    UserService userService) {
+        this.userRepository = userRepository;
+        this.userService = userService;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -26,8 +33,10 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
 
-        ArrayList authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority(user.getRole()));
+        ArrayList<GrantedAuthority> authorities = new ArrayList<>();
+        for (PermissionModel p : user.getPermissions()) {
+            authorities.add(new SimpleGrantedAuthority(p.getPermission().toString()));
+        }
         return new User(username, user.getPassword(), authorities);
     }
 

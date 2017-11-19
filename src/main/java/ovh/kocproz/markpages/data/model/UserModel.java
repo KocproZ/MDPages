@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "User")
 @Table(name = "users")
@@ -22,9 +24,8 @@ public class UserModel {
     @Column(name = "password", columnDefinition = "TEXT", length = 160)
     private String password;
 
-    @NotNull
-    @Column(name = "role", length = 16)
-    private String role;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<PermissionModel> permissions = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -46,12 +47,16 @@ public class UserModel {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
+    public Set<PermissionModel> getPermissions() {
+        return permissions;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setPermissions(Set<PermissionModel> permissions) {
+        this.permissions = permissions;
+    }
+
+    public void addPermission(PermissionModel permission) {
+        permissions.add(permission);
     }
 
     @Override
