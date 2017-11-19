@@ -43,7 +43,7 @@ public class CustomAuthenticationProvider implements org.springframework.securit
         if (user != null) {
             if (passwordEncoder.matches(password, user.getPassword())) {
                 ArrayList<GrantedAuthority> ar = new ArrayList<>();
-                Set<PermissionModel> permissions = userService.getUserPermissions(user);
+                Set<PermissionModel> permissions = user.getPermissions();
                 for (PermissionModel p : permissions) {
                     ar.add(new SimpleGrantedAuthority(p.getPermission().toString()));
                 }

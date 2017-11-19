@@ -53,6 +53,18 @@ public class EditService {
         }
     }
 
+    public void setOwner(PageModel page, UserModel user) {
+        PageMaintainerModel pm = new PageMaintainerModel();
+        pm.setPage(page);
+        pm.setUser(user);
+        pm.setRole(PageMaintainerModel.Role.OWNER);
+        maintainerRepository.save(pm);
+    }
+
+    public void setOwner(PageModel page, String username) {
+        setOwner(page, userRepository.getByUsername(username));
+    }
+
     public PageModel addPage(String pageName,
                              String pageContent,
                              PageModel.Visibility visibility,
