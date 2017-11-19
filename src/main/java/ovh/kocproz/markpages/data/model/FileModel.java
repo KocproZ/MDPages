@@ -32,6 +32,8 @@ public class FileModel {
     @Column(name = "visibility", length = 16, nullable = false)
     private Visibility visibility;
 
+    private String mimeType;
+
     public String getName() {
         return name;
     }
@@ -70,5 +72,13 @@ public class FileModel {
 
     public void setVisibility(Visibility visibility) {
         this.visibility = visibility;
+    }
+
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    public void setMimeType(String mimeType) {
+        this.mimeType = mimeType;
     }
 }

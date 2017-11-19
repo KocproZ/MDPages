@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import ovh.kocproz.markpages.Visibility;
+import ovh.kocproz.markpages.data.model.FileModel;
 import ovh.kocproz.markpages.data.model.UserModel;
 import ovh.kocproz.markpages.data.repository.UserRepository;
 import ovh.kocproz.markpages.exception.FilenameTakenException;
+import ovh.kocproz.markpages.exception.IllegalMimeTypeException;
 import ovh.kocproz.markpages.service.FileService;
 import ovh.kocproz.markpages.service.PermissionService;
 
@@ -53,12 +55,14 @@ public class UploadController {
         if (permissionService.canUpload(user)) {
             try {
                 name = fileService.save(file, name, user, visibility);
-                return "redirect:/edit/uploadComplete?name=" + name;
+                return "redirect:/uploadComplete?name=" + name;
             } catch (IOException e) {
                 e.printStackTrace();
-                return "redirect:/edit/upload?error";
+                return "redirect:/upload?error";
             } catch (FilenameTakenException e) {
-                return "redirect:/edit/upload?filenameTaken";
+                return "redirect:/upload?filenameTaken";
+            }catch (IllegalMimeTypeException e){
+                return "redirect:/upload?illegalMimeType";
             }
         }
         return "redirect:/edit/upload?noPermission";
@@ -68,9 +72,9 @@ public class UploadController {
     @GetMapping("/file/{filename}")
     public void showImage(@PathVariable String filename, HttpServletResponse response, Principal principal)
             throws ServletException, IOException {
-        byte[] data = fileService.getData(principal != null, filename);
-        response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
-        response.getOutputStream().write(data);
+        FileModel fileModel = fileService.getData(principal != null, filename);
+        response.setContentType(fileModel.getMimeType());
+        response.getOutputStream().write(fileModel.getData());
 
         response.getOutputStream().close();
     }
