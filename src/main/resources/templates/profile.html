@@ -16,7 +16,8 @@
                     </a>
                 </li>
             </div>
-            <div class="col m4 offset-m1 card blue lighten-5">
+            <div class="col m4 offset-m1 card blue lighten-5"
+                 th:if="${user.username eq #httpServletRequest.getRemoteUser()}">
                 <form class="col" th:action="@{/user/chpass}" method="post">
                     <div class="row">
                         <div class="input-field col m12">

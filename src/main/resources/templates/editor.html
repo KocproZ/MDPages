@@ -20,14 +20,14 @@
                     <div class="row">
                         <div class="col m6">
                             <input type="hidden" name="stringId" th:value="${page != null} ? ${page.stringId} : ${''}"/>
-                            <div class="row input-field">
-                                <div class="col m12">
+                            <div class="row">
+                                <div class="col m12 input-field">
                                     <input id="name-input" data-length="128" name="name"
                                            th:value="${page != null} ? ${page.name} : ''" maxlength="128"/>
                                 </div>
                             </div>
-                            <div class="row input-field">
-                                <div class="col m12">
+                            <div class="row">
+                                <div class="col m12 input-field">
                                     <div class="autocomplete" id="tags">
                                         <div class="ac-tags">
                                         </div>
@@ -59,12 +59,14 @@
                                             style="padding: 0 1rem;">Save<i class="material-icons right">save</i>
                                     </button>
                                 </div>
-                                <!--<input class="col m2 input-field waves-effect waves-light btn" value="save" type="submit"/>-->
                             </div>
                         </div>
                         <div class="col m6">test</div>
                     </div>
-                    <div class="row input-field">
+                    <div class="row input-field"
+                         th:if="${page != null ? @permissionService.getRole(page.stringId, #httpServletRequest.getRemoteUser())
+                                  eq T(ovh.kocproz.markpages.data.model.PageMaintainerModel.Role).OWNER :
+                                  true}">
                         <div class="col m12">
                             <div class="autocomplete" id="users">
                                 <div class="ac-users">

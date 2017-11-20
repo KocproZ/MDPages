@@ -106,7 +106,8 @@ public class EditorController {
         if (pageRepository.exists(stringId) && user != null &&
                 permissionService.canEdit(user, pageRepository.findOneByStringId(stringId))) {
             editService.updatePage(pageName, pageContent, visibility, tags, stringId);
-            editService.setMaintainers(users, page);
+            if (permissionService.getRole(stringId, user.getUsername()) == PageMaintainerModel.Role.OWNER)
+                editService.setMaintainers(users, page);
         }
 
         return String.format("redirect:/p/%s", stringId);

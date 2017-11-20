@@ -58,12 +58,12 @@ public class PermissionService {
     }
 
     public boolean canUpload(UserModel user){
-        //TODO implement permissions
-
-        return true;
+        return hasPermission(user, Permission.UPLOAD);
     }
 
-    public PageMaintainerModel getRole(String pageStringId, String user) {
-        return maintainerRepository.findFirstByPage_StringIdAndUser(pageStringId, userRepository.getByUsername(user));
+    public PageMaintainerModel.Role getRole(String pageStringId, String user) {
+        return maintainerRepository
+                .findFirstByPage_StringIdAndUser(pageStringId, userRepository.getByUsername(user))
+                .getRole();
     }
 }
