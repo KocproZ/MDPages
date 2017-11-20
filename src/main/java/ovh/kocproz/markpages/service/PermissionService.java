@@ -63,7 +63,9 @@ public class PermissionService {
         return true;
     }
 
-    public PageMaintainerModel getRole(String pageStringId, String user) {
-        return maintainerRepository.findFirstByPage_StringIdAndUser(pageStringId, userRepository.getByUsername(user));
+    public PageMaintainerModel.Role getRole(String pageStringId, String user) {
+        return maintainerRepository
+                .findFirstByPage_StringIdAndUser(pageStringId, userRepository.getByUsername(user))
+                .getRole();
     }
 }

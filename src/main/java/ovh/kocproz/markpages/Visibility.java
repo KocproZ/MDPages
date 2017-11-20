@@ -6,5 +6,5 @@ package ovh.kocproz.markpages;
  */
 public enum Visibility {
     PUBLIC,
-    AUTHORIZED,
+    AUTHORIZED
 }

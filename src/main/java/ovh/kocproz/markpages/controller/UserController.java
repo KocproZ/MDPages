@@ -1,12 +1,11 @@
 package ovh.kocproz.markpages.controller;
 
 import org.slf4j.Logger;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ovh.kocproz.markpages.data.model.UserModel;
 import ovh.kocproz.markpages.data.repository.PageRepository;
@@ -41,11 +40,20 @@ public class UserController {
     @RequestMapping("/profile")
     public String profile(Model model, Principal principal) {
         UserModel user = userRepository.getByUsername(principal.getName());
-//        List pages = pageRepository.findAllByMaintainer_Id(user.getId());
 
         model.addAttribute("page_title", String.format("%s profile | md pages", user.getUsername()));
         model.addAttribute("user", user);
 //        model.addAttribute("pages", pages);
+        return "profile";
+    }
+
+    @GetMapping("/{username}")
+    public String profileByUsername(@PathVariable(name = "username") String username,
+                                    Model model, Authentication auth) {
+        UserModel user = userRepository.getByUsername(username);
+
+        model.addAttribute("page_title", String.format("%s profile | md pages", user.getUsername()));
+        model.addAttribute("user", user);
         return "profile";
     }
 
