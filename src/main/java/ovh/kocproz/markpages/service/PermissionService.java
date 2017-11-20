@@ -58,9 +58,7 @@ public class PermissionService {
     }
 
     public boolean canUpload(UserModel user){
-        //TODO implement permissions
-
-        return true;
+        return hasPermission(user, Permission.UPLOAD);
     }
 
     public PageMaintainerModel.Role getRole(String pageStringId, String user) {
