@@ -2,6 +2,7 @@ var pagination = document.querySelector("#pagination");
 var resultsTable = document.querySelector("#results");
 var current = 1;
 var max = (pagination.childNodes.length - 5) / 2;
+download(1);
 
 function moveLeft() {
     if (current > 1) {
