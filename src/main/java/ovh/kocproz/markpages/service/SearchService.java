@@ -27,16 +27,14 @@ public class SearchService {
     }
 
     public List<PageDTO> searchByTag(String tag, int page, boolean loggedIn) {
-
-
         List<PageModel> pageModels = loggedIn ?
                 pageRepository.findAllByTagName(
                         tag,
-                        new PageRequest(page - 1, 50, Sort.Direction.ASC, "name")).getContent() :
+                        new PageRequest(page - 1, 20, Sort.Direction.ASC, "name")).getContent() :
                 pageRepository.findAllByTagNameAndVisibility(
                         tag,
                         Visibility.PUBLIC,
-                        new PageRequest(page - 1, 50, Sort.Direction.ASC, "name")).getContent();
+                        new PageRequest(page - 1, 20, Sort.Direction.ASC, "name")).getContent();
         List<PageDTO> dtos = new ArrayList<>();
 
         for (PageModel m : pageModels) {
