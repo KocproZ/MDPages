@@ -45,14 +45,6 @@ body {
     @extend .shadowed;
   }
 }
-.select-dropdown {
-  > li {
-    > span {
-      @include white-darker-1($font);
-    }
-  }
-  margin: 0 !important;
-}
 .slim-dropdown {
   margin-top: 0 !important;
 }
@@ -64,87 +56,6 @@ body {
 .nopadding {
   padding: 0 0 0 0!important;
 }
-.mdwrapper {
-  @include mint-darker-1($background);
-}
-.mdcard {
-  @extend .shadowed;
-  @include mint-darker-1($background);
-}
-table.mdtable {
-   &.striped {
-     > thead{
-       >tr{
-         >th{
-           font-size: 20px;
-         }
-       }
-       border-bottom: 0px;
-     }
-     > tbody {
-       > tr {
-         & {
-           @include mint-darker-2($background);
-         }
-         &:nth-child(odd) {
-           @include mint-darker-1($background);
-         }
-         > td{
-           > a{
-             &.btn {
-               float: right;
-               @include mint-lighter-1($background);
-               &:hover {
-                 @include white-darker-1($font);
-               }
-             }
-             &:hover {
-               @include mint-lighter-1($font);
-             }
-             @include white-darker-1($font);
-           }
-         }
-       }
-     }
-   }
-}
-ul {
-  &.pagination{
-    >li{
-      >a{
-        @include white-darker-1($font);
-      }
-    }
-  }
-  &.pagination {
-    > li {
-      &.active {
-        @include mint-lighter-1($background);
-      }
-    }
-  }
-}
-nav {
-  ul {
-    a{
-      &:hover {
-        @include mint-darker-3($background);
-      }
-    }
-  }
-}
-.dropdown-content {
-  > li {
-    > a {
-      @include mint-darker-2($background);
-      @include white-darker-1($font);
-    }
-  }
-  &.select-dropdown {
-    @include mint-darker-2($background);
-    @include white-darker-1($font);
-  }
-}
 .input-field {
   @include white-darker-1($font);
 }
@@ -154,3 +65,8 @@ label {
 a {
   @include mint-lighter-1($font);
 }
+@import 'mdtable';
+@import 'mdcard';
+@import 'mdwrapper';
+@import 'mdpagination';
+@import 'mdselect-wrapper';

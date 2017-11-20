@@ -1,0 +1,4 @@
+.mdcard {
+  @extend .shadowed;
+  @include mint-darker-1($background);
+}

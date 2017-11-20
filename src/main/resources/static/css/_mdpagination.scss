@@ -1,0 +1,12 @@
+.pagination {
+  > li {
+    &.active {
+      @include mint-lighter-1($background);
+    }
+    >a {
+      & {
+        @include white-darker-1($font);
+      }
+    }
+  }
+}

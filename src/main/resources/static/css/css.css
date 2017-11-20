@@ -8,11 +8,6 @@ body {
 .btn {
   background-color: #38C999 !important; }
 
-.select-dropdown {
-  margin: 0 !important; }
-  .select-dropdown > li > span {
-    color: #F2F2F2 !important; }
-
 .slim-dropdown {
   margin-top: 0 !important; }
 
@@ -24,11 +19,14 @@ body {
 .nopadding {
   padding: 0 0 0 0 !important; }
 
-.mdwrapper {
-  background-color: #636666 !important; }
+.input-field {
+  color: #F2F2F2 !important; }
 
-.mdcard {
-  background-color: #636666 !important; }
+label {
+  color: #F2F2F2 !important; }
+
+a {
+  color: #38C999 !important; }
 
 table.mdtable.striped > thead {
   border-bottom: 0px; }
@@ -48,28 +46,34 @@ table.mdtable.striped > tbody > tr > td > a {
   table.mdtable.striped > tbody > tr > td > a:hover {
     color: #38C999 !important; }
 
-ul.pagination > li > a {
-  color: #F2F2F2 !important; }
-ul.pagination > li.active {
+.mdcard {
+  background-color: #636666 !important; }
+
+.mdwrapper {
+  background-color: #636666 !important; }
+  .mdwrapper > .row > .col > #nav-mobile > li > .dropdown-content > li > a:hover {
+    background-color: #424444 !important; }
+  .mdwrapper > .row > .col > #nav-mobile > li > .dropdown-content > li > a {
+    background-color: #4A4C4C !important;
+    color: #F2F2F2 !important; }
+  .mdwrapper > .row > .col > #nav-mobile > li.select-dropdown {
+    background-color: #4A4C4C !important;
+    color: #F2F2F2 !important; }
+  .mdwrapper > .row > .col > #nav-mobile > li > a {
+    color: #F2F2F2 !important; }
+
+.pagination > li.active {
   background-color: #38C999 !important; }
-
-nav ul a:hover {
-  background-color: #424444 !important; }
-
-.dropdown-content > li > a {
-  background-color: #4A4C4C !important;
-  color: #F2F2F2 !important; }
-.dropdown-content.select-dropdown {
-  background-color: #4A4C4C !important;
+.pagination > li > a {
   color: #F2F2F2 !important; }
 
-.input-field {
+.mdselect-wrapper > .select-wrapper > .caret {
   color: #F2F2F2 !important; }
-
-label {
-  color: #F2F2F2 !important; }
-
-a {
-  color: #38C999 !important; }
+.mdselect-wrapper > .select-wrapper > .select-dropdown > li {
+  background-color: #4A4C4C !important; }
+  .mdselect-wrapper > .select-wrapper > .select-dropdown > li > span {
+    color: #F2F2F2 !important; }
+.mdselect-wrapper > .select-wrapper > .select-dropdown {
+  margin: 0 !important; }
 
 /*# sourceMappingURL=css.css.map */

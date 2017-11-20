@@ -1,0 +1,37 @@
+table.mdtable {
+  &.striped {
+    > thead{
+      >tr{
+        >th{
+          font-size: 20px;
+        }
+      }
+      border-bottom: 0px;
+    }
+    > tbody {
+      > tr {
+        & {
+          @include mint-darker-2($background);
+        }
+        &:nth-child(odd) {
+          @include mint-darker-1($background);
+        }
+        > td{
+          > a{
+            &.btn {
+              float: right;
+              @include mint-lighter-1($background);
+              &:hover {
+                @include white-darker-1($font);
+              }
+            }
+            &:hover {
+              @include mint-lighter-1($font);
+            }
+            @include white-darker-1($font);
+          }
+        }
+      }
+    }
+  }
+}
