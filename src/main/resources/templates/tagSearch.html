@@ -13,12 +13,13 @@
             <tbody class="shadowed" id="results">
             </tbody>
         </table>
-        <ul class="pagination">
+        <ul class="pagination" id="pagination">
             <li th:if="${pageCount &lt;= 1}" class="disabled"><a><i class="material-icons">chevron_left</i></a></li>
             <li th:if="${pageCount &gt; 1}" class="wave-effect"><a onclick="moveLeft()">
                 <i class="material-icons">chevron_left</i></a></li>
             <li th:each="i : ${#numbers.sequence(1, pageCount)}"
-                th:class="${i} eq ${query.p} ? ${'active'} : ${'waves-effect'}">
+                th:class="${i} eq ${1} ? ${'active'} : ${'waves-effect'}"
+                th:name="e+${i}">
                 <a th:attr="onclick=${'moveToPage('}+${i}+${')'}" th:inline="text">[[${i}]]</a>
             </li>
             <li th:if="${pageCount &lt;= 1}" class="disabled"><a><i
