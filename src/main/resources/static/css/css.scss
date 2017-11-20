@@ -1,0 +1,156 @@
+$font: false;
+$background: true;
+@mixin colors($color,$type){
+  @if($type) {
+    background-color: $color !important;
+  }
+  @else {
+    color: $color !important;
+  }
+}
+@mixin mint-lighter-1($type) {
+  $color: #38C999;
+  @include colors($color,$type);
+}
+@mixin mint-darker-1($type) {
+  $color: #636666;
+  @include colors($color,$type);
+}
+@mixin mint-darker-2($type) {
+  $color: #4A4C4C;
+  @include colors($color,$type);
+}
+@mixin mint-darker-3($type) {
+  $color: #424444;
+  @include colors($color,$type);
+}
+@mixin grey-lighter-1($type) {
+  $color: #757B7F;
+  @include colors($color,$type);
+}
+@mixin white-darker-1($type) {
+  $color: #F2F2F2;
+  @include colors($color,$type);
+}
+.shadowed {
+  box-shadow: 1px 2px 13px 0px #000000;
+}
+body {
+  @include grey-lighter-1($background);
+  @include white-darker-1($font);
+}
+.btn {
+  @include mint-lighter-1($background);
+  &:hover {
+    @extend .shadowed;
+  }
+}
+.select-dropdown {
+  > li {
+    > span {
+      @include white-darker-1($font);
+    }
+  }
+  margin: 0 !important;
+}
+.slim-dropdown {
+  margin-top: 0 !important;
+}
+.logo {
+  position: absolute;
+  height: 60px;
+  float: left;
+}
+.nopadding {
+  padding: 0 0 0 0!important;
+}
+.mdwrapper {
+  @include mint-darker-1($background);
+}
+.mdcard {
+  @extend .shadowed;
+  @include mint-darker-1($background);
+}
+table.mdtable {
+   &.striped {
+     > thead{
+       >tr{
+         >th{
+           font-size: 20px;
+         }
+       }
+       border-bottom: 0px;
+     }
+     > tbody {
+       > tr {
+         & {
+           @include mint-darker-2($background);
+         }
+         &:nth-child(odd) {
+           @include mint-darker-1($background);
+         }
+         > td{
+           > a{
+             &.btn {
+               float: right;
+               @include mint-lighter-1($background);
+               &:hover {
+                 @include white-darker-1($font);
+               }
+             }
+             &:hover {
+               @include mint-lighter-1($font);
+             }
+             @include white-darker-1($font);
+           }
+         }
+       }
+     }
+   }
+}
+ul {
+  &.pagination{
+    >li{
+      >a{
+        @include white-darker-1($font);
+      }
+    }
+  }
+  &.pagination {
+    > li {
+      &.active {
+        @include mint-lighter-1($background);
+      }
+    }
+  }
+}
+nav {
+  ul {
+    a{
+      &:hover {
+        @include mint-darker-3($background);
+      }
+    }
+  }
+}
+.dropdown-content {
+  > li {
+    > a {
+      @include mint-darker-2($background);
+      @include white-darker-1($font);
+    }
+  }
+  &.select-dropdown {
+    @include mint-darker-2($background);
+    @include white-darker-1($font);
+  }
+}
+.input-field {
+  @include white-darker-1($font);
+}
+label {
+  @include white-darker-1($font);
+}
+a {
+  @include mint-lighter-1($font);
+}
