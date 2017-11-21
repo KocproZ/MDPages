@@ -1,52 +1,10 @@
-$font: false;
-$background: true;
-@mixin colors($color,$type){
-  @if($type) {
-    background-color: $color !important;
-  }
-  @else {
-    color: $color !important;
-  }
-}
-@mixin mint-lighter-1($type) {
-  $color: #38C999;
-  @include colors($color,$type);
-}
-@mixin mint-darker-1($type) {
-  $color: #636666;
-  @include colors($color,$type);
-}
-@mixin mint-darker-2($type) {
-  $color: #4A4C4C;
-  @include colors($color,$type);
-}
-@mixin mint-darker-3($type) {
-  $color: #424444;
-  @include colors($color,$type);
-}
-@mixin grey-lighter-1($type) {
-  $color: #757B7F;
-  @include colors($color,$type);
-}
-@mixin white-darker-1($type) {
-  $color: #F2F2F2;
-  @include colors($color,$type);
-}
+@import 'colors';
 .shadowed {
   box-shadow: 1px 2px 13px 0px #000000;
 }
 body {
   @include grey-lighter-1($background);
   @include white-darker-1($font);
-}
-.btn {
-  @include mint-lighter-1($background);
-  &:hover {
-    @extend .shadowed;
-  }
-}
-.slim-dropdown {
-  margin-top: 0 !important;
 }
 .logo {
   position: absolute;
@@ -55,15 +13,6 @@ body {
 }
 .nopadding {
   padding: 0 0 0 0!important;
-}
-.input-field {
-  @include white-darker-1($font);
-}
-label {
-  @include white-darker-1($font);
-}
-a {
-  @include mint-lighter-1($font);
 }
 @import 'mdtable';
 @import 'mdcard';

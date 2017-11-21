@@ -1,34 +1,45 @@
 table.mdtable {
   &.striped {
-    > thead{
-      >tr{
-        >th{
-          font-size: 20px;
-        }
-      }
-      border-bottom: 0px;
+    >thead{
+      border-bottom-style: none;
     }
-    > tbody {
-      > tr {
-        & {
-          @include mint-darker-2($background);
+    >tbody{
+      &{
+        @extend .shadowed;
+      }
+      >tr{
+        &:nth-child(odd){
+          //First row
+          @include mint-darker-2($background)
         }
-        &:nth-child(odd) {
+        &{
+          //Standard row
           @include mint-darker-1($background);
-        }
-        > td{
-          > a{
-            &.btn {
-              float: right;
-              @include mint-lighter-1($background);
-              &:hover {
+          >td {
+            overflow-wrap: break-word;
+            >.btn{
+              @include white-darker-1($font);
+              &{
+                float:right;
+                margin-right: 5%;
+                @include mint-lighter-1($background);
                 @include white-darker-1($font);
               }
+              &:hover{
+                @include white-darker-1($font);
+                text-decoration: none;
+                @extend .shadowed;
+              }
             }
-            &:hover {
-              @include mint-lighter-1($font);
+            >a{
+              &:hover{
+                color:#3dcccc;
+                text-decoration: underline;
+              }
+              &{
+                @include mint-lighter-1($font);
+              }
             }
-            @include white-darker-1($font);
           }
         }
       }

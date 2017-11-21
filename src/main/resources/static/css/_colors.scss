@@ -1,0 +1,34 @@
+$font: false;
+$background: true;
+@mixin colors($color,$type){
+  @if($type) {
+    background-color: $color;
+  }
+  @else {
+    color: $color;
+  }
+}
+@mixin mint-lighter-1($type) {
+  $color: #38C999;
+  @include colors($color,$type);
+}
+@mixin mint-darker-1($type) {
+  $color: #636666;
+  @include colors($color,$type);
+}
+@mixin mint-darker-2($type) {
+  $color: #4A4C4C;
+  @include colors($color,$type);
+}
+@mixin mint-darker-3($type) {
+  $color: #424444;
+  @include colors($color,$type);
+}
+@mixin grey-lighter-1($type) {
+  $color: #757B7F;
+  @include colors($color,$type);
+}
+@mixin white-darker-1($type) {
+  $color: #F2F2F2;
+  @include colors($color,$type);
+}
