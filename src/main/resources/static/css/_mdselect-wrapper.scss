@@ -1,0 +1,18 @@
+.mdselect-wrapper {
+  >.select-wrapper {
+    > .caret {
+      @include white-darker-1($font);
+    }
+    > .select-dropdown {
+      > li {
+        > span {
+          @include white-darker-1($font);
+        }
+        @include mint-darker-2($background);
+      }
+      & {
+        margin: 0 !important;
+      }
+    }
+  }
+}

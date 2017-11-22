@@ -1,0 +1,21 @@
+@import 'colors';
+.shadowed {
+  box-shadow: 1px 2px 13px 0px #000000;
+}
+body {
+  @include grey-lighter-1($background);
+  @include white-darker-1($font);
+}
+.logo {
+  position: absolute;
+  height: 60px;
+  float: left;
+}
+.nopadding {
+  padding: 0 0 0 0!important;
+}
+@import 'mdtable';
+@import 'mdcard';
+@import 'mdwrapper';
+@import 'mdpagination';
+@import 'mdselect-wrapper';
