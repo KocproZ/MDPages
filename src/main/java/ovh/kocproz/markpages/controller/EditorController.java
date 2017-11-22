@@ -98,7 +98,7 @@ public class EditorController {
                          @RequestParam(name = "pageContent") String pageContent,
                          @RequestParam(name = "visibility") Visibility visibility,
                          @RequestParam(name = "tags") List<String> tags,
-                         @RequestParam(name = "users") List<String> users,
+                         @RequestParam(name = "users", required = false) List<String> users,
                          Principal principal) {
         UserModel user = userRepository.getByUsername(principal.getName());
         PageModel page = pageRepository.findOneByStringId(stringId);
@@ -106,7 +106,7 @@ public class EditorController {
         if (pageRepository.exists(stringId) && user != null &&
                 permissionService.canEdit(user, pageRepository.findOneByStringId(stringId))) {
             editService.updatePage(pageName, pageContent, visibility, tags, stringId);
-            if (permissionService.getRole(stringId, user.getUsername()) == PageMaintainerModel.Role.OWNER)
+            if (permissionService.getRole(stringId, user.getUsername()) == PageMaintainerModel.Role.OWNER && users != null)
                 editService.setMaintainers(users, page);
         }
 
