@@ -4,6 +4,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ovh.kocproz.markpages.data.model.PageModel;
 import ovh.kocproz.markpages.data.model.TagModel;
 import ovh.kocproz.markpages.data.repository.PageRepository;
@@ -81,7 +82,8 @@ public class TagService {
     }
 
     @Scheduled(fixedRate = 1000 * 60 * 60)
-    private void cleanupTags() {
+    @Transactional
+    void deleteOrphanedTags() {
         Iterable<TagModel> tags = tagRepository.findAll();
 
         for (TagModel tag : tags) {
