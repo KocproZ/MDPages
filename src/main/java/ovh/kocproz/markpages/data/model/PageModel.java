@@ -27,7 +27,7 @@ public class PageModel {
     private String stringId;
 
     @NotNull
-    @Column(name = "content", columnDefinition = "LONGBLOB")
+    @Column(name = "content", columnDefinition = "MEDIUMTEXT")
     private String content;
 
     @NotNull
