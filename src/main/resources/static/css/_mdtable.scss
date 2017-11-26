@@ -10,7 +10,7 @@ table.mdtable {
       >tr{
         &:nth-child(odd){
           //First row
-          @include mint-darker-2($background)
+          @include mint-darker-2($background);
         }
         &{
           //Standard row

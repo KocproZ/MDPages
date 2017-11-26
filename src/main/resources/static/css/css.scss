@@ -14,6 +14,43 @@ body {
 .nopadding {
   padding: 0 0 0 0!important;
 }
+.input-field .prefix.active {
+  @include mint-lighter-1($font);
+}
+input[type=password]:not(.browser-default):focus:not([readonly]){
+  border-bottom:#38C999;
+  box-shadow:0 1px 0 0 #38C999;
+}
+input[type=password]:not(.browser-default):focus:not([readonly])+label {
+  @include mint-lighter-1($font);
+}
+input[type=text]:not(.browser-default):focus:not([readonly]) {
+  border-bottom:#38C999;
+  border-bottom-color:#38C999;
+  box-shadow:0 1px 0 0 #38C999;
+}
+input[type=text]:not(.browser-default):focus:not([readonly])+label {
+  @include mint-lighter-1($font);
+}
+
+.input-field {
+  height:64px;
+}
+.btn,.btn:hover {
+  @include mint-lighter-1($background);
+}
+[type="checkbox"]:checked + label::before {
+  border-right: 2px solid #F2F2F2;
+  border-bottom: 2px solid #F2F2F2;
+}
+a {
+  @include mint-lighter-1($font);
+}
+.center-in-div{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
 @import 'mdtable';
 @import 'mdcard';
 @import 'mdwrapper';

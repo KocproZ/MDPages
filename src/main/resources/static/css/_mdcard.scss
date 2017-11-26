@@ -1,4 +1,17 @@
-.mdcard {
-  @extend .shadowed;
-  @include mint-darker-1($background);
+
+.mdcard{
+  &{
+    @include mint-darker-1($background);
+  }
+  >form{
+    >.row{
+      >.input-field.col.m12{
+        min-height: 66px;
+        width:90%;
+        >input.btn{
+          background-color: #38C999;
+        }
+      }
+    }
+  }
 }
