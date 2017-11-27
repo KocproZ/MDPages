@@ -22,7 +22,7 @@
                             <input type="hidden" name="stringId" th:value="${page != null} ? ${page.stringId} : ${''}"/>
                             <div class="row">
                                 <div class="col m12 input-field">
-                                    <input id="name-input" data-length="128" name="name"
+                                    <input placeholder="Page Title" type="text" id="name-input" data-length="128" name="name"
                                            th:value="${page != null} ? ${page.name} : ''" maxlength="128"/>
                                 </div>
                             </div>
@@ -32,7 +32,7 @@
                                         <div class="ac-tags">
                                         </div>
                                         <div class="ac-input">
-                                            <input type="text" id="tagsInput" data-activates="tagsMultipleDropdown"
+                                            <input placeholder="Tags" type="text" id="tagsInput" data-activates="tagsMultipleDropdown"
                                                    data-beloworigin="true" autocomplete="off"/>
                                             <input type="hidden" class="validate" name="tags" id="hiddenTags"/>
                                         </div>
@@ -41,7 +41,6 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <!--TODO Naprawić to coś-->
                                 <div class="col m6 input-field mdselect-wrapper">
                                     <select name="visibility">
                                         <option value="PUBLIC"
@@ -70,7 +69,7 @@
                                 <div class="ac-users">
                                 </div>
                                 <div class="ac-input">
-                                    <input type="text" id="usersInput" data-activates="usersMultipleDropdown"
+                                    <input placeholder="Authorized users" type="text" id="usersInput" data-activates="usersMultipleDropdown"
                                            data-beloworigin="true" autocomplete="off"/>
                                     <input type="hidden" class="validate" name="users" id="hiddenUsers"/>
                                 </div>
