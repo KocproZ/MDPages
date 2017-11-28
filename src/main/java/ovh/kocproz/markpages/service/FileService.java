@@ -2,6 +2,7 @@ package ovh.kocproz.markpages.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import ovh.kocproz.markpages.Util;
 import ovh.kocproz.markpages.Visibility;
 import ovh.kocproz.markpages.data.model.FileModel;
 import ovh.kocproz.markpages.data.model.UserModel;
@@ -16,7 +17,6 @@ import java.io.InputStream;
 import java.net.URLConnection;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author Hubertus
@@ -42,7 +42,7 @@ public class FileService {
         if (!allowedMimeTypes.contains(mimeType)) throw new IllegalMimeTypeException();
 
         if (name == null || name.length() < 3) {
-            name = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 8);
+            name = Util.randomString(8);
         }
         FileModel check = fileRepository.findFirstByName(name);
         if (check != null) throw new FilenameTakenException();

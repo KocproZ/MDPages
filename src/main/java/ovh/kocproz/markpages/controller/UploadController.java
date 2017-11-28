@@ -1,5 +1,6 @@
 package ovh.kocproz.markpages.controller;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,8 +51,8 @@ public class UploadController {
     public String postUpload(@RequestParam(name = "name") String name,
                              @RequestParam(name = "file") MultipartFile file,
                              @RequestParam(name = "visibility") Visibility visibility,
-                             Principal principal) {
-        UserModel user = userRepository.getByUsername(principal.getName());
+                             Authentication auth) {
+        UserModel user = userRepository.getByUsername(auth.getName());
         if (permissionService.canUpload(user)) {
             try {
                 name = fileService.save(file, name, user, visibility);
