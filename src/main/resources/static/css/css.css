@@ -1,4 +1,4 @@
-.shadowed, table.mdtable.striped > tbody, table.mdtable.striped > tbody > tr > td > .btn:hover, .mdcard {
+.shadowed, table.mdtable.striped > tbody, table.mdtable.striped > tbody > tr > td > .btn:hover {
   box-shadow: 1px 2px 13px 0px #000000; }
 
 body {
@@ -12,6 +12,42 @@ body {
 
 .nopadding {
   padding: 0 0 0 0 !important; }
+
+.input-field .prefix.active {
+  color: #38C999; }
+
+input[type=password]:not(.browser-default):focus:not([readonly]) {
+  border-bottom: #38C999;
+  box-shadow: 0 1px 0 0 #38C999; }
+
+input[type=password]:not(.browser-default):focus:not([readonly]) + label {
+  color: #38C999; }
+
+input[type=text]:not(.browser-default):focus:not([readonly]) {
+  border-bottom: #38C999;
+  border-bottom-color: #38C999;
+  box-shadow: 0 1px 0 0 #38C999; }
+
+input[type=text]:not(.browser-default):focus:not([readonly]) + label {
+  color: #38C999; }
+
+.input-field {
+  height: 64px; }
+
+.btn, .btn:hover {
+  background-color: #38C999; }
+
+[type="checkbox"]:checked + label::before {
+  border-right: 2px solid #F2F2F2;
+  border-bottom: 2px solid #F2F2F2; }
+
+a {
+  color: #38C999; }
+
+.center-in-div {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
 
 table.mdtable.striped > thead {
   border-bottom-style: none; }
@@ -39,6 +75,11 @@ table.mdtable.striped > tbody > tr {
 
 .mdcard {
   background-color: #636666; }
+.mdcard > form > .row > .input-field.col.m12 {
+  min-height: 66px;
+  width: 90%; }
+  .mdcard > form > .row > .input-field.col.m12 > input.btn {
+    background-color: #38C999; }
 
 .mdwrapper {
   background-color: #636666; }

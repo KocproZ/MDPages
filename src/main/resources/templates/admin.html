@@ -80,16 +80,20 @@
                         <form th:action="@{/admin/useradd}" method="post">
                             <div class="row">
                                 <div class="input-field col m12">
-                                    <input type="text" name="username"/>
-                                    <label> Username </label>
-                                </div>
-                                <div class="input-field col m12">
-                                    <input type="password" name="password"/>
-                                    <label> Password </label>
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <input id="icon_prefix" type="text" class="validate" name="username"/>
+                                    <label for="icon_prefix">Username</label>
                                 </div>
                             </div>
                             <div class="row">
-                                <input class="input-field btn col m10 offset-m1" type="submit" value="Create"/>
+                                <div class="input-field col m12">
+                                    <i class="material-icons prefix">lock</i>
+                                    <input id="icon_password" type="password" class="validate" name="password"/>
+                                    <label for="icon_prefix">Password</label>
+                                </div>
+                            </div>
+                            <div class="row center-in-div">
+                                <input class="waves-effect waves-light btn" type="submit" value="Create"/>
                             </div>
                         </form>
                     </div>
