@@ -17,7 +17,12 @@ public class FileModel {
     private Long id;
 
     @NotNull
+    @Column(nullable = false)
     private String name;
+
+    @NotNull
+    @Column(nullable = false)
+    private String code;
 
     @NotNull
     @ManyToOne
@@ -40,6 +45,14 @@ public class FileModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public UserModel getCreator() {

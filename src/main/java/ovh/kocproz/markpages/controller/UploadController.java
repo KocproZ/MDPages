@@ -2,16 +2,12 @@ package ovh.kocproz.markpages.controller;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ovh.kocproz.markpages.Visibility;
 import ovh.kocproz.markpages.data.model.FileModel;
 import ovh.kocproz.markpages.data.model.UserModel;
 import ovh.kocproz.markpages.data.repository.UserRepository;
-import ovh.kocproz.markpages.exception.FilenameTakenException;
 import ovh.kocproz.markpages.exception.IllegalMimeTypeException;
 import ovh.kocproz.markpages.service.FileService;
 import ovh.kocproz.markpages.service.PermissionService;
@@ -26,6 +22,7 @@ import java.security.Principal;
  * Created 18.11.2017
  */
 @Controller
+@RequestMapping("/files")
 public class UploadController {
 
     private final PermissionService permissionService;
@@ -35,12 +32,15 @@ public class UploadController {
     public UploadController(PermissionService permissionService,
                             UserRepository userRepository,
                             FileService fileService) {
-
         this.permissionService = permissionService;
         this.userRepository = userRepository;
         this.fileService = fileService;
     }
 
+    @GetMapping("")
+    public String files() {
+        return "redirect:/files/upload"; //TODO Some kind of files list
+    }
 
     @GetMapping("/upload")
     public String upload() {
@@ -55,25 +55,22 @@ public class UploadController {
         UserModel user = userRepository.getByUsername(auth.getName());
         if (permissionService.canUpload(user)) {
             try {
-                name = fileService.save(file, name, user, visibility);
-                return "redirect:/uploadComplete?name=" + name;
+                String fileCode = fileService.save(file, name, user, visibility);
+                return "redirect:/files/" + fileCode;
             } catch (IOException e) {
                 e.printStackTrace();
-                return "redirect:/upload?error";
-            } catch (FilenameTakenException e) {
-                return "redirect:/upload?filenameTaken";
-            }catch (IllegalMimeTypeException e){
-                return "redirect:/upload?illegalMimeType";
+                return "redirect:/files/upload?error";
+            } catch (IllegalMimeTypeException e) {
+                return "redirect:/files/upload?illegalMimeType";
             }
         }
-        return "redirect:/edit/upload?noPermission";
-
+        return "redirect:/files/upload?noPermission";
     }
 
-    @GetMapping("/file/{filename}")
-    public void showImage(@PathVariable String filename, HttpServletResponse response, Principal principal)
+    @GetMapping("/{filecode}")
+    public void showImage(@PathVariable String filecode, HttpServletResponse response, Principal principal)
             throws ServletException, IOException {
-        FileModel fileModel = fileService.getData(principal != null, filename);
+        FileModel fileModel = fileService.getData(principal != null, filecode);
         response.setContentType(fileModel.getMimeType());
         response.getOutputStream().write(fileModel.getData());
 

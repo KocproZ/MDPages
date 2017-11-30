@@ -3,10 +3,7 @@ package ovh.kocproz.markpages.controller;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ovh.kocproz.markpages.Visibility;
 import ovh.kocproz.markpages.data.model.PageMaintainerModel;
 import ovh.kocproz.markpages.data.model.PageModel;
@@ -77,7 +74,7 @@ public class EditorController {
         }
     }
 
-    @RequestMapping("/add")
+    @PostMapping("/add")
     public String add(@RequestParam(name = "name") String pageName,
                       @RequestParam(name = "pageContent") String pageContent,
                       @RequestParam(name = "visibility") Visibility visibility,
@@ -92,7 +89,7 @@ public class EditorController {
         return String.format("redirect:/p/%s", page.getStringId());
     }
 
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public String update(@RequestParam(name = "stringId") String stringId,
                          @RequestParam(name = "name") String pageName,
                          @RequestParam(name = "pageContent") String pageContent,

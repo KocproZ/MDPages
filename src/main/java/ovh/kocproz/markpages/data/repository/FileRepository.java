@@ -9,5 +9,5 @@ import ovh.kocproz.markpages.data.model.FileModel;
  */
 public interface FileRepository extends JpaRepository<FileModel, Long> {
 
-    FileModel findFirstByName(String name);
+    FileModel findFirstByCode(String code);
 }

@@ -7,7 +7,6 @@ import ovh.kocproz.markpages.Visibility;
 import ovh.kocproz.markpages.data.model.FileModel;
 import ovh.kocproz.markpages.data.model.UserModel;
 import ovh.kocproz.markpages.data.repository.FileRepository;
-import ovh.kocproz.markpages.exception.FilenameTakenException;
 import ovh.kocproz.markpages.exception.IllegalMimeTypeException;
 import ovh.kocproz.markpages.exception.NotFoundException;
 
@@ -34,7 +33,7 @@ public class FileService {
         this.fileRepository = fileRepository;
     }
 
-    public String save(MultipartFile file, String name, UserModel creator, Visibility visibility) throws IOException, FilenameTakenException {
+    public String save(MultipartFile file, String name, UserModel creator, Visibility visibility) throws IOException {
         byte[] data = file.getBytes();
         InputStream is = new ByteArrayInputStream(data);
         String mimeType = URLConnection.guessContentTypeFromStream(is);
@@ -42,23 +41,22 @@ public class FileService {
         if (!allowedMimeTypes.contains(mimeType)) throw new IllegalMimeTypeException();
 
         if (name == null || name.length() < 3) {
-            name = Util.randomString(8);
+            name = "Name not given";
         }
-        FileModel check = fileRepository.findFirstByName(name);
-        if (check != null) throw new FilenameTakenException();
 
         FileModel fileModel = new FileModel();
         fileModel.setData(data);
         fileModel.setName(name);
+        fileModel.setCode(Util.randomString(8));
         fileModel.setCreator(creator);
         fileModel.setVisibility(visibility);
         fileModel.setMimeType(mimeType);
         fileRepository.save(fileModel);
-        return name;
+        return fileModel.getCode();
     }
 
-    public FileModel getData(boolean loggedIn, String name) {
-        FileModel fileModel = fileRepository.findFirstByName(name);
+    public FileModel getData(boolean loggedIn, String code) {
+        FileModel fileModel = fileRepository.findFirstByCode(code);
         if (fileModel == null || (fileModel.getVisibility() == Visibility.AUTHORIZED && !loggedIn))
             throw new NotFoundException();
         return fileModel;
