@@ -1,3 +1,6 @@
+.white-text {
+  color: #F2F2F2; }
+
 .shadowed, table.mdtable.striped > tbody, table.mdtable.striped > tbody > tr > td > .btn:hover {
   box-shadow: 1px 2px 13px 0px #000000; }
 
@@ -17,14 +20,12 @@ body {
   color: #38C999; }
 
 input[type=password]:not(.browser-default):focus:not([readonly]) {
-  border-bottom: #38C999;
   box-shadow: 0 1px 0 0 #38C999; }
 
 input[type=password]:not(.browser-default):focus:not([readonly]) + label {
   color: #38C999; }
 
 input[type=text]:not(.browser-default):focus:not([readonly]) {
-  border-bottom: #38C999;
   border-bottom-color: #38C999;
   box-shadow: 0 1px 0 0 #38C999; }
 
@@ -96,9 +97,13 @@ table.mdtable.striped > tbody > tr {
   .mdcard > form > .row > .input-field.col.m12 > input.btn {
     background-color: #38C999; }
 .mdcard > .card-image {
+  margin: 0 auto;
   width: 30vw;
   min-width: 300px;
   max-width: 500px; }
+.mdcard [type="checkbox"].filled-in:checked + label:after {
+  background-color: #38C999;
+  border: #38C999; }
 
 .mdwrapper {
   background-color: #636666; }

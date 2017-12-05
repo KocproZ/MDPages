@@ -32,3 +32,6 @@ $background: true;
   $color: #F2F2F2;
   @include colors($color,$type);
 }
+.white-text {
+  @include white-darker-1($font);
+}

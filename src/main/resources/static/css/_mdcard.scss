@@ -15,8 +15,14 @@
     }
   }
   >.card-image{
+    margin: 0 auto;
     width:30vw;
     min-width:300px;
     max-width: 500px;
+  }
+  [type="checkbox"].filled-in:checked+label:after {
+    $color: #38C999;
+    background-color: $color;
+    border: $color;
   }
 }
