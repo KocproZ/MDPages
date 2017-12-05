@@ -51,6 +51,21 @@ a {
   justify-content:center;
   align-items:center;
 }
+.fancyhr{
+  border: none;
+  -webkit-border-bottom-right-radius: 50px;
+  -webkit-border-bottom-left-radius: 50px;
+  -moz-border-radius-bottomright: 50px;
+  -moz-border-radius-bottomleft: 50px;
+  border-bottom-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  width: 95%;
+  height: 5px;
+  display: block;
+  box-shadow: 1px 1px 2px #0e0e0e;
+  @include mint-lighter-1($background);
+  margin: 10px auto;
+}
 @import 'mdtable';
 @import 'mdcard';
 @import 'mdwrapper';

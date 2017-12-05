@@ -49,6 +49,21 @@ a {
   justify-content: center;
   align-items: center; }
 
+.fancyhr {
+  border: none;
+  -webkit-border-bottom-right-radius: 50px;
+  -webkit-border-bottom-left-radius: 50px;
+  -moz-border-radius-bottomright: 50px;
+  -moz-border-radius-bottomleft: 50px;
+  border-bottom-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  width: 95%;
+  height: 5px;
+  display: block;
+  box-shadow: 1px 1px 2px #0e0e0e;
+  background-color: #38C999;
+  margin: 10px auto; }
+
 table.mdtable.striped > thead {
   border-bottom-style: none; }
 table.mdtable.striped > tbody > tr:nth-child(odd) {
@@ -80,6 +95,10 @@ table.mdtable.striped > tbody > tr {
   width: 90%; }
   .mdcard > form > .row > .input-field.col.m12 > input.btn {
     background-color: #38C999; }
+.mdcard > .card-image {
+  width: 30vw;
+  min-width: 300px;
+  max-width: 500px; }
 
 .mdwrapper {
   background-color: #636666; }

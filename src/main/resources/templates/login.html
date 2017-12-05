@@ -5,58 +5,42 @@
     <title>md pages | login</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/css/css.css" media="screen,projection"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
-<body>
-
-<div class="center center-align">
-
-    <div class="row">
-        <div class="col s4 offset-s4">
-            <div class="card">
-                <div class="card-image background blue">
-                    <img src="favicon.ico" style="width: 250px; margin: 0 auto; padding: 10px"/>
-                </div>
-                <div class="card-content">
-                    <form method="post">
-                        <div class='row'>
-                            <div class='input-field col s12'>
-                                <input class='validate' type='text' name='username' id='username'/>
-                                <label for='username'>Enter your username</label>
-                            </div>
-                        </div>
-
-                        <div class='row'>
-                            <div class='input-field col s12'>
-                                <input class='validate' type='password' name='password' id='password'/>
-                                <label for='password'>Enter your password</label>
-                            </div>
-                            <label style='float: right;'>
-                                <a class='pink-text' href='#!'><b>Forgot Password?</b></a>
-                            </label>
-                        </div>
-
-                        <div class="row">
-                            <p class="col s12">
-                                <input type="checkbox" id="remember-me" name="remember-me"/>
-                                <label for="remember-me">Remember me</label>
-                            </p>
-                        </div>
-                        <div class="row">
-                            <div class="col s12">
-                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                                <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect'>
-                                    Login
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+<body class="center-in-div">
+<div class="row">
+    <div class="m12 col card mdcard ">
+        <div class="card-image">
+            <a href="/">
+                <img src="/img/mdp.png" style="margin: 0 auto; padding: 10px"/>
+            </a>
+        </div>
+        <hr class="fancyhr"/>
+        <form method="post">
+            <div class="row">
+                <div class="input-field col m12">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input id="icon_prefix" type="text" class="validate" name="username"/>
+                    <label for="icon_prefix" class="">Username</label>
                 </div>
             </div>
-        </div>
+            <div class="row">
+                <div class="input-field col m12">
+                    <i class="material-icons prefix">lock</i>
+                    <input id="icon_password" type="password" class="validate" name="password"/>
+                    <label for="icon_prefix">Password</label>
+                </div>
+            </div>
+            <div class="row center-in-div">
+                <i class="waves-effect waves-light btn waves-input-wrapper" style="">
+                    <input class="waves-button-input" type="submit" value="Zaloguj"/>
+                </i>
+            </div>
+            <input type="hidden" name="_csrf" value="3499bd8a-c75a-4086-b031-410958e909d5"/>
+        </form>
     </div>
 </div>
-
 <div th:if="${param.error}">
     Invalid username or password.
 </div>
