@@ -1,8 +1,14 @@
 @import 'colors';
+html {
+  margin: 0;
+  padding: 0;
+}
 .shadowed {
   box-shadow: 1px 2px 13px 0px #000000;
 }
 body {
+  width:100%;
+  height:100%;
   @include grey-lighter-1($background);
   @include white-darker-1($font);
 }
@@ -30,6 +36,9 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
 input[type=text]:not(.browser-default):focus:not([readonly])+label {
   @include mint-lighter-1($font);
 }
+.input-field .prefix ~ input {
+  width: calc(100% - 5rem);
+}
 
 .input-field {
   height:64px;
@@ -40,6 +49,11 @@ input[type=text]:not(.browser-default):focus:not([readonly])+label {
 [type="checkbox"]:checked + label::before {
   border-right: 2px solid #F2F2F2;
   border-bottom: 2px solid #F2F2F2;
+}
+[type="checkbox"].filled-in:checked+label:after {
+  $color: #38C999;
+  background-color: $color;
+  border: $color;
 }
 a {
   @include mint-lighter-1($font);
@@ -57,15 +71,21 @@ a {
   -moz-border-radius-bottomleft: 50px;
   border-bottom-right-radius: 50px;
   border-bottom-left-radius: 50px;
-  width: 95%;
+  width: 90%;
   height: 5px;
   display: block;
   box-shadow: 1px 1px 2px #0e0e0e;
   @include mint-lighter-1($background);
   margin: 10px auto;
 }
+@media(max-width: 600px){
+  .toast {
+    position: fixed;
+  }
+}
 @import 'mdtable';
 @import 'mdcard';
 @import 'mdwrapper';
 @import 'mdpagination';
 @import 'mdselect-wrapper';
+@import 'login-panel';

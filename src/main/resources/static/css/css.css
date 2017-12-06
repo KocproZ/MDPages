@@ -1,10 +1,16 @@
 .white-text {
   color: #F2F2F2; }
 
+html {
+  margin: 0;
+  padding: 0; }
+
 .shadowed, table.mdtable.striped > tbody, table.mdtable.striped > tbody > tr > td > .btn:hover {
   box-shadow: 1px 2px 13px 0px #000000; }
 
 body {
+  width: 100%;
+  height: 100%;
   background-color: #757B7F;
   color: #F2F2F2; }
 
@@ -32,6 +38,9 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
 input[type=text]:not(.browser-default):focus:not([readonly]) + label {
   color: #38C999; }
 
+.input-field .prefix ~ input {
+  width: calc(100% - 5rem); }
+
 .input-field {
   height: 64px; }
 
@@ -41,6 +50,10 @@ input[type=text]:not(.browser-default):focus:not([readonly]) + label {
 [type="checkbox"]:checked + label::before {
   border-right: 2px solid #F2F2F2;
   border-bottom: 2px solid #F2F2F2; }
+
+[type="checkbox"].filled-in:checked + label:after {
+  background-color: #38C999;
+  border: #38C999; }
 
 a {
   color: #38C999; }
@@ -58,13 +71,16 @@ a {
   -moz-border-radius-bottomleft: 50px;
   border-bottom-right-radius: 50px;
   border-bottom-left-radius: 50px;
-  width: 95%;
+  width: 90%;
   height: 5px;
   display: block;
   box-shadow: 1px 1px 2px #0e0e0e;
   background-color: #38C999;
   margin: 10px auto; }
 
+@media (max-width: 600px) {
+  .toast {
+    position: fixed; } }
 table.mdtable.striped > thead {
   border-bottom-style: none; }
 table.mdtable.striped > tbody > tr:nth-child(odd) {
@@ -131,5 +147,25 @@ table.mdtable.striped > tbody > tr {
     color: #F2F2F2; }
 .mdselect-wrapper > .select-wrapper > .select-dropdown {
   margin: 0 !important; }
+
+.login-panel {
+  margin: 50px auto 0 auto;
+  padding: 15px;
+  background-color: #636666;
+  max-width: 600px; }
+  @media (max-width: 600px) {
+    .login-panel {
+      margin-top: 0;
+      width: 100%; }
+      .login-panel .col.s12.m6.center-in-div {
+        margin-bottom: 15px; }
+      .login-panel .btn {
+        width: 90%; } }
+  .login-panel > .image {
+    max-width: 350px;
+    padding: 15px;
+    margin: 0 auto; }
+    .login-panel > .image img {
+      width: 100%; }
 
 /*# sourceMappingURL=css.css.map */

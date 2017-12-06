@@ -1,0 +1,24 @@
+.login-panel{
+  margin: 50px auto 0 auto;
+  padding: 15px;
+  @include mint-darker-1($background);
+  @media(max-width: 600px) {
+    margin-top: 0;
+    width: 100%;
+    .col.s12.m6.center-in-div {
+      margin-bottom: 15px;
+    }
+    .btn {
+      width: 90%;
+    }
+  }
+  max-width: 600px;
+  >.image {
+    max-width: 350px;
+    padding: 15px;
+    margin: 0 auto;
+    img {
+      width: 100%;
+    }
+  }
+}
