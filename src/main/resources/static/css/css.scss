@@ -20,40 +20,8 @@ body {
 .nopadding {
   padding: 0 0 0 0!important;
 }
-.input-field .prefix.active {
-  @include mint-lighter-1($font);
-}
-input[type=password]:not(.browser-default):focus:not([readonly]){
-  box-shadow:0 1px 0 0 #38C999;
-}
-input[type=password]:not(.browser-default):focus:not([readonly])+label {
-  @include mint-lighter-1($font);
-}
-input[type=text]:not(.browser-default):focus:not([readonly]) {
-  border-bottom-color:#38C999;
-  box-shadow:0 1px 0 0 #38C999;
-}
-input[type=text]:not(.browser-default):focus:not([readonly])+label {
-  @include mint-lighter-1($font);
-}
-.input-field .prefix ~ input {
-  width: calc(100% - 5rem);
-}
-
-.input-field {
-  height:64px;
-}
 .btn,.btn:hover {
   @include mint-lighter-1($background);
-}
-[type="checkbox"]:checked + label::before {
-  border-right: 2px solid #F2F2F2;
-  border-bottom: 2px solid #F2F2F2;
-}
-[type="checkbox"].filled-in:checked+label:after {
-  $color: #38C999;
-  background-color: $color;
-  border: $color;
 }
 a {
   @include mint-lighter-1($font);
@@ -83,9 +51,14 @@ a {
     position: fixed;
   }
 }
+.btn:focus {
+  background-color: #4EBF99;
+}
+
 @import 'mdtable';
 @import 'mdcard';
 @import 'mdwrapper';
 @import 'mdpagination';
 @import 'mdselect-wrapper';
 @import 'login-panel';
+@import 'mdinput';

@@ -1,0 +1,31 @@
+[type="checkbox"]:checked + label::before {
+  border-right: 2px solid #F2F2F2;
+  border-bottom: 2px solid #F2F2F2;
+}
+[type="checkbox"].filled-in:checked+label:after {
+  $color: #38C999;
+  background-color: $color;
+  border: $color;
+}
+input[type=password]:not(.browser-default):focus:not([readonly]){
+  box-shadow:0 1px 0 0 #38C999;
+}
+input[type=password]:not(.browser-default):focus:not([readonly])+label {
+  @include mint-lighter-1($font);
+}
+input[type=text]:not(.browser-default):focus:not([readonly]) {
+  border-bottom-color:#38C999;
+  box-shadow:0 1px 0 0 #38C999;
+}
+input[type=text]:not(.browser-default):focus:not([readonly])+label {
+  @include mint-lighter-1($font);
+}
+.input-field .prefix.active {
+  @include mint-lighter-1($font);
+}
+.input-field {
+  height:64px;
+}
+.input-field .prefix ~ input {
+  width: calc(100% - 6rem);
+}
