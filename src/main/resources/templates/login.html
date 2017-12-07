@@ -42,9 +42,7 @@
                                 </p>
                             </div>
                             <div class="col s12 m6 center-in-div">
-                                <i class="waves-effect waves-light btn waves-input-wrapper">
-                                    <input class="waves-button-input" type="submit" value="Zaloguj"/>
-                                </i>
+                                <input class="btn" type="submit" value="Zaloguj"/>
                             </div>
                         </div>
                     </div>
@@ -56,7 +54,7 @@
 
     <div th:if="${param.error}">
         <script>
-            Materialize.toast('Invalid username or password.', 40000000)
+            Materialize.toast('Invalid username or password.', 4000)
         </script>
     </div>
     <div th:if="${param.logout}">

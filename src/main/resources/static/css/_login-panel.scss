@@ -4,13 +4,23 @@
   @include mint-darker-1($background);
   @media(max-width: 600px) {
     margin-top: 0;
+    padding-top:0;
+    padding-bottom:0;
     width: 100%;
     .col.s12.m6.center-in-div {
       margin-bottom: 15px;
     }
+    .row {
+      margin-bottom: 0;
+    }
     .btn {
       width: 90%;
     }
+  }
+  @media (min-width: 600px) {
+    height: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
   }
   max-width: 600px;
   >.image {
