@@ -24,9 +24,10 @@
     </div>
 
     <script src="/js/showdown.min.js"></script>
+    <script src="/js/showdownExtensions.js"></script>
     <script src="/js/highlight.min.js"></script>
     <script th:inline="javascript">
-        var converter = new showdown.Converter();
+        var converter = new showdown.Converter({extensions: ['audio']});
         converter.setOption('tasklists', true);
         converter.setOption('ghCodeBlocks', true);
         converter.setOption('tables', true);

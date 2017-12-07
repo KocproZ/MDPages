@@ -86,6 +86,7 @@
     </div>
 
     <script src="/js/showdown.min.js"></script>
+    <script src="/js/showdownExtensions.js"></script>
     <script src="/js/highlight.min.js"></script>
     <script src="/js/jquery.materialize-autocomplete.min.js"></script>
     <script src="/js/ace/ace.js"></script>
@@ -101,8 +102,8 @@
         editor.session.setMode("ace/mode/markdown");
         editor.on('change', update);
 
-        function update(e) {
-            var converter = new showdown.Converter();
+        function update() {
+            var converter = new showdown.Converter({extensions: ['audio']});
             converter.setOption('tasklists', true);
             converter.setOption('ghCodeBlocks', true);
             converter.setOption('tables', true);
