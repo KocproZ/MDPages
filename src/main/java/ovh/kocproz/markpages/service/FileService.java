@@ -65,4 +65,12 @@ public class FileService {
         return fileModel;
     }
 
+    public List<FileModel> getFiles() {
+        return fileRepository.findAll();
+    }
+
+    public List<FileModel> getFiles(Visibility visibility) {
+        return fileRepository.findAllByVisibility(visibility);
+    }
+
 }

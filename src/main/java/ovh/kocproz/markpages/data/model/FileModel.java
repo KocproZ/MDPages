@@ -22,7 +22,7 @@ public class FileModel {
     private String name;
 
     @NotNull
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true, length = 8)
     private String code;
 
     @NotNull

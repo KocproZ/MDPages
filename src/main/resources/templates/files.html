@@ -1,0 +1,22 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorator="fragments/layout">
+
+<div layout:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col m12">
+                <ul th:each="f : ${files}">
+                    <li class="row">
+                        <a class="col m6" th:text="${f.getName()}" th:href="@{/files/{code}(code=${f.getCode()})}"></a>
+                        <i class="col m4" th:text="${f.getCode()}"></i>
+                        <i class="col m2"
+                           th:text="'Last edited: ' + ${f.lastEdited}"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
+

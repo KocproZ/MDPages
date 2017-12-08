@@ -2,6 +2,7 @@ package ovh.kocproz.markpages.controller;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ovh.kocproz.markpages.MultipartFileSender;
@@ -40,8 +41,12 @@ public class UploadController {
     }
 
     @GetMapping("")
-    public String files() {
-        return "redirect:/files/upload"; //TODO Some kind of files list
+    public String files(Model m, Authentication auth) {
+        if (auth != null)
+            m.addAttribute("files", fileService.getFiles());
+        else
+            m.addAttribute("files", fileService.getFiles(Visibility.PUBLIC));
+        return "files";
     }
 
     @GetMapping("/upload")
@@ -69,7 +74,7 @@ public class UploadController {
         return "redirect:/files/upload?noPermission";
     }
 
-    @GetMapping("/{filecode}")
+    @RequestMapping("/{filecode}")
     public void showImage(@PathVariable String filecode, HttpServletRequest request,
                           HttpServletResponse response, Authentication auth)
             throws ServletException, IOException {
