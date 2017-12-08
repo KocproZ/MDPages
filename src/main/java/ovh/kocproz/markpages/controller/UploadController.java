@@ -4,18 +4,20 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ovh.kocproz.markpages.MultipartFileSender;
 import ovh.kocproz.markpages.Visibility;
 import ovh.kocproz.markpages.data.model.FileModel;
 import ovh.kocproz.markpages.data.model.UserModel;
 import ovh.kocproz.markpages.data.repository.UserRepository;
 import ovh.kocproz.markpages.exception.IllegalMimeTypeException;
+import ovh.kocproz.markpages.exception.NotFoundException;
 import ovh.kocproz.markpages.service.FileService;
 import ovh.kocproz.markpages.service.PermissionService;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.Principal;
 
 /**
  * @author Hubertus
@@ -68,12 +70,19 @@ public class UploadController {
     }
 
     @GetMapping("/{filecode}")
-    public void showImage(@PathVariable String filecode, HttpServletResponse response, Principal principal)
+    public void showImage(@PathVariable String filecode, HttpServletRequest request,
+                          HttpServletResponse response, Authentication auth)
             throws ServletException, IOException {
-        FileModel fileModel = fileService.getData(principal != null, filecode);
-        response.setContentType(fileModel.getMimeType());
-        response.getOutputStream().write(fileModel.getData());
-
-        response.getOutputStream().close();
+        try {
+            FileModel fileModel = fileService.getFileModel(filecode);
+            if (auth != null)
+                MultipartFileSender.data(fileModel).with(request).with(response).serveResource();
+            else
+                response.sendRedirect("/");
+        } catch (NotFoundException e) {
+            response.sendRedirect("/");
+        } catch (IOException e) {
+            response.sendRedirect("/");
+        }
     }
 }

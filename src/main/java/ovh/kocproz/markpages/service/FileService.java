@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLConnection;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,6 +48,7 @@ public class FileService {
         FileModel fileModel = new FileModel();
         fileModel.setData(data);
         fileModel.setName(name);
+        fileModel.setLastEdited(new Date());
         fileModel.setCode(Util.randomString(8));
         fileModel.setCreator(creator);
         fileModel.setVisibility(visibility);
@@ -55,10 +57,11 @@ public class FileService {
         return fileModel.getCode();
     }
 
-    public FileModel getData(boolean loggedIn, String code) {
+    public FileModel getFileModel(String code) throws NotFoundException {
         FileModel fileModel = fileRepository.findFirstByCode(code);
-        if (fileModel == null || (fileModel.getVisibility() == Visibility.AUTHORIZED && !loggedIn))
+        if (fileModel == null)
             throw new NotFoundException();
+
         return fileModel;
     }
 

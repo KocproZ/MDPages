@@ -4,6 +4,7 @@ import ovh.kocproz.markpages.Visibility;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * @author Hubertus
@@ -31,6 +32,10 @@ public class FileModel {
     @NotNull
     @Column(name = "data", columnDefinition = "LONGBLOB")
     private byte[] data;
+
+    @NotNull
+    @Column(name = "lastEdited", columnDefinition = "DATETIME", nullable = false)
+    private Date lastEdited;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -85,6 +90,14 @@ public class FileModel {
 
     public void setVisibility(Visibility visibility) {
         this.visibility = visibility;
+    }
+
+    public void setLastEdited(Date lastEdited) {
+        this.lastEdited = lastEdited;
+    }
+
+    public Date getLastEdited() {
+        return lastEdited;
     }
 
     public String getMimeType() {

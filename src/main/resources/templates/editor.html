@@ -96,7 +96,8 @@
         var editor = ace.edit("editor");
         editor.setOptions({
             maxLines: Infinity,
-            minLines: 32    //TODO: This is arbitrary number
+            minLines: 32,    //TODO: This is arbitrary number
+            wrap: true
         });
         editor.setTheme("ace/theme/twilight");
         editor.session.setMode("ace/mode/markdown");
