@@ -62,7 +62,7 @@ public class UploadController {
         UserModel user = userRepository.getByUsername(auth.getName());
         if (permissionService.canUpload(user)) {
             try {
-                String fileCode = fileService.save(file, name, user, visibility);
+                String fileCode = fileService.saveFile(file, name, user, visibility).getCode();
                 return "redirect:/files/" + fileCode;
             } catch (IOException e) {
                 e.printStackTrace();

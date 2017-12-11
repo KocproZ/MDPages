@@ -1,7 +1,5 @@
 package ovh.kocproz.markpages;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ovh.kocproz.markpages.data.model.FileModel;
 
 import javax.servlet.ServletOutputStream;
@@ -22,15 +20,13 @@ import java.util.List;
  */
 public class MultipartFileSender {
 
-    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
-
     private static final int DEFAULT_BUFFER_SIZE = 20480; // ..bytes = 20KB.
     private static final long DEFAULT_EXPIRE_TIME = 604800000L; // ..ms = 1 week.
     private static final String MULTIPART_BOUNDARY = "MULTIPART_BYTERANGES";
 
-    FileModel file;
-    HttpServletRequest request;
-    HttpServletResponse response;
+    private FileModel file;
+    private HttpServletRequest request;
+    private HttpServletResponse response;
 
     public MultipartFileSender() {
     }
@@ -169,17 +165,15 @@ public class MultipartFileSender {
             contentType = "application/octet-stream";
         } else if (!contentType.startsWith("image")) {
             // Else, expect for images, determine content disposition. If content type is supported by
-            // the browser, then set to inline, else attachment which will pop a 'save as' dialogue.
+            // the browser, then set to inline, else attachment which will pop a 'saveFile as' dialogue.
             String accept = request.getHeader("Accept");
             disposition = accept != null && HttpUtils.accepts(accept, contentType) ? "inline" : "attachment";
         }
-        logger.debug("Content-Type : {}", contentType);
         // Initialize response.
         response.reset();
         response.setBufferSize(DEFAULT_BUFFER_SIZE);
         response.setHeader("Content-Type", contentType);
         response.setHeader("Content-Disposition", disposition + ";fileName=\"" + fileName + "\"");
-        logger.debug("Content-Disposition : {}", disposition);
         response.setHeader("Accept-Ranges", "bytes");
         response.setHeader("ETag", fileName);
         response.setDateHeader("Last-Modified", lastModified);
@@ -194,7 +188,6 @@ public class MultipartFileSender {
             if (ranges.isEmpty() || ranges.get(0) == full) {
 
                 // Return full file.
-                logger.info("Return full file");
                 response.setContentType(contentType);
                 response.setHeader("Content-Range", "bytes " + full.start + "-" + full.end + "/" + full.total);
                 response.setHeader("Content-Length", String.valueOf(full.length));
@@ -204,7 +197,6 @@ public class MultipartFileSender {
 
                 // Return single part of file.
                 Range r = ranges.get(0);
-                logger.info("Return 1 part of file : from ({}) to ({})", r.start, r.end);
                 response.setContentType(contentType);
                 response.setHeader("Content-Range", "bytes " + r.start + "-" + r.end + "/" + r.total);
                 response.setHeader("Content-Length", String.valueOf(r.length));
@@ -224,7 +216,6 @@ public class MultipartFileSender {
 
                 // Copy multi part range.
                 for (Range r : ranges) {
-                    logger.info("Return multi part of file : from ({}) to ({})", r.start, r.end);
                     // Add multipart boundary and header fields for every range.
                     sos.println();
                     sos.println("--" + MULTIPART_BOUNDARY);
