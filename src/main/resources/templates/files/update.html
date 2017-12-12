@@ -5,20 +5,21 @@
     <title>upload</title>
 </head>
 <body>
-<form method="post" th:action="@{/files/upload}" enctype="multipart/form-data" th:object="${fileUploadDTO}">
+<form method="post" th:action="@{/files/update}" enctype="multipart/form-data" th:object="${fileUploadDTO}">
 
+    <input type="hidden" name="code" th:value="${file.code}"/>
     <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
     <br/>
-    <input type="text" name="name" th:field="*{name}"/><br/>
+    <input type="text" name="name" th:field="*{name}" th:text="${file.name}"/><br/>
     <td th:if="${#fields.hasErrors('fileProvided')}" th:errors="*{fileProvided}">File Error</td>
     <br/>
     <input type="file" name="file" th:field="*{file}"/><br/>
     <select name="visibility">
-        <option value="PUBLIC">
-            Public
+        <option value="PUBLIC"
+                th:selected="${file.visibility eq T(ovh.kocproz.markpages.Visibility).PUBLIC}"> Public
         </option>
-        <option value="AUTHORIZED">
-            Authorized
+        <option value="AUTHORIZED"
+                th:selected="${file.visibility eq T(ovh.kocproz.markpages.Visibility).AUTHORIZED}"> Authorized
         </option>
     </select><br/>
     <input type="submit"/>

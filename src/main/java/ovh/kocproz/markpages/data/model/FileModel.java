@@ -18,7 +18,7 @@ public class FileModel {
     private Long id;
 
     @NotNull
-    @Column(nullable = false)
+    @Column(nullable = false, length = 128)
     private String name;
 
     @NotNull

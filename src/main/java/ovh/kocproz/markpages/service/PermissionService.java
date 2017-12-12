@@ -4,10 +4,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import ovh.kocproz.markpages.Permission;
-import ovh.kocproz.markpages.data.model.PageMaintainerModel;
-import ovh.kocproz.markpages.data.model.PageModel;
-import ovh.kocproz.markpages.data.model.PermissionModel;
-import ovh.kocproz.markpages.data.model.UserModel;
+import ovh.kocproz.markpages.data.model.*;
 import ovh.kocproz.markpages.data.repository.PageMaintainerRepository;
 import ovh.kocproz.markpages.data.repository.UserRepository;
 
@@ -59,6 +56,10 @@ public class PermissionService {
 
     public boolean canUpload(UserModel user){
         return hasPermission(user, Permission.UPLOAD);
+    }
+
+    public boolean canUpdateFile(UserModel u, FileModel f) {
+        return hasPermission(u, Permission.MODERATE) || f.getCreator().equals(u);
     }
 
     public PageMaintainerModel.Role getRole(String pageStringId, String user) {

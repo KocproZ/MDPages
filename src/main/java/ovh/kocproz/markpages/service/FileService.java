@@ -65,6 +65,8 @@ public class FileService {
         fileModel.setVisibility(visibility);
         fileModel.setMimeType(mimeType);
         fileModel.setCode(code);
+        if (exists)
+            fileRepository.save(fileModel);
 
         return fileModel;
     }

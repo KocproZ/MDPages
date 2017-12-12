@@ -3,10 +3,11 @@ package ovh.kocproz.markpages.controller;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import ovh.kocproz.markpages.MultipartFileSender;
 import ovh.kocproz.markpages.Visibility;
+import ovh.kocproz.markpages.data.dto.FileUploadDTO;
 import ovh.kocproz.markpages.data.model.FileModel;
 import ovh.kocproz.markpages.data.model.UserModel;
 import ovh.kocproz.markpages.data.repository.UserRepository;
@@ -18,6 +19,7 @@ import ovh.kocproz.markpages.service.PermissionService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 
 /**
@@ -50,19 +52,21 @@ public class FilesController {
     }
 
     @GetMapping("/upload")
-    public String upload() {
+    public String upload(FileUploadDTO fileUploadDTO) {
         return "files/upload";
     }
 
-    @PostMapping(path = "/upload")
-    public String postUpload(@RequestParam(name = "name") String name,
-                             @RequestParam(name = "file") MultipartFile file,
-                             @RequestParam(name = "visibility") Visibility visibility,
+    @PostMapping(path = "/upload", headers = "content-type=multipart/*")
+    public String postUpload(@Valid FileUploadDTO formData,
+                             BindingResult bindingResult,
                              Authentication auth) {
+        if (bindingResult.hasErrors())
+            return "files/upload";
         UserModel user = userRepository.getByUsername(auth.getName());
         if (permissionService.canUpload(user)) {
             try {
-                String fileCode = fileService.saveFile(file, name, user, visibility).getCode();
+                String fileCode = fileService.saveFile(formData.getFile(),
+                        formData.getName(), user, formData.getVisibility()).getCode();
                 return "redirect:/files/" + fileCode;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -72,6 +76,38 @@ public class FilesController {
             }
         }
         return "redirect:/files/upload?noPermission";
+    }
+
+    @PostMapping(path = "/update", headers = "content-type=multipart/*")
+    public String postUpdate(@Valid FileUploadDTO formData,
+                             BindingResult bindingResult,
+                             Authentication auth) {
+        if (bindingResult.hasErrors())
+            return "files/upload";
+        UserModel user = userRepository.getByUsername(auth.getName());
+        FileModel file = fileService.getFileModel(formData.getCode());
+        if (permissionService.canUpload(user) && permissionService.canUpdateFile(user, file)) {
+            try {
+                String fileCode = fileService.updateFile(formData.getFile(),
+                        formData.getCode(), formData.getName(), formData.getVisibility()).getCode();
+                return "redirect:/files/" + fileCode;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "redirect:/files/upload?error";
+            } catch (IllegalMimeTypeException e) {
+                return "redirect:/files/upload?illegalMimeType";
+            }
+        }
+        return "redirect:/files/upload?noPermission";
+    }
+
+    @GetMapping("/update")
+    public String update(FileUploadDTO fileUploadDTO,
+                         @RequestParam(name = "code") String code,
+                         Model m) {
+        FileModel fileModel = fileService.getFileModel(code);
+        m.addAttribute("file", fileModel);
+        return "files/update";
     }
 
     @RequestMapping("/{filecode}")
