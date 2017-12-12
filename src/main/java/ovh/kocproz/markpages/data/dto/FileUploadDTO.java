@@ -4,6 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ovh.kocproz.markpages.Visibility;
 
 import javax.validation.constraints.AssertFalse;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -18,6 +19,7 @@ public class FileUploadDTO {
     private boolean fileProvided;
     @NotNull
     private Visibility visibility;
+    private boolean visibilityValid;
 
     public String getName() {
         return name;
@@ -59,9 +61,22 @@ public class FileUploadDTO {
         this.visibility = visibility;
     }
 
+    public void setVisibilityValid(boolean visibilityValid) {
+        this.visibilityValid = visibilityValid;
+    }
+
+    public boolean getVisibilityValid() {
+        return visibilityValid;
+    }
+
     @AssertFalse(message = "File must be provided")
     public boolean isFileProvided() {
         return file != null && file.isEmpty();
+    }
+
+    @AssertTrue(message = "Invalid visibility value")
+    public boolean isVisibilityValid() {
+        return visibility == Visibility.PUBLIC || visibility == Visibility.AUTHORIZED;
     }
 
     @Override

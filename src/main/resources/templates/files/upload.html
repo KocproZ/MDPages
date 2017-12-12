@@ -13,14 +13,16 @@
     <td th:if="${#fields.hasErrors('fileProvided')}" th:errors="*{fileProvided}">File Error</td>
     <br/>
     <input type="file" name="file" th:field="*{file}"/><br/>
-    <select name="visibility">
+    <select name="visibility" th:field="*{visibility}">
         <option value="PUBLIC">
             Public
         </option>
         <option value="AUTHORIZED">
             Authorized
         </option>
-    </select><br/>
+    </select>
+    <td th:if="${#fields.hasErrors('visibilityValid')}" th:errors="*{visibilityValid}">File Error</td>
+    <br/>
     <input type="submit"/>
 </form>
 </body>

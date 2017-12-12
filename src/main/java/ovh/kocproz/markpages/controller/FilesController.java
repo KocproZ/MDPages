@@ -111,15 +111,15 @@ public class FilesController {
     }
 
     @RequestMapping("/{filecode}")
-    public void showImage(@PathVariable String filecode, HttpServletRequest request,
+    public void serveFile(@PathVariable String filecode, HttpServletRequest request,
                           HttpServletResponse response, Authentication auth)
             throws ServletException, IOException {
         try {
             FileModel fileModel = fileService.getFileModel(filecode);
-            if (auth != null)
+            if (fileModel.getVisibility() == Visibility.PUBLIC)
                 MultipartFileSender.data(fileModel).with(request).with(response).serveResource();
-            else
-                response.sendRedirect("/");
+            else if (auth != null)
+                MultipartFileSender.data(fileModel).with(request).with(response).serveResource();
         } catch (NotFoundException e) {
             response.sendRedirect("/");
         } catch (IOException e) {
