@@ -26,15 +26,15 @@ import java.io.IOException;
  */
 @Controller
 @RequestMapping("/files")
-public class UploadController {
+public class FilesController {
 
     private final PermissionService permissionService;
     private final UserRepository userRepository;
     private final FileService fileService;
 
-    public UploadController(PermissionService permissionService,
-                            UserRepository userRepository,
-                            FileService fileService) {
+    public FilesController(PermissionService permissionService,
+                           UserRepository userRepository,
+                           FileService fileService) {
         this.permissionService = permissionService;
         this.userRepository = userRepository;
         this.fileService = fileService;
@@ -46,15 +46,15 @@ public class UploadController {
             m.addAttribute("files", fileService.getFiles());
         else
             m.addAttribute("files", fileService.getFiles(Visibility.PUBLIC));
-        return "files";
+        return "files/list";
     }
 
     @GetMapping("/upload")
     public String upload() {
-        return "upload";
+        return "files/upload";
     }
 
-    @PostMapping(path = "/upload", headers = "content-type=multipart/*")
+    @PostMapping(path = "/upload")
     public String postUpload(@RequestParam(name = "name") String name,
                              @RequestParam(name = "file") MultipartFile file,
                              @RequestParam(name = "visibility") Visibility visibility,
