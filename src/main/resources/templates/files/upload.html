@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>upload</title>
+</head>
+<body>
+<form method="post" th:action="@{/files/upload}" enctype="multipart/form-data" th:object="${fileUploadDTO}">
+
+    <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+    <br/>
+    <input type="text" name="name" th:field="*{name}"/><br/>
+    <td th:if="${#fields.hasErrors('fileProvided')}" th:errors="*{fileProvided}">File Error</td>
+    <br/>
+    <input type="file" name="file" th:field="*{file}"/><br/>
+    <select name="visibility" th:field="*{visibility}">
+        <option value="PUBLIC">
+            Public
+        </option>
+        <option value="AUTHORIZED">
+            Authorized
+        </option>
+    </select>
+    <td th:if="${#fields.hasErrors('visibilityValid')}" th:errors="*{visibilityValid}">File Error</td>
+    <br/>
+    <input type="submit"/>
+</form>
+</body>
+</html>

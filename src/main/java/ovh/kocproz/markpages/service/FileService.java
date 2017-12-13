@@ -25,7 +25,8 @@ import java.util.List;
 @Service
 public class FileService {
 
-    private static List<String> allowedMimeTypes = Arrays.asList("image/gif", "image/jpeg", "image/png", "image/tiff", "audio/mpeg", "audio/x-wav");
+    private static List<String> allowedMimeTypes = Arrays
+            .asList("image/gif", "image/jpeg", "image/png", "image/tiff", "audio/mpeg", "audio/x-wav", "audio/mp3");
 
     private FileRepository fileRepository;
 
@@ -34,27 +35,40 @@ public class FileService {
         this.fileRepository = fileRepository;
     }
 
-    public String save(MultipartFile file, String name, UserModel creator, Visibility visibility) throws IOException {
-        byte[] data = file.getBytes();
-        InputStream is = new ByteArrayInputStream(data);
-        String mimeType = URLConnection.guessContentTypeFromStream(is);
-
-        if (!allowedMimeTypes.contains(mimeType)) throw new IllegalMimeTypeException();
-
+    public FileModel saveFile(MultipartFile file, String name, UserModel creator, Visibility visibility) throws IOException {
         if (name == null || name.length() < 3) {
             name = "Name not given";
         }
 
-        FileModel fileModel = new FileModel();
-        fileModel.setData(data);
-        fileModel.setName(name);
-        fileModel.setLastEdited(new Date());
-        fileModel.setCode(Util.randomString(8));
+        String code = Util.randomString(8);
+
+        FileModel fileModel = updateFile(file, code, name, visibility);
         fileModel.setCreator(creator);
+        fileRepository.save(fileModel);
+        return fileModel;
+    }
+
+    public FileModel updateFile(MultipartFile file, String code, String name, Visibility visibility) throws IOException {
+        byte[] data = file.getBytes();
+        InputStream is = new ByteArrayInputStream(data);
+        String mimeType = URLConnection.guessContentTypeFromStream(is);
+        if (!allowedMimeTypes.contains(mimeType)) throw new IllegalMimeTypeException();
+
+        FileModel fileModel = fileRepository.findFirstByCode(code);
+        boolean exists = fileModel != null;
+        if (!exists)
+            fileModel = new FileModel();
+
+        fileModel.setName(name);
+        fileModel.setData(data);
+        fileModel.setLastEdited(new Date());
         fileModel.setVisibility(visibility);
         fileModel.setMimeType(mimeType);
-        fileRepository.save(fileModel);
-        return fileModel.getCode();
+        fileModel.setCode(code);
+        if (exists)
+            fileRepository.save(fileModel);
+
+        return fileModel;
     }
 
     public FileModel getFileModel(String code) throws NotFoundException {
