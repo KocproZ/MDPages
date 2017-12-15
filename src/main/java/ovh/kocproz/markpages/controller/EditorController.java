@@ -3,8 +3,10 @@ package ovh.kocproz.markpages.controller;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ovh.kocproz.markpages.Visibility;
+import ovh.kocproz.markpages.data.dto.PageFormDTO;
 import ovh.kocproz.markpages.data.model.PageMaintainerModel;
 import ovh.kocproz.markpages.data.model.PageModel;
 import ovh.kocproz.markpages.data.model.TagModel;
@@ -17,6 +19,7 @@ import ovh.kocproz.markpages.service.EditService;
 import ovh.kocproz.markpages.service.PermissionService;
 import ovh.kocproz.markpages.service.TagService;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 import java.util.Set;
@@ -50,7 +53,7 @@ public class EditorController {
     }
 
     @GetMapping("")
-    public String editor() {
+    public String editor(PageFormDTO pageFormDTO) {
         return "editor";
     }
 
@@ -75,16 +78,17 @@ public class EditorController {
     }
 
     @PostMapping("/add")
-    public String add(@RequestParam(name = "name") String pageName,
-                      @RequestParam(name = "pageContent") String pageContent,
-                      @RequestParam(name = "visibility") Visibility visibility,
-                      @RequestParam(name = "tags") List<String> tags,
-                      @RequestParam(name = "users") List<String> users,
+    public String add(@Valid PageFormDTO formData,
+                      BindingResult bindingResult,
                       Principal principal) {
-        PageModel page = editService.addPage(pageName, pageContent, visibility, tags);
+        if (bindingResult.hasErrors())
+            return "editor";
+
+        PageModel page = editService.addPage(formData.getTitle(),
+                formData.getContent(), formData.getVisibility(), formData.getTags());
 
         editService.setOwner(page, principal.getName());
-        editService.setMaintainers(users, page);
+        editService.setMaintainers(formData.getUsers(), page);
 
         return String.format("redirect:/p/%s", page.getStringId());
     }
