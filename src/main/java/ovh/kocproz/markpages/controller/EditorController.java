@@ -90,7 +90,7 @@ public class EditorController {
     }
 
     @PostMapping("/update")
-    public String update(@RequestParam(name = "stringId") String stringId,
+    public String update(@RequestParam(name = "stringId") String code,
                          @RequestParam(name = "name") String pageName,
                          @RequestParam(name = "pageContent") String pageContent,
                          @RequestParam(name = "visibility") Visibility visibility,
@@ -98,16 +98,16 @@ public class EditorController {
                          @RequestParam(name = "users", required = false) List<String> users,
                          Principal principal) {
         UserModel user = userRepository.getByUsername(principal.getName());
-        PageModel page = pageRepository.findOneByStringId(stringId);
+        PageModel page = pageRepository.findOneByStringId(code);
 
-        if (pageRepository.exists(stringId) && user != null &&
-                permissionService.canEdit(user, pageRepository.findOneByStringId(stringId))) {
-            editService.updatePage(pageName, pageContent, visibility, tags, stringId);
-            if (permissionService.getRole(stringId, user.getUsername()) == PageMaintainerModel.Role.OWNER && users != null)
+        if (pageRepository.exists(code) && user != null &&
+                permissionService.canEdit(user, pageRepository.findOneByStringId(code))) {
+            editService.updatePage(pageName, pageContent, visibility, tags, code);
+            if (permissionService.getRole(code, user.getUsername()) == PageMaintainerModel.Role.OWNER && users != null)
                 editService.setMaintainers(users, page);
         }
 
-        return String.format("redirect:/p/%s", stringId);
+        return String.format("redirect:/p/%s", code);
     }
 
 

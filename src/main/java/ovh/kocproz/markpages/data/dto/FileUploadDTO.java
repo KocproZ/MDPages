@@ -3,7 +3,6 @@ package ovh.kocproz.markpages.data.dto;
 import org.springframework.web.multipart.MultipartFile;
 import ovh.kocproz.markpages.Visibility;
 
-import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -69,9 +68,9 @@ public class FileUploadDTO {
         return visibilityValid;
     }
 
-    @AssertFalse(message = "File must be provided")
+    @AssertTrue(message = "File must be provided")
     public boolean isFileProvided() {
-        return file != null && file.isEmpty();
+        return file != null && !file.isEmpty();
     }
 
     @AssertTrue(message = "Invalid visibility value")
