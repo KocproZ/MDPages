@@ -17,16 +17,16 @@
             <div class="col m12">
                 <form id="pageForm" method="post" th:object="${pageFormDTO}"
                       th:action="${page != null} ? @{/edit/update} : @{/edit/add}">
-                    <input type="hidden" name="pageContent" id="pageContent" th:field="*{content}"/>
+                    <input type="hidden" id="pageContent" th:field="*{content}"/>
+                    <input type="hidden" id="code" name="code"
+                           th:value="${page != null} ? ${page.stringId} : ${''}"/>
                     <div class="row">
                         <div class="col m6">
-                            <input type="hidden" name="stringId" th:value="${page != null} ? ${page.stringId} : ${''}"
-                                   th:field="*{code}"/>
                             <div class="row">
                                 <div class="col m12 input-field">
-                                    <input placeholder="Page Title" type="text" id="name-input" data-length="128" name="name"
-                                           th:value="${page != null} ? ${page.name} : ''" maxlength="128"
-                                           th:field="*{title}"/>
+                                    <input placeholder="Page Title" type="text" id="title-input" data-length="128"
+                                           name="title" maxlength="128"
+                                           th:value="${page != null} ? ${page.name} : ${''}"/>
                                 </div>
                             </div>
                             <div class="row">
@@ -46,7 +46,7 @@
                             </div>
                             <div class="row">
                                 <div class="col m6 input-field mdselect-wrapper">
-                                    <select name="visibility" th:field="*{visibility}">
+                                    <select name="visibility">
                                         <option value="PUBLIC"
                                                 th:selected="${visibility eq T(ovh.kocproz.markpages.Visibility).PUBLIC}"> Public
                                         </option>

@@ -4,8 +4,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import ovh.kocproz.markpages.Visibility;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ovh.kocproz.markpages.data.dto.PageFormDTO;
 import ovh.kocproz.markpages.data.model.PageMaintainerModel;
 import ovh.kocproz.markpages.data.model.PageModel;
@@ -21,7 +23,6 @@ import ovh.kocproz.markpages.service.TagService;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -57,9 +58,13 @@ public class EditorController {
         return "editor";
     }
 
-    @GetMapping("/{stringId}")
-    public String edit(@PathVariable String stringId, Model model, Authentication auth) {
-        PageModel page = pageRepository.findOneByStringId(stringId);
+    @GetMapping("/{code}")
+    public String edit(@Valid PageFormDTO formData,
+                       BindingResult bindingResult,
+                       @PathVariable String code,
+                       Model model,
+                       Authentication auth) {
+        PageModel page = pageRepository.findOneByStringId(code);
         UserModel user = userRepository.getByUsername(auth.getName());
         Set<TagModel> tags = null;
         if (user == null || page == null) return "redirect:/edit";
@@ -68,12 +73,14 @@ public class EditorController {
             tags.forEach(t -> t.setPages(null));
         }
         if (permissionService.canEdit(user, page)) {
+            formData.setTitle(page.getName());
+            formData.setCode(page.getStringId());
             model.addAttribute("visibility", page.getVisibility());
             model.addAttribute("page", page);
             model.addAttribute("pageTags", tags);
             return "editor";
         } else {
-            return String.format("redirect:/p/%s", stringId);
+            return String.format("redirect:/p/%s", code);
         }
     }
 
@@ -82,7 +89,7 @@ public class EditorController {
                       BindingResult bindingResult,
                       Principal principal) {
         if (bindingResult.hasErrors())
-            return "editor";
+            return "redirect:/edit";
 
         PageModel page = editService.addPage(formData.getTitle(),
                 formData.getContent(), formData.getVisibility(), formData.getTags());
@@ -94,24 +101,23 @@ public class EditorController {
     }
 
     @PostMapping("/update")
-    public String update(@RequestParam(name = "stringId") String stringId,
-                         @RequestParam(name = "name") String pageName,
-                         @RequestParam(name = "pageContent") String pageContent,
-                         @RequestParam(name = "visibility") Visibility visibility,
-                         @RequestParam(name = "tags") List<String> tags,
-                         @RequestParam(name = "users", required = false) List<String> users,
+    public String update(@Valid PageFormDTO formData,
+                         BindingResult bindingResult,
                          Principal principal) {
+        if (bindingResult.hasErrors())
+            return "redirect:/edit";
         UserModel user = userRepository.getByUsername(principal.getName());
-        PageModel page = pageRepository.findOneByStringId(stringId);
+        PageModel page = pageRepository.findOneByStringId(formData.getCode());
 
-        if (pageRepository.exists(stringId) && user != null &&
-                permissionService.canEdit(user, pageRepository.findOneByStringId(stringId))) {
-            editService.updatePage(pageName, pageContent, visibility, tags, stringId);
-            if (permissionService.getRole(stringId, user.getUsername()) == PageMaintainerModel.Role.OWNER && users != null)
-                editService.setMaintainers(users, page);
+        if (pageRepository.exists(formData.getCode()) && user != null &&
+                permissionService.canEdit(user, pageRepository.findOneByStringId(formData.getCode()))) {
+            editService.updatePage(formData.getTitle(),
+                    formData.getContent(), formData.getVisibility(), formData.getTags(), formData.getCode());
+            if (permissionService.getRole(formData.getCode(), user.getUsername()) == PageMaintainerModel.Role.OWNER)
+                editService.setMaintainers(formData.getUsers(), page);
         }
 
-        return String.format("redirect:/p/%s", stringId);
+        return String.format("redirect:/p/%s", formData.getCode());
     }
 
 

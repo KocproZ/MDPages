@@ -134,7 +134,7 @@ public class PageModel {
 
     @Override
     public String toString() {
-        return String.format("PageModel{name: %s}", getName());
+        return String.format("PageModel{title: %s}", getName());
     }
 
 }

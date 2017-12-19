@@ -14,12 +14,13 @@ public class PageFormDTO {
     private String title;
     @NotNull
     private String code;
-    private boolean isCodeValid;
     @NotNull
     private String content;
     @NotNull
     private Visibility visibility;
+    @NotNull
     private List<String> tags;
+    @NotNull
     private List<String> users;
 
     public String getTitle() {
@@ -52,10 +53,6 @@ public class PageFormDTO {
 
     public void setVisibility(Visibility visibility) {
         this.visibility = visibility;
-    }
-
-    public void setCodeValid(boolean codeValid) {
-        isCodeValid = codeValid;
     }
 
     public List<String> getTags() {
