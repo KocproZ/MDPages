@@ -56,7 +56,7 @@ public class TagService {
     }
 
     public String getPageTagsString(String pageId) {
-        PageModel page = pageRepository.findOneByStringId(pageId);
+        PageModel page = pageRepository.findOneByCode(pageId);
         StringBuilder builder = new StringBuilder();
         for (TagModel tag : page.getTags()) {
             builder.append(tag.getName());
@@ -67,7 +67,7 @@ public class TagService {
     }
 
     public List<String> getPageTags(String pageId) {
-        PageModel page = pageRepository.findOneByStringId(pageId);
+        PageModel page = pageRepository.findOneByCode(pageId);
         if (page == null) return new ArrayList<>();
         return convert(page.getTags());
     }

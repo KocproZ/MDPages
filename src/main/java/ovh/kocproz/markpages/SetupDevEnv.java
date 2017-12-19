@@ -79,7 +79,7 @@ public class SetupDevEnv {
             String randomMarkdown = randomMarkdown();
             page.setContent(randomMarkdown);
             page.setName(lorem.getTitle(3, 6));
-            page.setStringId(Util.randomString(8));
+            page.setCode(Util.randomString(8));
             page.addTag(tagRepository.findOne(1L));
             if (i % 2 == 0)
                 page.addTag(tagRepository.findOne(2L));

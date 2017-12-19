@@ -19,7 +19,7 @@
                       th:action="${page != null} ? @{/edit/update} : @{/edit/add}">
                     <input type="hidden" id="pageContent" th:field="*{content}"/>
                     <input type="hidden" id="code" name="code"
-                           th:value="${page != null} ? ${page.stringId} : ${''}"/>
+                           th:value="${page != null} ? ${page.code} : ${''}"/>
                     <div class="row">
                         <div class="col m6">
                             <div class="row">
@@ -65,7 +65,7 @@
                         <div class="col m6">test</div>
                     </div>
                     <div class="row input-field"
-                         th:if="${page != null ? @permissionService.getRole(page.stringId, #httpServletRequest.getRemoteUser())
+                         th:if="${page != null ? @permissionService.getRole(page.code, #httpServletRequest.getRemoteUser())
                                   eq T(ovh.kocproz.markpages.data.model.PageMaintainerModel.Role).OWNER :
                                   true}">
                         <div class="col m12">
@@ -123,7 +123,7 @@
             });
         }
 
-        var pageTags = [[${page != null} ? ${@tagService.getPageTags(page.getStringId())} : ${null}]];
+        var pageTags = [[${page != null} ? ${@tagService.getPageTags(page.getCode())} : ${null}]];
         var users = [[${page != null} ? ${@userService.getPageMaintainers(page)} : ${null}]];
 
         $(document).ready(function () {

@@ -11,7 +11,7 @@
             <div class="col m6">
                 <h5>Maintained by you</h5>
                 <li th:each="maintainer : ${@pageMaintainerRepository.findAllByUser(user)}">
-                    <a th:inline="text" th:href="'/p/' + ${maintainer.page.stringId}">
+                    <a th:inline="text" th:href="'/p/' + ${maintainer.page.code}">
                         [[${maintainer.page.name}]] - [[${maintainer.role}]]
                     </a>
                 </li>

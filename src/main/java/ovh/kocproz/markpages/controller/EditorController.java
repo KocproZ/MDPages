@@ -64,7 +64,7 @@ public class EditorController {
                        @PathVariable String code,
                        Model model,
                        Authentication auth) {
-        PageModel page = pageRepository.findOneByStringId(code);
+        PageModel page = pageRepository.findOneByCode(code);
         UserModel user = userRepository.getByUsername(auth.getName());
         Set<TagModel> tags = null;
         if (user == null || page == null) return "redirect:/edit";
@@ -74,7 +74,7 @@ public class EditorController {
         }
         if (permissionService.canEdit(user, page)) {
             formData.setTitle(page.getName());
-            formData.setCode(page.getStringId());
+            formData.setCode(page.getCode());
             model.addAttribute("visibility", page.getVisibility());
             model.addAttribute("page", page);
             model.addAttribute("pageTags", tags);
@@ -97,7 +97,7 @@ public class EditorController {
         editService.setOwner(page, principal.getName());
         editService.setMaintainers(formData.getUsers(), page);
 
-        return String.format("redirect:/p/%s", page.getStringId());
+        return String.format("redirect:/p/%s", page.getCode());
     }
 
     @PostMapping("/update")
@@ -107,10 +107,10 @@ public class EditorController {
         if (bindingResult.hasErrors())
             return "redirect:/edit";
         UserModel user = userRepository.getByUsername(principal.getName());
-        PageModel page = pageRepository.findOneByStringId(formData.getCode());
+        PageModel page = pageRepository.findOneByCode(formData.getCode());
 
         if (pageRepository.exists(formData.getCode()) && user != null &&
-                permissionService.canEdit(user, pageRepository.findOneByStringId(formData.getCode()))) {
+                permissionService.canEdit(user, pageRepository.findOneByCode(formData.getCode()))) {
             editService.updatePage(formData.getTitle(),
                     formData.getContent(), formData.getVisibility(), formData.getTags(), formData.getCode());
             if (permissionService.getRole(formData.getCode(), user.getUsername()) == PageMaintainerModel.Role.OWNER)

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity(name = "Page")
-@Table(name = "pages", indexes = {@Index(name = "PAGES_INDEX", columnList = "id, stringId, visibility")})
+@Table(name = "pages", indexes = {@Index(name = "PAGES_INDEX", columnList = "id, code, visibility")})
 public class PageModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +23,8 @@ public class PageModel {
     private String name;
 
     @NotNull
-    @Column(name = "stringId", length = 8, unique = true, nullable = false)
-    private String stringId;
+    @Column(name = "code", length = 8, unique = true, nullable = false)
+    private String code;
 
     @NotNull
     @Column(name = "content", columnDefinition = "MEDIUMTEXT")
@@ -56,12 +56,12 @@ public class PageModel {
         tags.clear();
     }
 
-    public String getStringId() {
-        return stringId;
+    public String getCode() {
+        return code;
     }
 
-    public void setStringId(String stringId) {
-        this.stringId = stringId;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Set<TagModel> getTags() {

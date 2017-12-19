@@ -42,7 +42,7 @@ public class SearchService {
             for(TagModel t: m.getTags()){
                 tags.add(t.getName());
             }
-            dtos.add(new PageDTO(m.getName(), tags, m.getStringId()));
+            dtos.add(new PageDTO(m.getName(), tags, m.getCode()));
         }
         return dtos;
     }

@@ -84,7 +84,7 @@ public class EditService {
                                 Visibility visibility,
                                 List<String> tags,
                                 String stringId) {
-        PageModel page = pageRepository.findOneByStringId(stringId);
+        PageModel page = pageRepository.findOneByCode(stringId);
         boolean exists = page != null;
         if (!exists)
             page = new PageModel();
@@ -95,7 +95,7 @@ public class EditService {
             page.setName(pageName);
 
 
-        page.setStringId(stringId);
+        page.setCode(stringId);
         page.setContent(pageContent);
         page.setVisibility(visibility);
         page.setLastEdited(new Date());
