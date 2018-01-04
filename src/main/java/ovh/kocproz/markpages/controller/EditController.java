@@ -27,7 +27,7 @@ import java.util.Set;
 
 @Controller
 @RequestMapping("/edit")
-public class EditorController {
+public class EditController {
 
     private PageRepository pageRepository;
     private UserRepository userRepository;
@@ -37,13 +37,13 @@ public class EditorController {
     private TagService tagService;
     private PermissionService permissionService;
 
-    public EditorController(PageRepository pageRepository,
-                            UserRepository userRepository,
-                            TagRepository tagRepository,
-                            PageMaintainerRepository pageMaintainerRepository,
-                            EditService editService,
-                            TagService tagService,
-                            PermissionService permissionService) {
+    public EditController(PageRepository pageRepository,
+                          UserRepository userRepository,
+                          TagRepository tagRepository,
+                          PageMaintainerRepository pageMaintainerRepository,
+                          EditService editService,
+                          TagService tagService,
+                          PermissionService permissionService) {
         this.pageRepository = pageRepository;
         this.userRepository = userRepository;
         this.tagRepository = tagRepository;

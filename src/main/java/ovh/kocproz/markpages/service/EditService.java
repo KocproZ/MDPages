@@ -83,8 +83,8 @@ public class EditService {
                                 String pageContent,
                                 Visibility visibility,
                                 List<String> tags,
-                                String stringId) {
-        PageModel page = pageRepository.findOneByCode(stringId);
+                                String code) {
+        PageModel page = pageRepository.findOneByCode(code);
         boolean exists = page != null;
         if (!exists)
             page = new PageModel();
@@ -95,7 +95,7 @@ public class EditService {
             page.setTitle(pageTitle);
 
 
-        page.setCode(stringId);
+        page.setCode(code);
         page.setContent(pageContent);
         page.setVisibility(visibility);
         page.setLastEdited(new Date());
