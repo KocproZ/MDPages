@@ -12,7 +12,7 @@
                 <h5>Maintained by you</h5>
                 <li th:each="maintainer : ${@pageMaintainerRepository.findAllByUser(user)}">
                     <a th:inline="text" th:href="'/p/' + ${maintainer.page.code}">
-                        [[${maintainer.page.name}]] - [[${maintainer.role}]]
+                        [[${maintainer.page.title}]] - [[${maintainer.role}]]
                     </a>
                 </li>
             </div>

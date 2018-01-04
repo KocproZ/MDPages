@@ -4,7 +4,7 @@
 
 <div layout:fragment="content">
     <div class="container">
-        <h1 class="row m12" th:text="${page.name}"></h1>
+        <h1 class="row m12" th:text="${page.title}"></h1>
         <div class="row">
             <a th:each="tag : ${page.tags}" th:href="@{/search/tag(tag=${tag.name})}">
             <div class="chip"  th:inline="text">[[${tag.name}]]</div>
