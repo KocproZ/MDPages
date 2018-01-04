@@ -98,7 +98,7 @@ public class PermissionService {
     /**
      * Returns user role for the page
      *
-     * @param pageCode 8-digit page code
+     * @param pageCode 8-characters long page code
      * @param username username to check role
      * @return role of the user
      * @see ovh.kocproz.markpages.data.model.PageMaintainerModel.Role
