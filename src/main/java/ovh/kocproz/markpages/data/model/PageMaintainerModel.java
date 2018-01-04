@@ -71,6 +71,6 @@ public class PageMaintainerModel {
     @Override
     public String toString() {
         return String.format("PageMaintainerModel{user: %s, page: %s, role: %s}",
-                user.getUsername(), page.getName(), role.toString());
+                user.getUsername(), page.getTitle(), role.toString());
     }
 }

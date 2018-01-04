@@ -19,8 +19,8 @@ public class PageModel {
     private Long id;
 
     @NotNull
-    @Column(name = "name", length = 128, unique = true, nullable = false)
-    private String name;
+    @Column(name = "title", length = 128, unique = true, nullable = false)
+    private String title;
 
     @NotNull
     @Column(name = "code", length = 8, unique = true, nullable = false)
@@ -116,12 +116,12 @@ public class PageModel {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getContent() {
@@ -134,7 +134,7 @@ public class PageModel {
 
     @Override
     public String toString() {
-        return String.format("PageModel{title: %s}", getName());
+        return String.format("PageModel{title: %s}", getTitle());
     }
 
 }

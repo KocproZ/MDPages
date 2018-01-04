@@ -73,7 +73,7 @@ public class EditorController {
             tags.forEach(t -> t.setPages(null));
         }
         if (permissionService.canEdit(user, page)) {
-            formData.setTitle(page.getName());
+            formData.setTitle(page.getTitle());
             formData.setCode(page.getCode());
             model.addAttribute("visibility", page.getVisibility());
             model.addAttribute("page", page);

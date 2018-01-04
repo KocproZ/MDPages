@@ -90,9 +90,9 @@ public class EditService {
             page = new PageModel();
 
         if (pageName.trim().isEmpty())
-            page.setName(Util.randomTitle(4));
+            page.setTitle(Util.randomTitle(4));
         else
-            page.setName(pageName);
+            page.setTitle(pageName);
 
 
         page.setCode(stringId);
