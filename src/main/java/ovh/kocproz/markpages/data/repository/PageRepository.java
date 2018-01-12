@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface PageRepository extends JpaRepository<PageModel, Long> {
-    PageModel findOneByStringId(String stringId);
+    PageModel findOneByCode(String code);
 
     List<PageModel> findAllByVisibility(Visibility visibility, Sort sort);
 
@@ -42,8 +42,8 @@ public interface PageRepository extends JpaRepository<PageModel, Long> {
 
     PageModel findFirstByTags(TagModel tag);
 
-    @Query(value = "select case when count(p)>0 then true else false end from Page p where p.stringId = :stringId")
-    boolean exists(@Param("stringId") String stringId);
+    @Query(value = "select case when count(p)>0 then true else false end from Page p where p.code = :code")
+    boolean exists(@Param("code") String code);
 
     @Query(value = "select p from Page p " +
             "join p.tags as t " +
@@ -69,7 +69,7 @@ public interface PageRepository extends JpaRepository<PageModel, Long> {
         return findAllByVisibilityNotAndTagNames(visibility, tags_names, tags_names.size());
     }
 
-    List<PageModel> findAllByVisibilityAndNameContaining(Visibility visibility, String name, Sort sort);
+    List<PageModel> findAllByVisibilityAndTitleContaining(Visibility visibility, String title, Sort sort);
 
-    List<PageModel> findAllByVisibilityNotAndNameContaining(Visibility visibility, String name, Sort sort);
+    List<PageModel> findAllByVisibilityNotAndTitleContaining(Visibility visibility, String title, Sort sort);
 }

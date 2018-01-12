@@ -39,17 +39,6 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(Model m, Principal principal) {
-        if (principal != null) {
-            m.addAttribute("pages", pageRepository.findAllByVisibility(
-                    Visibility.PUBLIC, new Sort(Sort.Direction.ASC, "name")
-            ));
-            m.addAttribute("user", userRepository.getByUsername(principal.getName()));
-        } else {
-            m.addAttribute("pages", pageRepository.findAll(
-                    new Sort(Sort.Direction.ASC, "name")
-            ));
-        }
-
         return "index";
     }
 
@@ -57,12 +46,12 @@ public class IndexController {
     public String list(Model m, Principal principal) {
         if (principal != null) {
             m.addAttribute("pages", pageRepository.findAllByVisibility(
-                    Visibility.PUBLIC, new Sort(Sort.Direction.ASC, "name")
+                    Visibility.PUBLIC, new Sort(Sort.Direction.ASC, "title")
             ));
             m.addAttribute("user", userRepository.getByUsername(principal.getName()));
         } else {
             m.addAttribute("pages", pageRepository.findAll(
-                    new Sort(Sort.Direction.ASC, "name")
+                    new Sort(Sort.Direction.ASC, "title")
             ));
         }
 
@@ -71,7 +60,7 @@ public class IndexController {
 
     @GetMapping("/p/{id}")
     public String mdPage(@PathVariable(name = "id") String pageId, Model model, Principal principal) {
-        PageModel page = pageRepository.findOneByStringId(pageId);
+        PageModel page = pageRepository.findOneByCode(pageId);
         if (page == null) {
             return "redirect:/";
         }
@@ -98,10 +87,10 @@ public class IndexController {
             model.addAttribute("user", userRepository.getByUsername(principal.getName()));
 
         if (principal != null && !search.getName().isEmpty()) {
-            model.addAttribute("pages", pageRepository.findAllByVisibilityNotAndNameContaining(
+            model.addAttribute("pages", pageRepository.findAllByVisibilityNotAndTitleContaining(
                     Visibility.AUTHORIZED, search.getName(), new Sort(Sort.Direction.ASC, "name")));
         } else if (principal == null && !search.getName().isEmpty()) {
-            model.addAttribute("pages", pageRepository.findAllByVisibilityAndNameContaining(
+            model.addAttribute("pages", pageRepository.findAllByVisibilityAndTitleContaining(
                     Visibility.PUBLIC, search.getName(), new Sort(Sort.Direction.ASC, "name")));
         } else if (principal != null && !search.getTags().isEmpty()) {
             model.addAttribute("pages", pageRepository.findAllByVisibilityNotAndTagNames(

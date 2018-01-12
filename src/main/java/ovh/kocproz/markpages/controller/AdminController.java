@@ -44,7 +44,7 @@ public class AdminController {
                         @RequestParam(defaultValue = "1") int usersPage) {
         model.addAttribute("pagesPage", pagesPage);
         model.addAttribute("pages", pageRepository.findAll(
-                new PageRequest(pagesPage - 1, 10, Sort.Direction.ASC, "name")
+                new PageRequest(pagesPage - 1, 10, Sort.Direction.ASC, "title")
         ));
 
         model.addAttribute("usersPage", usersPage);

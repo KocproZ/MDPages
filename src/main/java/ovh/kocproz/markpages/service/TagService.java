@@ -28,6 +28,12 @@ public class TagService {
         this.pageRepository = pageRepository;
     }
 
+    /**
+     * Sets tags for given page
+     *
+     * @param tags tags to set
+     * @param page page to set tags to
+     */
     public void setTags(List<String> tags, PageModel page) {
         page.clearTags();
         tags.forEach(tag -> {
@@ -48,6 +54,13 @@ public class TagService {
         return convert(tags);
     }
 
+    /**
+     * Returns {@link #convert(Iterable) converted} list of tags
+     * containing given fragment
+     *
+     * @param fragment string to search for
+     * @return list of tags
+     */
     public List<String> getTagsContaining(String fragment) {
         Iterable<TagModel> tags = tagRepository.findAllByNameContaining(
                 fragment,
@@ -56,7 +69,7 @@ public class TagService {
     }
 
     public String getPageTagsString(String pageId) {
-        PageModel page = pageRepository.findOneByStringId(pageId);
+        PageModel page = pageRepository.findOneByCode(pageId);
         StringBuilder builder = new StringBuilder();
         for (TagModel tag : page.getTags()) {
             builder.append(tag.getName());
@@ -66,12 +79,25 @@ public class TagService {
         return builder.toString();
     }
 
+    /**
+     * Returns {@link #convert(Iterable) converted} list of page's tags.
+     * If page does not exist, returns empty List.
+     *
+     * @param pageId 8-characters long id of page
+     * @return list of tags
+     */
     public List<String> getPageTags(String pageId) {
-        PageModel page = pageRepository.findOneByStringId(pageId);
+        PageModel page = pageRepository.findOneByCode(pageId);
         if (page == null) return new ArrayList<>();
         return convert(page.getTags());
     }
 
+    /**
+     * Converts Iterable of TagModel to List of Strings
+     *
+     * @param tags Iterable to convert
+     * @return list of tags
+     */
     private List<String> convert(Iterable<TagModel> tags) {
         List<String> tagNames = new ArrayList<>();
         for (TagModel tag : tags) {

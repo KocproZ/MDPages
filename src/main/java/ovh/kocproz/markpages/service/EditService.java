@@ -66,12 +66,12 @@ public class EditService {
         setOwner(page, userRepository.getByUsername(username));
     }
 
-    public PageModel addPage(String pageName,
+    public PageModel addPage(String pageTitle,
                              String pageContent,
                              Visibility visibility,
                              List<String> tags) {
         String stringId = Util.randomString(8);
-        PageModel page = updatePage(pageName, pageContent, visibility, tags, stringId);
+        PageModel page = updatePage(pageTitle, pageContent, visibility, tags, stringId);
         page.setCreationDate(new Date());
 
         tagService.setTags(tags, page);
@@ -79,23 +79,23 @@ public class EditService {
         return page;
     }
 
-    public PageModel updatePage(String pageName,
+    public PageModel updatePage(String pageTitle,
                                 String pageContent,
                                 Visibility visibility,
                                 List<String> tags,
-                                String stringId) {
-        PageModel page = pageRepository.findOneByStringId(stringId);
+                                String code) {
+        PageModel page = pageRepository.findOneByCode(code);
         boolean exists = page != null;
         if (!exists)
             page = new PageModel();
 
-        if (pageName.trim().isEmpty())
-            page.setName(Util.randomTitle(4));
+        if (pageTitle.trim().isEmpty())
+            page.setTitle(Util.randomTitle(4));
         else
-            page.setName(pageName);
+            page.setTitle(pageTitle);
 
 
-        page.setStringId(stringId);
+        page.setCode(code);
         page.setContent(pageContent);
         page.setVisibility(visibility);
         page.setLastEdited(new Date());

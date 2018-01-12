@@ -80,7 +80,7 @@ function setupForm(pageTags, users) {
     };
 
     $('#pageForm').submit(function () {
-        if ($('#name-input').val().length <= 3)
+        if ($('#title-input').val().length < 3)
             return false;
     });
 }
