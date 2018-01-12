@@ -5,6 +5,7 @@ import ovh.kocproz.markpages.Visibility;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PageFormDTO {
@@ -20,7 +21,6 @@ public class PageFormDTO {
     private Visibility visibility;
     @NotNull
     private List<String> tags;
-    @NotNull
     private List<String> users;
 
     public String getTitle() {
@@ -81,6 +81,12 @@ public class PageFormDTO {
     @AssertTrue(message = "Invalid visibility value")
     public boolean isVisibilityValid() {
         return visibility == Visibility.PUBLIC || visibility == Visibility.AUTHORIZED;
+    }
+
+    @AssertTrue
+    public boolean isUsersNull() {
+        if (users == null) users = new ArrayList<>();
+        return true;
     }
 
     @Override
