@@ -30,7 +30,7 @@ public class FileModel {
     private UserModel creator;
 
     @NotNull
-    @Column(name = "data", columnDefinition = "LONGBLOB")
+    @Column(name = "data", columnDefinition = "MEDIUMBLOB")
     private byte[] data;
 
     @NotNull

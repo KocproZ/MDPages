@@ -11,6 +11,7 @@ import ovh.kocproz.markpages.data.dto.FileUploadDTO;
 import ovh.kocproz.markpages.data.model.FileModel;
 import ovh.kocproz.markpages.data.model.UserModel;
 import ovh.kocproz.markpages.data.repository.UserRepository;
+import ovh.kocproz.markpages.exception.FileTooLargeException;
 import ovh.kocproz.markpages.exception.IllegalMimeTypeException;
 import ovh.kocproz.markpages.exception.NotFoundException;
 import ovh.kocproz.markpages.service.FileService;
@@ -73,9 +74,22 @@ public class FilesController {
                 return "redirect:/files/upload?error";
             } catch (IllegalMimeTypeException e) {
                 return "redirect:/files/upload?illegalMimeType";
+            } catch (FileTooLargeException e) {
+                return "redirect:/files/upload?fileTooLarge";
             }
         }
         return "redirect:/files/upload?noPermission";
+    }
+
+    @GetMapping("/update")
+    public String update(FileUploadDTO fileUploadDTO,
+                         @RequestParam(name = "code", defaultValue = "") String code,
+                         Model m) {
+        if (code.isEmpty()) return "redirect:/files/upload";
+        FileModel fileModel = fileService.getFileModel(code);
+        if (fileModel == null) return "redirect:/files/upload";
+        m.addAttribute("file", fileModel);
+        return "files/update";
     }
 
     @PostMapping(path = "/update", headers = "content-type=multipart/*")
@@ -93,21 +107,14 @@ public class FilesController {
                 return "redirect:/files/" + fileCode;
             } catch (IOException e) {
                 e.printStackTrace();
-                return "redirect:/files/upload?error";
+                return "redirect:/files/update?error";
             } catch (IllegalMimeTypeException e) {
-                return "redirect:/files/upload?illegalMimeType";
+                return "redirect:/files/update?illegalMimeType";
+            } catch (FileTooLargeException e) {
+                return "redirect:/files/update?fileTooLarge";
             }
         }
         return "redirect:/files/upload?noPermission";
-    }
-
-    @GetMapping("/update")
-    public String update(FileUploadDTO fileUploadDTO,
-                         @RequestParam(name = "code") String code,
-                         Model m) {
-        FileModel fileModel = fileService.getFileModel(code);
-        m.addAttribute("file", fileModel);
-        return "files/update";
     }
 
     @RequestMapping("/{filecode}")

@@ -1,5 +1,6 @@
 package ovh.kocproz.markpages.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ovh.kocproz.markpages.Util;
@@ -7,6 +8,7 @@ import ovh.kocproz.markpages.Visibility;
 import ovh.kocproz.markpages.data.model.FileModel;
 import ovh.kocproz.markpages.data.model.UserModel;
 import ovh.kocproz.markpages.data.repository.FileRepository;
+import ovh.kocproz.markpages.exception.FileTooLargeException;
 import ovh.kocproz.markpages.exception.IllegalMimeTypeException;
 import ovh.kocproz.markpages.exception.NotFoundException;
 
@@ -29,6 +31,8 @@ public class FileService {
             .asList("image/gif", "image/jpeg", "image/png", "image/tiff", "audio/mpeg", "audio/x-wav", "audio/mp3");
 
     private FileRepository fileRepository;
+    @Value("${maxFileSize}")
+    private long MAX_FILE_SIZE;
 
     public FileService(FileRepository fileRepository) {
 
@@ -49,6 +53,7 @@ public class FileService {
     }
 
     public FileModel updateFile(MultipartFile file, String code, String name, Visibility visibility) throws IOException {
+        if (file.getSize() > MAX_FILE_SIZE) throw new FileTooLargeException();
         byte[] data = file.getBytes();
         InputStream is = new ByteArrayInputStream(data);
         String mimeType = URLConnection.guessContentTypeFromStream(is);
