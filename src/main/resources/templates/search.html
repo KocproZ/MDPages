@@ -4,6 +4,12 @@
 
 <div layout:fragment="content">
     <div class="container">
+        <p>Tags:</p>
+        <a th:each="tag : ${tags}" class="chip" th:href="${'/search/tag?tag='+tag}">
+            <div class="chip" th:text="${tag}"></div>
+        </a>
+        <p th:if="${tags.size()==0}">No tags found.</p>
+        <p>Pages:</p>
         <p th:if="${pageCount==0}">No results found.</p>
         <div th:if="${pageCount>0}">
             <table class="m6 striped mdtable">
@@ -32,7 +38,7 @@
                         class="material-icons">chevron_right</i></a></li>
             </ul>
         </div>
-        <script src="/js/tagSearch.js"></script>
+        <script src="/js/pageSearch.js"></script>
     </div>
 </div>
 

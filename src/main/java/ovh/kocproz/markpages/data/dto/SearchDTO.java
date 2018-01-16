@@ -1,32 +1,29 @@
 package ovh.kocproz.markpages.data.dto;
 
-import java.util.List;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class SearchDTO {
-    private List<String> tags;
-    private String name;
+    @Min(1)
+    private int p;
+    @NotNull
+    @Size(min = 3)
+    private String query;
 
-    public SearchDTO() {
+    public int getP() {
+        return p;
     }
 
-    public SearchDTO(List<String> tags, String nameQuery) {
-        this.tags = tags;
-        this.name = nameQuery;
+    public void setP(int p) {
+        this.p = p;
     }
 
-    public List<String> getTags() {
-        return tags;
+    public String getQuery() {
+        return query;
     }
 
-    public void setTags(List<String> tags) {
-        this.tags = tags;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setQuery(String query) {
+        this.query = query;
     }
 }

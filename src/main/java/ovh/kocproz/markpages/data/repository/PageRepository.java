@@ -69,7 +69,15 @@ public interface PageRepository extends JpaRepository<PageModel, Long> {
         return findAllByVisibilityNotAndTagNames(visibility, tags_names, tags_names.size());
     }
 
-    List<PageModel> findAllByVisibilityAndTitleContaining(Visibility visibility, String title, Sort sort);
+    List<PageModel> findAllByVisibilityAndTitleContaining(Visibility visibility, String titleFragment, Sort sort);
 
-    List<PageModel> findAllByVisibilityNotAndTitleContaining(Visibility visibility, String title, Sort sort);
+    List<PageModel> findAllByVisibilityNotAndTitleContaining(Visibility visibility, String titleFragment, Sort sort);
+
+    Page<PageModel> findAllByVisibilityAndTitleContaining(Visibility visibility, String titleFragment, Pageable pageable);
+
+    Page<PageModel> findAllByTitleContaining(String title, Pageable pageable);
+
+    Long countAllByTitleContaining(String titleFragment);
+
+    Long countAllByVisibilityAndTitleContaining(Visibility visibility, String titleFragment);
 }

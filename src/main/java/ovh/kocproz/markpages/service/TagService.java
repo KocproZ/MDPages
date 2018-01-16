@@ -55,7 +55,7 @@ public class TagService {
     }
 
     /**
-     * Returns {@link #convert(Iterable) converted} list of tags
+     * Returns {@link #convert(Iterable) converted} list of first 10 tags
      * containing given fragment
      *
      * @param fragment string to search for
@@ -65,6 +65,11 @@ public class TagService {
         Iterable<TagModel> tags = tagRepository.findAllByNameContaining(
                 fragment,
                 new PageRequest(0, 10, new Sort(Sort.Direction.ASC, "name")));
+        return convert(tags);
+    }
+
+    public List<String> getAllTagsContaining(String fragment) {
+        Iterable<TagModel> tags = tagRepository.findAllByNameContaining(fragment);
         return convert(tags);
     }
 

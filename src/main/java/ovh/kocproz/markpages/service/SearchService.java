@@ -30,21 +30,12 @@ public class SearchService {
         List<PageModel> pageModels = loggedIn ?
                 pageRepository.findAllByTagName(
                         tag,
-                        new PageRequest(page - 1, 20, Sort.Direction.ASC, "name")).getContent() :
+                        new PageRequest(page - 1, 20, Sort.Direction.ASC, "title")).getContent() :
                 pageRepository.findAllByTagNameAndVisibility(
                         tag,
                         Visibility.PUBLIC,
-                        new PageRequest(page - 1, 20, Sort.Direction.ASC, "name")).getContent();
-        List<PageDTO> dtos = new ArrayList<>();
-
-        for (PageModel m : pageModels) {
-            List<String> tags = new ArrayList<>();
-            for(TagModel t: m.getTags()){
-                tags.add(t.getName());
-            }
-            dtos.add(new PageDTO(m.getTitle(), tags, m.getCode()));
-        }
-        return dtos;
+                        new PageRequest(page - 1, 20, Sort.Direction.ASC, "title")).getContent();
+        return repack(pageModels);
     }
 
     public Long countPagesByTag(String tag, boolean loggedIn) {
@@ -52,5 +43,40 @@ public class SearchService {
                 pageRepository.countAllByTagName(tag) :
                 pageRepository.countAllByTagNameAndVisibility(tag, Visibility.PUBLIC);
         return count / 20 + (count % 20 > 0 ? 1 : 0);
+    }
+
+    public List<PageDTO> searchPages(String query, boolean loggedIn, int page) {
+        List<PageModel> pageModels = loggedIn ?
+                pageRepository.findAllByTitleContaining(
+                        query,
+                        new PageRequest(page - 1, 20, Sort.Direction.ASC, "title")).getContent()
+                :
+                pageRepository.findAllByVisibilityAndTitleContaining(
+                        Visibility.PUBLIC,
+                        query,
+                        new PageRequest(page - 1, 20, Sort.Direction.ASC, "title")).getContent();
+
+        return repack(pageModels);
+    }
+
+    public long countPagesContaining(String query, boolean loggedIn) {
+        long count = loggedIn ?
+                pageRepository.countAllByTitleContaining(query)
+                :
+                pageRepository.countAllByVisibilityAndTitleContaining(Visibility.PUBLIC, query);
+        return count / 20 + (count % 20 > 0 ? 1 : 0);
+    }
+
+    private List<PageDTO> repack(List<PageModel> models) {
+        List<PageDTO> dtos = new ArrayList<>();
+
+        for (PageModel m : models) {
+            List<String> tags = new ArrayList<>();
+            for (TagModel t : m.getTags()) {
+                tags.add(t.getName());
+            }
+            dtos.add(new PageDTO(m.getTitle(), tags, m.getCode()));
+        }
+        return dtos;
     }
 }

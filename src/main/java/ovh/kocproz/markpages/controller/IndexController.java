@@ -5,18 +5,19 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ovh.kocproz.markpages.Visibility;
-import ovh.kocproz.markpages.data.dto.SearchDTO;
 import ovh.kocproz.markpages.data.model.PageModel;
 import ovh.kocproz.markpages.data.model.UserModel;
 import ovh.kocproz.markpages.data.repository.PageRepository;
-import ovh.kocproz.markpages.data.repository.TagRepository;
 import ovh.kocproz.markpages.data.repository.UserRepository;
+import ovh.kocproz.markpages.service.SearchService;
+import ovh.kocproz.markpages.service.TagService;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.security.Principal;
 
 @Controller
@@ -24,17 +25,20 @@ public class IndexController {
 
     private PageRepository pageRepository;
     private UserRepository userRepository;
-    private TagRepository tagRepository;
     private Logger logger;
+    private SearchService searchService;
+    private TagService tagService;
 
     public IndexController(PageRepository pageRepository,
                            UserRepository userRepository,
-                           TagRepository tagRepository,
-                           Logger logger) {
+                           Logger logger,
+                           SearchService searchService,
+                           TagService tagService) {
         this.pageRepository = pageRepository;
         this.userRepository = userRepository;
-        this.tagRepository = tagRepository;
         this.logger = logger;
+        this.searchService = searchService;
+        this.tagService = tagService;
     }
 
     @GetMapping("/")
@@ -81,28 +85,36 @@ public class IndexController {
     }
 
     //TODO: DTO validation
+//    @RequestMapping("/search")
+//    public String search(Model model, Principal principal, @Valid @ModelAttribute(name = "query") SearchDTO search) {
+//        if (principal != null)
+//            model.addAttribute("user", userRepository.getByUsername(principal.getName()));
+//
+//        if (principal != null && !search.getName().isEmpty()) {
+//            model.addAttribute("pages", pageRepository.findAllByVisibilityNotAndTitleContaining(
+//                    Visibility.AUTHORIZED, search.getName(), new Sort(Sort.Direction.ASC, "title")));
+//        } else if (principal == null && !search.getName().isEmpty()) {
+//            model.addAttribute("pages", pageRepository.findAllByVisibilityAndTitleContaining(
+//                    Visibility.PUBLIC, search.getName(), new Sort(Sort.Direction.ASC, "title")));
+//        } else if (principal != null && !search.getTags().isEmpty()) {
+//            model.addAttribute("pages", pageRepository.findAllByVisibilityNotAndTagNames(
+//                    Visibility.AUTHORIZED, search.getTags()
+//            ));
+//        } else if (principal == null && !search.getTags().isEmpty()) {
+//            model.addAttribute("pages", pageRepository.findAllByVisibilityAndTagNames(
+//                    Visibility.PUBLIC, search.getTags()
+//            ));
+//        }
+//
+//        return "list";
+//    }
+
     @RequestMapping("/search")
-    public String search(Model model, Principal principal, @Valid @ModelAttribute(name = "query") SearchDTO search) {
-        if (principal != null)
-            model.addAttribute("user", userRepository.getByUsername(principal.getName()));
-
-        if (principal != null && !search.getName().isEmpty()) {
-            model.addAttribute("pages", pageRepository.findAllByVisibilityNotAndTitleContaining(
-                    Visibility.AUTHORIZED, search.getName(), new Sort(Sort.Direction.ASC, "name")));
-        } else if (principal == null && !search.getName().isEmpty()) {
-            model.addAttribute("pages", pageRepository.findAllByVisibilityAndTitleContaining(
-                    Visibility.PUBLIC, search.getName(), new Sort(Sort.Direction.ASC, "name")));
-        } else if (principal != null && !search.getTags().isEmpty()) {
-            model.addAttribute("pages", pageRepository.findAllByVisibilityNotAndTagNames(
-                    Visibility.AUTHORIZED, search.getTags()
-            ));
-        } else if (principal == null && !search.getTags().isEmpty()) {
-            model.addAttribute("pages", pageRepository.findAllByVisibilityAndTagNames(
-                    Visibility.PUBLIC, search.getTags()
-            ));
-        }
-
-        return "list";
+    public String search(Model model, Principal principal, @Valid @NotNull @RequestParam(name = "query") String query) {
+        long pageCount = searchService.countPagesContaining(query, principal != null);
+        model.addAttribute("pageCount", pageCount);
+        model.addAttribute("tags", tagService.getAllTagsContaining(query));
+        return "search";
     }
 
     @RequestMapping("/login")
