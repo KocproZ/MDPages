@@ -10,8 +10,9 @@
                     <li class="row">
                         <a class="col m6" th:text="${f.getName()}" th:href="@{/files/{code}(code=${f.getCode()})}"></a>
                         <i class="col m4" th:text="${f.getCode()}"></i>
-                        <i class="col m2"
-                           th:text="'Last edited: ' + ${f.lastEdited}"></i>
+                        <a class="col m2" th:href="@{/files/update(code=${f.getCode()})}"
+                           th:text="Update"
+                           th:if="${@permissionService.canUpdateFile(#httpServletRequest.getRemoteUser(), f)}"></a>
                     </li>
                 </ul>
             </div>
