@@ -25,6 +25,12 @@
             <div class="col m9" style="float: right;">
                 <ul id="nav-mobile" class="right">
                     <li>
+                        <div id="searchBox" class="valign-wrapper">
+                            <input type="text" class="searchBox" placeholder="Search here"/>
+                            <i class="material-icons">search</i>
+                        </div>
+                    </li>
+                    <li>
                         <a th:if="${#httpServletRequest.remoteUser != null and @permissionService.hasPermission(#httpServletRequest.remoteUser, T(ovh.kocproz.markpages.Permission).ADMIN)}"
                            href="/admin">Admin panel</a></li>
                     <li><a th:if="${#httpServletRequest.remoteUser != null}" href="/edit">Create new</a></li>

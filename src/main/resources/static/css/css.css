@@ -54,6 +54,9 @@ a {
 .btn:focus {
   background-color: #4EBF99; }
 
+.mdwrapper {
+  background-color: #636666; }
+
 table.mdtable.striped > thead {
   border-bottom-style: none; }
 table.mdtable.striped > tbody > tr:nth-child(odd) {
@@ -93,19 +96,6 @@ table.mdtable.striped > tbody > tr {
 .mdcard [type="checkbox"].filled-in:checked + label:after {
   background-color: #38C999;
   border: #38C999; }
-
-.mdwrapper {
-  background-color: #636666; }
-  .mdwrapper > .row > .col > #nav-mobile > li > .dropdown-content > li > a:hover {
-    background-color: #424444; }
-  .mdwrapper > .row > .col > #nav-mobile > li > .dropdown-content > li > a {
-    background-color: #4A4C4C;
-    color: #F2F2F2; }
-  .mdwrapper > .row > .col > #nav-mobile > li.select-dropdown {
-    background-color: #4A4C4C;
-    color: #F2F2F2; }
-  .mdwrapper > .row > .col > #nav-mobile > li > a {
-    color: #F2F2F2; }
 
 .pagination > li.active {
   background-color: #38C999; }
@@ -179,5 +169,16 @@ input[type=text]:not(.browser-default):focus:not([readonly]) + label {
 
 .input-field .prefix ~ input {
   width: calc(100% - 6rem); }
+
+#searchBox > input {
+  margin: 0 0 10px 0;
+  height: 2rem;
+  width: 300px; }
+@media (max-width: 600px) {
+  #searchBox {
+    margin: 0 auto; } }
+@media (min-width: 600px) {
+  #searchBox {
+    margin-right: 50px; } }
 
 /*# sourceMappingURL=css.css.map */

@@ -54,11 +54,13 @@ a {
 .btn:focus {
   background-color: #4EBF99;
 }
-
+.mdwrapper{
+  @include mint-darker-1($background);
+}
 @import 'mdtable';
 @import 'mdcard';
-@import 'mdwrapper';
 @import 'mdpagination';
 @import 'mdselect-wrapper';
 @import 'login-panel';
 @import 'mdinput';
+@import 'searchBox';

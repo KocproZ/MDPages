@@ -1,0 +1,13 @@
+#searchBox{
+  >input{
+    margin: 0 0 10px 0;
+    height: 2rem;
+    width:300px;
+  }
+  @media(max-width: 600px) {
+    margin: 0 auto;
+  }
+  @media(min-width: 600px) {
+    margin-right: 50px;
+  }
+}
