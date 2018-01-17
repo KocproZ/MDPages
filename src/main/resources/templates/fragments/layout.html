@@ -27,7 +27,7 @@
                     <li>
                         <div id="searchBox" class="valign-wrapper">
                             <input type="text" id="searchInput" class="searchBox" placeholder="Search"/>
-                            <a onclick="window.location.href='/search?query='+document.querySelector('#searchInput').value"><i
+                            <a onclick="goToSearch()"><i
                                     class="material-icons">search</i></a>
                         </div>
                     </li>
@@ -59,6 +59,17 @@
         $('select').material_select();
         $(".dropdown-button").dropdown();
     });
+    document.querySelector('#searchInput').addEventListener('keyup', function (e) {
+        if (e.key === "Enter") {
+            goToSearch()
+        }
+    });
+
+    function goToSearch() {
+        var query = document.querySelector('#searchInput').value;
+        if (query.length > 2)
+            window.location.href = '/search?query=' + query;
+    }
 </script>
 
 </body>
