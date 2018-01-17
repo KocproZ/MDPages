@@ -1,12 +1,28 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.w3.org/1999/xhtml"
       layout:decorator="fragments/layout">
 
 <div layout:fragment="content">
     <div class="container">
-        <a href="/list">Pages</a>
-        <a href="/files/">Files</a>
+        <div class="row">
+            <div id="pageContent">
+            </div>
+        </div>
     </div>
+    <script src="/js/showdown.min.js"></script>
+    <script src="/js/showdownExtensions.js"></script>
+    <script src="/js/highlight.min.js"></script>
+    <script th:inline="javascript">
+        var converter = new showdown.Converter({extensions: ['audio']});
+        converter.setOption('tasklists', true);
+        converter.setOption('ghCodeBlocks', true);
+        converter.setOption('tables', true);
+        converter.setOption('simpleLineBreaks', true);
+        var text = [[${page.content}]];
+        var html = converter.makeHtml(text);
+        document.getElementById("pageContent").innerHTML = html;
+        hljs.initHighlightingOnLoad();
+    </script>
 </div>
 </html>
 

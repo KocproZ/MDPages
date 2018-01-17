@@ -41,7 +41,6 @@ function download(page) {
 }
 
 function render(json) {
-    console.log(json);
     resultsTable.innerHTML = "";
     json.forEach(function (entry) {
         var start = '<td><a href="/p/' + entry.stringId + '">' + entry.name + '</a>';

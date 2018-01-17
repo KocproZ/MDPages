@@ -43,6 +43,7 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(Model m, Principal principal) {
+        m.addAttribute("page", pageRepository.findOneByCode("homePage"));
         return "index";
     }
 

@@ -22,6 +22,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Date;
+import java.util.Scanner;
 
 @Component
 public class SetupDevEnv {
@@ -61,11 +62,30 @@ public class SetupDevEnv {
 
     @PostConstruct
     public void postInit() {
+        createHomePage();
         if (dev && dllAuto.equals("create")) {
             logger.info("Launching in dev mode. Populating database with random data...");
             createUsers();
             createTags();
             createPages();
+        }
+    }
+
+    private void createHomePage() {
+        PageModel homePage = pageRepository.findOneByCode("homePage");
+        if (homePage == null) {
+            logger.info("Home page not found. Generating new one.");
+            homePage = new PageModel();
+            homePage.setTitle("Home Page");
+            homePage.setCode("homePage");
+            homePage.setVisibility(Visibility.PUBLIC);
+            homePage.setCreationDate(new Date());
+            homePage.setLastEdited(new Date());
+            Scanner scanner = new Scanner(this.getClass().getResourceAsStream("/homePage.md"));
+            String text = scanner.useDelimiter("\\A").next();
+            scanner.close();
+            homePage.setContent(text);
+            pageRepository.save(homePage);
         }
     }
 
