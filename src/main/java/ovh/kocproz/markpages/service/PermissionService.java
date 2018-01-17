@@ -91,7 +91,20 @@ public class PermissionService {
         return hasPermission(user, Permission.UPLOAD);
     }
 
+    public boolean canUpdateFile(String username, FileModel f) {
+        UserModel userModel = userRepository.getByUsername(username);
+        return canUpdateFile(userModel, f);
+    }
+
+    /**
+     * Returns true i user can update file
+     *
+     * @param u UserModel to get permissions
+     * @param f FileModel to get owner
+     * @return false if UserModel or FileModel is null
+     */
     public boolean canUpdateFile(UserModel u, FileModel f) {
+        if (u == null || f == null) return false;
         return hasPermission(u, Permission.MODERATE) || f.getCreator().equals(u);
     }
 
