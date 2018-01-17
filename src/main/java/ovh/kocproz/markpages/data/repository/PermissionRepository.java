@@ -12,4 +12,5 @@ import java.util.Set;
  */
 public interface PermissionRepository extends CrudRepository<PermissionModel, Long> {
     Set<PermissionModel> findAllByUser(UserModel user);
+
 }

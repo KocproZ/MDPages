@@ -65,9 +65,7 @@
                         <div class="col m6">test</div>
                     </div>
                     <div class="row input-field"
-                         th:if="${page != null ? @permissionService.getRole(page.code, #httpServletRequest.getRemoteUser())
-                                  eq T(ovh.kocproz.markpages.data.model.PageMaintainerModel.Role).OWNER  || :
-                                  true}">
+                         th:if="${page != null ? @permissionService.canEditMaintainers(page.code, #httpServletRequest.getRemoteUser()) : true}">
                         <div class="col m12">
                             <div class="autocomplete" id="users">
                                 <div class="ac-users">

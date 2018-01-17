@@ -87,7 +87,7 @@ public class PermissionService {
                 || maintainerModel.getRole() == PageMaintainerModel.Role.MAINTAINER;
     }
 
-    public boolean canUpload(UserModel user){
+    public boolean canUpload(UserModel user) {
         return hasPermission(user, Permission.UPLOAD);
     }
 
@@ -104,8 +104,19 @@ public class PermissionService {
      * @see ovh.kocproz.markpages.data.model.PageMaintainerModel.Role
      */
     public PageMaintainerModel.Role getRole(String pageCode, String username) {
-        return maintainerRepository
-                .findFirstByPage_CodeAndUser(pageCode, userRepository.getByUsername(username))
-                .getRole();
+        PageMaintainerModel model = maintainerRepository
+                .findFirstByPage_CodeAndUser(pageCode, userRepository.getByUsername(username));
+        return model == null ? null : model.getRole();
+    }
+
+    public boolean canEditMaintainers(String pageCode, String username) {
+        if (getRole(pageCode, username) == PageMaintainerModel.Role.OWNER) return true;
+        else {
+            UserModel user = userRepository.getByUsername(username);
+            for (PermissionModel model : user.getPermissions()) {
+                if (model.getPermission() == Permission.MODERATE) return true;
+            }
+        }
+        return false;
     }
 }
