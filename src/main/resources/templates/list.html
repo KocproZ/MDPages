@@ -16,14 +16,10 @@
                 </ul>
             </div>
             <div class=" hide-on-small-only col m4">
-                <form method="POST" th:action="@{/search}" th:object="${searchdto}">
+                <form method="POST" th:action="@{/search}">
                     <div class="row input-field">
-                        <input type="text" name="name"/>
-                        <label>name</label>
-                    </div>
-                    <div class="row input-field">
-                        <input type="text" name="tags"/>
-                        <label>Tags</label>
+                        <input type="text" name="query"/>
+                        <label>Search</label>
                     </div>
                     <div class="row">
                         <input class="btn" type="submit" value="Search"/>
