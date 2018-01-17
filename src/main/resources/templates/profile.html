@@ -16,8 +16,9 @@
                     </a>
                 </li>
             </div>
-            <div class="col m4 offset-m1 card blue lighten-5"
+            <div class="col m4 offset-m1 card mdcard"
                  th:if="${user.username eq #httpServletRequest.getRemoteUser()}">
+                <p style="width:fit-content;margin-left:  auto;margin-right: auto;">Change password</p>
                 <form class="col" th:action="@{/user/chpass}" method="post">
                     <div class="row">
                         <div class="input-field col m12">

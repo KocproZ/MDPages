@@ -181,4 +181,11 @@ input[type=text]:not(.browser-default):focus:not([readonly]) + label {
   #searchBox {
     margin-right: 50px; } }
 
+#user-dropdown {
+  background-color: #636666; }
+  #user-dropdown a {
+    color: #E8E8EE; }
+  #user-dropdown li:hover, #user-dropdown a:hover {
+    background-color: #4A4C4C !important; }
+
 /*# sourceMappingURL=css.css.map */
