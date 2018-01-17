@@ -35,7 +35,8 @@
                                         <div class="ac-tags">
                                         </div>
                                         <div class="ac-input">
-                                            <input placeholder="Tags" type="text" id="tagsInput" data-activates="tagsMultipleDropdown"
+                                            <input placeholder="Tags" type="text" id="tagsInput"
+                                                   data-activates="tagsMultipleDropdown"
                                                    data-beloworigin="true" autocomplete="off"/>
                                             <input type="hidden" class="validate" name="tags" id="hiddenTags"
                                                    th:field="*{tags}"/>
@@ -48,10 +49,12 @@
                                 <div class="col m6 input-field mdselect-wrapper">
                                     <select name="visibility">
                                         <option value="PUBLIC"
-                                                th:selected="${visibility eq T(ovh.kocproz.markpages.Visibility).PUBLIC}"> Public
+                                                th:selected="${visibility eq T(ovh.kocproz.markpages.Visibility).PUBLIC}">
+                                            Public
                                         </option>
                                         <option value="AUTHORIZED"
-                                                th:selected="${visibility eq T(ovh.kocproz.markpages.Visibility).AUTHORIZED}"> Authorized
+                                                th:selected="${visibility eq T(ovh.kocproz.markpages.Visibility).AUTHORIZED}">
+                                            Authorized
                                         </option>
                                     </select>
                                 </div>
@@ -62,7 +65,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col m6">test</div>
+                        <div class="col m6"><a onclick="window.open('/files/upload', '_blank').focus()">Upload file</a>
+                        </div>
                     </div>
                     <div class="row input-field"
                          th:if="${page != null ? @permissionService.canEditMaintainers(page.code, #httpServletRequest.getRemoteUser()) : true}">
@@ -71,7 +75,8 @@
                                 <div class="ac-users">
                                 </div>
                                 <div class="ac-input">
-                                    <input placeholder="Authorized users" type="text" id="usersInput" data-activates="usersMultipleDropdown"
+                                    <input placeholder="Authorized users" type="text" id="usersInput"
+                                           data-activates="usersMultipleDropdown"
                                            data-beloworigin="true" autocomplete="off"/>
                                     <input type="hidden" class="validate" name="users" id="hiddenUsers"
                                            th:field="*{users}"/>
