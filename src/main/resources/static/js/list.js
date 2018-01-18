@@ -4,11 +4,11 @@ var current = 1;
 var max = (pagination.childNodes.length - 5) / 2;
 
 var renderer = function (entry) {
-    var start = '<td><a href="/p/' + entry.stringId + '">' + entry.name + '</a>';
+    var start = '<td><a href="/p/' + entry.stringId + '">' + entry.name + '</a><div class="tags">';
     entry.tags.forEach(function (tag) {
         start += '<a href="/search/tag?tag=' + tag + '"><div class="chip">' + tag + '</div><a/>'
     });
-    start += '<td/>';
+    start += '<div/><td/>';
     resultsTable.insertAdjacentHTML("beforeend", start)
 };
 

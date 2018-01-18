@@ -19,7 +19,7 @@ function setup(address, parameterName, renderFunction) {
     parameter = parameterName;
     if(renderFunction != null) renderer = renderFunction;
     download(1);
-};
+}
 
 function moveLeft() {
     if (current > 1) {
