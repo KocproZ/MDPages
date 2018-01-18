@@ -48,7 +48,7 @@ public class EditService {
                 pm.setUser(user);
                 pm.setRole(PageMaintainerModel.Role.MAINTAINER);
                 pm.setPage(page);
-                if (!user.getUsername().equals(owner.getUser().getUsername()))
+                if (owner == null || !user.getUsername().equals(owner.getUser().getUsername()))
                     maintainerRepository.save(pm);
             }
         }

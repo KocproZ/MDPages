@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ovh.kocproz.markpages.data.dto.PageFormDTO;
-import ovh.kocproz.markpages.data.model.PageMaintainerModel;
 import ovh.kocproz.markpages.data.model.PageModel;
 import ovh.kocproz.markpages.data.model.TagModel;
 import ovh.kocproz.markpages.data.model.UserModel;
@@ -113,7 +112,7 @@ public class EditController {
                 permissionService.canEdit(user, pageRepository.findOneByCode(formData.getCode()))) {
             editService.updatePage(formData.getTitle(),
                     formData.getContent(), formData.getVisibility(), formData.getTags(), formData.getCode());
-            if (permissionService.getRole(formData.getCode(), user.getUsername()) == PageMaintainerModel.Role.OWNER)
+            if (permissionService.canEditMaintainers(formData.getCode(), user))
                 editService.setMaintainers(formData.getUsers(), page);
         }
 

@@ -112,24 +112,34 @@ public class PermissionService {
      * Returns user role for the page
      *
      * @param pageCode 8-characters long page code
+     * @param user     UserModel to check role
+     * @return role of the user
+     * @see ovh.kocproz.markpages.data.model.PageMaintainerModel.Role
+     */
+    public PageMaintainerModel.Role getRole(String pageCode, UserModel user) {
+        PageMaintainerModel model = maintainerRepository
+                .findFirstByPage_CodeAndUser(pageCode, user);
+        return model == null ? null : model.getRole();
+    }
+
+    /**
+     * Returns user role for the page
+     *
+     * @param pageCode 8-characters long page code
      * @param username username to check role
      * @return role of the user
      * @see ovh.kocproz.markpages.data.model.PageMaintainerModel.Role
      */
     public PageMaintainerModel.Role getRole(String pageCode, String username) {
-        PageMaintainerModel model = maintainerRepository
-                .findFirstByPage_CodeAndUser(pageCode, userRepository.getByUsername(username));
-        return model == null ? null : model.getRole();
+        return getRole(pageCode, userRepository.getByUsername(username));
     }
 
+
     public boolean canEditMaintainers(String pageCode, String username) {
-        if (getRole(pageCode, username) == PageMaintainerModel.Role.OWNER) return true;
-        else {
-            UserModel user = userRepository.getByUsername(username);
-            for (PermissionModel model : user.getPermissions()) {
-                if (model.getPermission() == Permission.MODERATE) return true;
-            }
-        }
-        return false;
+        return getRole(pageCode, username) == PageMaintainerModel.Role.OWNER || hasPermission(username, Permission.MODERATE);
+    }
+
+    public boolean canEditMaintainers(String pageCode, UserModel user) {
+        return getRole(pageCode, user) == PageMaintainerModel.Role.OWNER || hasPermission(user, Permission.MODERATE);
     }
 }
