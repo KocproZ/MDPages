@@ -45,6 +45,22 @@ public class SearchService {
         return count / 20 + (count % 20 > 0 ? 1 : 0);
     }
 
+    public Long countPages(boolean loggedIn) {
+        long count = loggedIn ? pageRepository.countAll() : pageRepository.countAllByVisibility(Visibility.PUBLIC);
+        return count / 20 + (count % 20 > 0 ? 1 : 0);
+    }
+
+    public List<PageDTO> getPages(int page, boolean loggedIn) {
+        List<PageModel> pageModels = loggedIn ?
+                pageRepository.findAll(
+                        new PageRequest(page - 1, 20, Sort.Direction.ASC, "title")).getContent()
+                :
+                pageRepository.findAllByVisibility(
+                        Visibility.PUBLIC,
+                        new PageRequest(page - 1, 20, Sort.Direction.ASC, "title")).getContent();
+        return repack(pageModels);
+    }
+
     public List<PageDTO> searchPages(String query, boolean loggedIn, int page) {
         List<PageModel> pageModels = loggedIn ?
                 pageRepository.findAllByTitleContaining(

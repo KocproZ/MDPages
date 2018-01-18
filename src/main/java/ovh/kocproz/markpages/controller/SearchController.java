@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ovh.kocproz.markpages.service.SearchService;
+import ovh.kocproz.markpages.service.TagService;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.security.Principal;
 
 /**
@@ -21,9 +23,11 @@ import java.security.Principal;
 public class SearchController {
 
     private SearchService searchService;
+    private TagService tagService;
 
-    public SearchController(SearchService searchService) {
+    public SearchController(SearchService searchService, TagService tagService) {
         this.searchService = searchService;
+        this.tagService = tagService;
     }
 
     @GetMapping("/tag")
@@ -31,5 +35,13 @@ public class SearchController {
                             Model model, Principal principal) {
         model.addAttribute("pageCount", searchService.countPagesByTag(tag, principal != null));
         return "tagSearch";
+    }
+
+    @RequestMapping("")
+    public String search(Model model, Principal principal, @Valid @NotNull @RequestParam(name = "query") String query) {
+        long pageCount = searchService.countPagesContaining(query, principal != null);
+        model.addAttribute("pageCount", pageCount);
+        model.addAttribute("tags", tagService.getAllTagsContaining(query));
+        return "search";
     }
 }

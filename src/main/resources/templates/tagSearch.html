@@ -32,7 +32,10 @@
                         class="material-icons">chevron_right</i></a></li>
             </ul>
         </div>
-        <script src="/js/tagSearch.js"></script>
+        <script src="/js/pageList.js"></script>
+        <script th:inline="javascript">
+            setup('/search/tag/data?tag=', 'tag')
+        </script>
     </div>
 </div>
 

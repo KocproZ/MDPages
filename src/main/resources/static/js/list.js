@@ -2,6 +2,16 @@ var pagination = document.querySelector("#pagination");
 var resultsTable = document.querySelector("#results");
 var current = 1;
 var max = (pagination.childNodes.length - 5) / 2;
+
+var renderer = function (entry) {
+    var start = '<td><a href="/p/' + entry.stringId + '">' + entry.name + '</a>';
+    entry.tags.forEach(function (tag) {
+        start += '<a href="/search/tag?tag=' + tag + '"><div class="chip">' + tag + '</div><a/>'
+    });
+    start += '<td/>';
+    resultsTable.insertAdjacentHTML("beforeend", start)
+};
+
 download(1);
 
 function moveLeft() {
@@ -30,7 +40,7 @@ function moveToPage(page) {
 }
 
 function download(page) {
-    fetch('/search/tag/data?tag=' + getParameterByName('tag') + '&p=' + page, {
+    fetch('/list/data?p=' + page, {
         method: 'GET',
         credentials: 'same-origin'
     }).then(function (response) {
@@ -42,14 +52,7 @@ function download(page) {
 
 function render(json) {
     resultsTable.innerHTML = "";
-    json.forEach(function (entry) {
-        var start = '<td><a href="/p/' + entry.stringId + '">' + entry.name + '</a>';
-        entry.tags.forEach(function (tag) {
-            start += '<a href="/search/tag?tag=' + tag + '"><div class="chip">' + tag + '</div><a/>'
-        });
-        start += '<td/>';
-        resultsTable.insertAdjacentHTML("beforeend", start)
-    })
+    json.forEach(renderer)
 }
 
 function getParameterByName(name, url) {

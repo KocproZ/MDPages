@@ -80,4 +80,13 @@ public interface PageRepository extends JpaRepository<PageModel, Long> {
     Long countAllByTitleContaining(String titleFragment);
 
     Long countAllByVisibilityAndTitleContaining(Visibility visibility, String titleFragment);
+
+    @Query(value = "select count(p) from Page p")
+    Long countAll();
+
+    Long countAllByVisibility(Visibility visibility);
+
+    Page<PageModel> findAllByVisibility(Visibility visibility, Pageable pageable);
+
+    Page<PageModel> findAll(Pageable pageable);
 }

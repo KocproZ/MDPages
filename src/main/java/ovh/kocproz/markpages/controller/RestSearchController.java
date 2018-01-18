@@ -1,6 +1,7 @@
 package ovh.kocproz.markpages.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ovh.kocproz.markpages.data.dto.PageDTO;
 import ovh.kocproz.markpages.data.dto.SearchDTO;
@@ -34,5 +35,10 @@ public class RestSearchController {
     @GetMapping("/search/page/data")
     public List<PageDTO> getPageSearchData(@Valid SearchDTO searchDTO, Principal principal) {
         return searchService.searchPages(searchDTO.getQuery(), principal != null, searchDTO.getP());
+    }
+
+    @GetMapping("/list/data")
+    public List<PageDTO> getListData(@RequestParam(name = "p") int p, Principal principal) {
+        return searchService.getPages(p, principal != null);
     }
 }

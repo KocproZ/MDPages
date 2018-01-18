@@ -38,7 +38,10 @@
                         class="material-icons">chevron_right</i></a></li>
             </ul>
         </div>
-        <script src="/js/pageSearch.js"></script>
+        <script src="/js/pageList.js"></script>
+        <script th:inline="javascript">
+            setup('/search/page/data?query=', 'query')
+        </script>
     </div>
 </div>
 

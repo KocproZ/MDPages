@@ -68,7 +68,18 @@ public class SetupDevEnv {
             createUsers();
             createTags();
             createPages();
+        } else if (dllAuto.equals("create")) {
+            createAdminAccount();
         }
+    }
+
+    private void createAdminAccount() {
+        userService.createUser("admin", "admin",
+                new Permission[]{Permission.CREATE,
+                        Permission.UPLOAD,
+                        Permission.MODERATE,
+                        Permission.REGISTER,
+                        Permission.ADMIN});
     }
 
     private void createHomePage() {

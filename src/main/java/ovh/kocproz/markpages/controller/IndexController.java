@@ -1,13 +1,11 @@
 package ovh.kocproz.markpages.controller;
 
 import org.slf4j.Logger;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import ovh.kocproz.markpages.Visibility;
 import ovh.kocproz.markpages.data.model.PageModel;
 import ovh.kocproz.markpages.data.model.UserModel;
@@ -16,8 +14,6 @@ import ovh.kocproz.markpages.data.repository.UserRepository;
 import ovh.kocproz.markpages.service.SearchService;
 import ovh.kocproz.markpages.service.TagService;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.security.Principal;
 
 @Controller
@@ -49,17 +45,7 @@ public class IndexController {
 
     @GetMapping("/list")
     public String list(Model m, Principal principal) {
-        if (principal != null) {
-            m.addAttribute("pages", pageRepository.findAllByVisibility(
-                    Visibility.PUBLIC, new Sort(Sort.Direction.ASC, "title")
-            ));
-            m.addAttribute("user", userRepository.getByUsername(principal.getName()));
-        } else {
-            m.addAttribute("pages", pageRepository.findAll(
-                    new Sort(Sort.Direction.ASC, "title")
-            ));
-        }
-
+        m.addAttribute("pageCount", searchService.countPages(principal != null));
         return "list";
     }
 
@@ -110,13 +96,6 @@ public class IndexController {
 //        return "list";
 //    }
 
-    @RequestMapping("/search")
-    public String search(Model model, Principal principal, @Valid @NotNull @RequestParam(name = "query") String query) {
-        long pageCount = searchService.countPagesContaining(query, principal != null);
-        model.addAttribute("pageCount", pageCount);
-        model.addAttribute("tags", tagService.getAllTagsContaining(query));
-        return "search";
-    }
 
     @RequestMapping("/login")
     public String login() {
