@@ -57,6 +57,10 @@ a {
 .mdwrapper {
   background-color: #636666; }
 
+.tags {
+  display: inline;
+  float: right; }
+
 table.mdtable.striped > thead {
   border-bottom-style: none; }
 table.mdtable.striped > tbody > tr:nth-child(odd) {

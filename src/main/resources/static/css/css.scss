@@ -57,6 +57,10 @@ a {
 .mdwrapper{
   @include mint-darker-1($background);
 }
+.tags{
+  display:inline;
+  float:right;
+}
 @import 'mdtable';
 @import 'mdcard';
 @import 'mdpagination';
