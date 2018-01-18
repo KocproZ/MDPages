@@ -1,9 +1,9 @@
 #user-dropdown{
-  @include mint-darker-1($background);
+  background-color: $mdsidebarBackgroundColor;
   a{
-    color:#E8E8EE;
+    color: $mdsidebarAFontColor;
   }
   li:hover, a:hover{
-    background-color: #4A4C4C!important;
+    background-color: $mdsidebarElementHover!important;
   }
 }

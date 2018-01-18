@@ -1,14 +1,14 @@
 .mdselect-wrapper {
   >.select-wrapper {
     > .caret {
-      @include white-darker-1($font);
+      color: $mdselect-wrapperCaretFontColor;
     }
     > .select-dropdown {
       > li {
         > span {
-          @include white-darker-1($font);
+          color: $mdselect-wrapperSelectDropdownFontColor;
         }
-        @include mint-darker-2($background);
+        background-color: $mdselect-wrapperSelectDropdownBackgroundColor;
       }
       & {
         margin: 0 !important;

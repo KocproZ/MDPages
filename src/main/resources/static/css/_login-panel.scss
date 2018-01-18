@@ -1,7 +1,7 @@
 .login-panel{
   margin: 50px auto 0 auto;
   padding: 15px;
-  @include mint-darker-1($background);
+  background-color: $login-panelBackgroundColor;
   @media(max-width: 600px) {
     margin-top: 0;
     padding-top:0;

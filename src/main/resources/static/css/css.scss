@@ -9,8 +9,8 @@ html {
 body {
   width:100%;
   height:100%;
-  @include grey-lighter-1($background);
-  @include white-darker-1($font);
+  background-color: $bodyBackgroundColor;
+  color: $bodyFontColor;
 }
 .logo {
   position: absolute;
@@ -20,11 +20,14 @@ body {
 .nopadding {
   padding: 0 0 0 0!important;
 }
-.btn,.btn:hover {
-  @include mint-lighter-1($background);
+.btn {
+  background-color: $btnBackgroundColor;
+}
+.btn:hover{
+  background-color: $btnBackgroundColorHover;
 }
 a {
-  @include mint-lighter-1($font);
+  color: $aFontColor;
 }
 .center-in-div{
   display:flex;
@@ -43,7 +46,7 @@ a {
   height: 5px;
   display: block;
   box-shadow: 1px 1px 2px #0e0e0e;
-  @include mint-lighter-1($background);
+  background-color: $fancyhrBackgroundColor;
   margin: 10px auto;
 }
 @media(max-width: 600px){
@@ -52,10 +55,10 @@ a {
   }
 }
 .btn:focus {
-  background-color: #4EBF99;
+  background-color: $btnBackgroundColorFocus;
 }
 .mdwrapper{
-  @include mint-darker-1($background);
+  background-color: $mdwrapperBackgroundColor;
 }
 .tags{
   display:inline;

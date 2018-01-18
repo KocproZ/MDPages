@@ -10,23 +10,19 @@ table.mdtable {
       >tr{
         &:nth-child(odd){
           //First row
-          @include mint-darker-2($background);
+          background-color: $mdtableFirstRowBackgroundColor;
         }
         &{
           //Standard row
-          @include mint-darker-1($background);
+          background-color: $mdtableRowBackgroundColor;
           >td {
             overflow-wrap: break-word;
             >.btn{
-              @include white-darker-1($font);
-              &{
-                float:right;
-                margin-right: 5%;
-                @include mint-lighter-1($background);
-                @include white-darker-1($font);
-              }
+              color:$mdtableBtnFontColor;
+              float:right;
+              margin-right: 5%;
+              background-color: $mdtableBtnBackgroundColor;
               &:hover{
-                @include white-darker-1($font);
                 text-decoration: none;
                 @extend .shadowed;
               }
@@ -37,7 +33,7 @@ table.mdtable {
                 text-decoration: underline;
               }
               &{
-                @include mint-lighter-1($font);
+                color: $mdtableAFontColor;
               }
             }
           }

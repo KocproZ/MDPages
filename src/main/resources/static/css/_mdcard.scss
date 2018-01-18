@@ -1,7 +1,7 @@
 
 .mdcard{
   &{
-    @include mint-darker-1($background);
+    background-color: $mdcardBackgroundColor;
   }
   >form{
     >.row{
@@ -9,7 +9,7 @@
         min-height: 66px;
         width:90%;
         >input.btn{
-          background-color: #38C999;
+          background-color: $mdcardInputBtnBackgroundColor;
         }
       }
     }
@@ -21,7 +21,7 @@
     max-width: 500px;
   }
   [type="checkbox"].filled-in:checked+label:after {
-    $color: #38C999;
+    $color: $mdcardInputCheckboxColor;
     background-color: $color;
     border: $color;
   }

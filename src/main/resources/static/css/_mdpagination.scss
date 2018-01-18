@@ -1,11 +1,11 @@
 .pagination {
   > li {
     &.active {
-      @include mint-lighter-1($background);
+      background-color: $paginationLiActiveBackgroundColor;
     }
     >a {
       & {
-        @include white-darker-1($font);
+        color: $paginationLiAFontColor;
       }
     }
   }
