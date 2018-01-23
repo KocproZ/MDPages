@@ -28,6 +28,7 @@
     <script src="/js/highlight.min.js"></script>
     <script th:inline="javascript">
         var converter = new showdown.Converter({extensions: ['audio']});
+        converter.setFlavor('github');
         converter.setOption('tasklists', true);
         converter.setOption('ghCodeBlocks', true);
         converter.setOption('tables', true);

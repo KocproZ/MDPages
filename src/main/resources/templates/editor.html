@@ -111,6 +111,7 @@
 
         function update() {
             var converter = new showdown.Converter({extensions: ['audio']});
+            converter.setFlavor('github');
             converter.setOption('tasklists', true);
             converter.setOption('ghCodeBlocks', true);
             converter.setOption('tables', true);
