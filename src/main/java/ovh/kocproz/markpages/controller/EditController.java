@@ -4,10 +4,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ovh.kocproz.markpages.data.dto.PageFormDTO;
 import ovh.kocproz.markpages.data.model.PageModel;
 import ovh.kocproz.markpages.data.model.TagModel;
@@ -16,11 +13,13 @@ import ovh.kocproz.markpages.data.repository.PageMaintainerRepository;
 import ovh.kocproz.markpages.data.repository.PageRepository;
 import ovh.kocproz.markpages.data.repository.TagRepository;
 import ovh.kocproz.markpages.data.repository.UserRepository;
+import ovh.kocproz.markpages.exception.NoPermissionException;
 import ovh.kocproz.markpages.service.EditService;
 import ovh.kocproz.markpages.service.PermissionService;
 import ovh.kocproz.markpages.service.TagService;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.security.Principal;
 import java.util.Set;
 
@@ -112,12 +111,20 @@ public class EditController {
                 permissionService.canEdit(user, pageRepository.findOneByCode(formData.getCode()))) {
             editService.updatePage(formData.getTitle(),
                     formData.getContent(), formData.getVisibility(), formData.getTags(), formData.getCode());
-            if (permissionService.canEditMaintainers(formData.getCode(), user))
+            if (permissionService.hasFullEditPermissions(formData.getCode(), user))
                 editService.setMaintainers(formData.getUsers(), page);
         }
 
         return String.format("redirect:/p/%s", formData.getCode());
     }
 
+    @PostMapping("/delete")
+    public String delete(@Valid @NotNull @RequestParam String code, Principal principal) {
+        if (principal == null || !permissionService.hasFullEditPermissions(code, principal.getName()))
+            throw new NoPermissionException();
+        editService.deletePage(code);
+        return "/";
+        //TODO some success message
+    }
 
 }

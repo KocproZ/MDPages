@@ -67,7 +67,7 @@
                         </div>
                     </div>
                     <div class="row input-field"
-                         th:if="${page != null ? @permissionService.canEditMaintainers(page.code, #httpServletRequest.getRemoteUser()) : true}">
+                         th:if="${page != null ? @permissionService.hasFullEditPermissions(page.code, #httpServletRequest.getRemoteUser()) : true}">
                         <div class="col m12">
                             <div class="autocomplete" id="users">
                                 <div class="ac-users">

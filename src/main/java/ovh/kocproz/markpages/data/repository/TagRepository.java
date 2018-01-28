@@ -12,4 +12,5 @@ public interface TagRepository extends CrudRepository<TagModel, Long> {
     List<TagModel> findAllByNameContaining(String name, Pageable pageable);
 
     List<TagModel> findAllByNameContaining(String name);
+
 }

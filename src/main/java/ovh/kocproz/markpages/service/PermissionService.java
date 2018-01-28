@@ -135,11 +135,12 @@ public class PermissionService {
     }
 
 
-    public boolean canEditMaintainers(String pageCode, String username) {
+    public boolean hasFullEditPermissions(String pageCode, String username) {
         return getRole(pageCode, username) == PageMaintainerModel.Role.OWNER || hasPermission(username, Permission.MODERATE);
     }
 
-    public boolean canEditMaintainers(String pageCode, UserModel user) {
+    public boolean hasFullEditPermissions(String pageCode, UserModel user) {
         return getRole(pageCode, user) == PageMaintainerModel.Role.OWNER || hasPermission(user, Permission.MODERATE);
     }
+
 }
