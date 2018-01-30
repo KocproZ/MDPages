@@ -1,0 +1,53 @@
+.ace_gutter {
+  padding-top: 25px;
+}
+.ace_scroller{
+  margin-top: 25px;
+}
+.tabs-vertical {
+  .tabs {
+    height: auto;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    display: -webkit-flex;
+    display: flex;
+    width: unset!important;
+    position: fixed;
+    right: 0;
+
+    li{
+      width: unset!important;
+      margin-left: unset!important;
+      left: unset!important;
+      right: unset!important;
+      background-color: $editorLiBackgroundColor;
+    }
+  }
+
+  .tab {
+    width: 100%;
+    a{
+      color: $editorTabFontColor!important;
+      border-right: 3px solid $editorLiBackgroundColor;
+    }
+    .active {
+      -moz-transition: border-color .5s ease;
+      -o-transition: border-color .5s ease;
+      -webkit-transition: border-color .5s ease;
+      transition: border-color .5s ease;
+      border-right: 3px solid $editorTabCurrentTabBorderRightColor;
+    }
+
+    :hover {
+      border-right: 3px solid $editorTabBorderRightHoverColor;
+      a{
+        width: 95%;
+      }
+    }
+  }
+
+  .indicator {
+    display: none;
+  }
+}

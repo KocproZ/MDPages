@@ -4,15 +4,6 @@
 
 <div layout:fragment="content">
     <div class="container">
-        <ul id="slide-out" class="side-nav" style="width:850px; background-color:#1B1B1B;">
-            <div class="" id="editor" th:text="${page != null} ? ${page.content} : ''"></div>
-        </ul>
-        <a href="#" data-activates="slide-out" class="button-collapse">
-            <div class="valign-wrapper center-align" style="position:fixed; left:0px;top:50vh;width:50px;height:50px;">
-                <img th:src="@{/img/arrow.png}" style="width:50px;"/>
-            </div>
-        </a>
-        <script>$(".button-collapse").sideNav();</script>
         <div class="row">
             <div class="col m12">
                 <form id="pageForm" method="post" th:object="${pageFormDTO}"
@@ -84,7 +75,26 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div id="preview"></div>
+                        <div class="tabs-vertical">
+                            <ul id="tabs-swipe-demo" class="tabs">
+                                <li class="tab col s3"><a href="#editor-container">Editor</a></li>
+                                <li class="tab col s3"><a href="#page-review">Review</a></li>
+                            </ul>
+                        </div>
+                        <script>
+                            $(document).ready(function(){
+                                $('ul.tabs').tabs();
+                            });
+                            $(document).ready(function(){
+                                $('ul.tabs').tabs('select_tab', 'editor-container');
+                            });
+                        </script>
+                        <div id="editor-container" class="col s12">
+                            <div class="" id="editor" th:text="${page != null} ? ${page.content} : ''"></div>
+                        </div>
+                        <div id="page-review" class="col s12">
+                            <div id="preview"></div>
+                        </div>
                     </div>
                 </form>
             </div>
