@@ -5,6 +5,10 @@
   margin-top: 25px;
 }
 .tabs-vertical {
+  position: fixed;
+  z-index: 10;
+  right: 0;
+  top: calc(50% - 48px);
   .tabs {
     height: auto;
     -ms-flex-direction: column;
@@ -13,8 +17,6 @@
     display: -webkit-flex;
     display: flex;
     width: unset!important;
-    position: fixed;
-    right: 0;
 
     li{
       width: unset!important;

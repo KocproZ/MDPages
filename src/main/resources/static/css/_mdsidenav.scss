@@ -3,10 +3,13 @@
     background-color: $side-navLogoBackgroundColor;
     padding: 32px;
     display: flex;
-    >img{
+    a,img{
       height: 128px;
       margin-left: auto;
       margin-right: auto;
+    }
+    a:hover{
+      background-color: inherit;
     }
   }
   #searchBox{
