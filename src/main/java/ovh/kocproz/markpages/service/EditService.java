@@ -107,4 +107,11 @@ public class EditService {
         return page;
     }
 
+    @Transactional
+    public void deletePage(String code) {
+        PageModel page = pageRepository.findOneByCode(code);
+        maintainerRepository.deleteAllByPage(page);
+        pageRepository.delete(page);
+    }
+
 }
