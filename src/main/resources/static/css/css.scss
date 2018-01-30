@@ -1,5 +1,7 @@
 @import 'colors';
 html {
+  min-width:100%;
+  min-height:100%;
   margin: 0;
   padding: 0;
 }
@@ -12,10 +14,11 @@ body {
   background-color: $bodyBackgroundColor;
   color: $bodyFontColor;
 }
-.logo {
-  position: absolute;
-  height: 60px;
-  float: left;
+header, main, footer {
+  padding-left: 300px;
+  @media only screen and (max-width : 992px){
+    padding-left: 0;
+  }
 }
 .nopadding {
   padding: 0 0 0 0!important;
@@ -70,5 +73,4 @@ a {
 @import 'mdselect-wrapper';
 @import 'login-panel';
 @import 'mdinput';
-@import 'searchBox';
-@import 'mdsidebar';
+@import 'mdsidenav';

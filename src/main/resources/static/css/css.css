@@ -1,4 +1,6 @@
 html {
+  min-width: 100%;
+  min-height: 100%;
   margin: 0;
   padding: 0; }
 
@@ -11,10 +13,11 @@ body {
   background-color: #757B7F;
   color: #F2F2F2; }
 
-.logo {
-  position: absolute;
-  height: 60px;
-  float: left; }
+header, main, footer {
+  padding-left: 300px; }
+  @media only screen and (max-width: 992px) {
+    header, main, footer {
+      padding-left: 0; } }
 
 .nopadding {
   padding: 0 0 0 0 !important; }
@@ -171,22 +174,26 @@ input[type=text]:not(.browser-default):focus:not([readonly]) + label {
 .input-field .prefix ~ input {
   width: calc(100% - 6rem); }
 
-#searchBox > input {
-  margin: 0 0 10px 0;
-  height: 2rem;
-  width: 300px; }
-@media (max-width: 600px) {
-  #searchBox {
-    margin: 0 auto; } }
-@media (min-width: 600px) {
-  #searchBox {
-    margin-right: 50px; } }
-
-#user-dropdown {
-  background-color: #636666; }
-  #user-dropdown a {
-    color: #E8E8EE; }
-  #user-dropdown li:hover, #user-dropdown a:hover {
-    background-color: #4A4C4C !important; }
+.side-nav .logo {
+  background-color: #4A4C4C;
+  padding: 32px;
+  display: flex; }
+  .side-nav .logo > img {
+    height: 128px;
+    margin-left: auto;
+    margin-right: auto; }
+.side-nav #searchBox {
+  padding-left: 32px;
+  padding-right: 32px; }
+  .side-nav #searchBox > input {
+    margin: 0 0 10px 0;
+    height: 2rem;
+    width: 300px; }
+  .side-nav #searchBox input {
+    color: #000; }
+  .side-nav #searchBox a {
+    color: #000; }
+  .side-nav #searchBox i {
+    cursor: pointer; }
 
 /*# sourceMappingURL=css.css.map */
