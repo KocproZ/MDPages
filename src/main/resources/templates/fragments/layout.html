@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
-    <title th:text="${page_title != null} ? ${page_title} : 'md pages'"></title>
+    <title th:text="${page_title != null} ? ${page_title} : 'mdPages'"></title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="/css/css.css"/>
@@ -10,50 +10,48 @@
 </head>
 <body>
 
-<ul id="user-dropdown" class="dropdown-content">
-    <li><a href="/user/profile">Profile</a></li>
-    <li class="divider"></li>
-    <li><a href="/logout">Logout</a></li>
-</ul>
-
-<nav>
-    <div class="nav-wrapper mdwrapper">
-        <div class="row">
-            <div class="col m3">
-                <a href="/" style="float: left;"><img class="logo" src="/img/logo.png"/></a>
-            </div>
-            <div class="col m9" style="float: right;">
-                <ul id="nav-mobile" class="right">
-                    <li>
-                        <div id="searchBox" class="valign-wrapper">
-                            <input type="text" id="searchInput" class="searchBox" placeholder="Search"/>
-                            <a onclick="goToSearch()"><i
-                                    class="material-icons">search</i></a>
-                        </div>
-                    </li>
-                    <li>
-                        <a th:if="${#httpServletRequest.remoteUser != null and @permissionService.hasPermission(#httpServletRequest.remoteUser, T(ovh.kocproz.markpages.Permission).ADMIN)}"
-                           href="/admin">Admin panel</a></li>
-                    <li><a th:if="${#httpServletRequest.remoteUser != null}" href="/edit">Create new</a></li>
-                    <li><a href="/login" th:if="${#httpServletRequest.remoteUser == null}">Login</a></li>
-                    <li><a class="dropdown-button" href="#!" data-activates="user-dropdown" data-beloworigin="true"
-                           th:inline="text"
-                           th:if="${#httpServletRequest.remoteUser != null}">
-                        [[${#httpServletRequest.remoteUser}]]<i class="material-icons right">arrow_drop_down</i>
-                    </a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav>
-
 <script src="/js/jquery-3.2.1.min.js"></script>
 <script src="/js/materialize.min.js"></script>
+<ul id="slide-out" class="side-nav fixed">
+    <li class="logo"><a href="/"><img src="/img/logo.png"/></a></li>
+    <li>
+        <div id="searchBox" class="valign-wrapper card">
+            <input type="text" id="searchInput" class="searchBox" placeholder="Search"/>
+            <a onclick="goToSearch()"><i class="material-icons">search</i></a>
+        </div>
+    </li>
+    <li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+            <li>
+                <a class="collapsible-header" th:inline="text"
+                   th:if="${#httpServletRequest.remoteUser != null}">
+                    [[${#httpServletRequest.remoteUser}]]<i class="material-icons">arrow_drop_down</i></a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li><a href="/user/profile">Profile</a></li>
+                        <li><a href="/logout">Logout</a></li>
+                        <li><div class="divider"></div></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a th:if="${#httpServletRequest.remoteUser != null and @permissionService.hasPermission(#httpServletRequest.remoteUser, T(ovh.kocproz.markpages.Permission).ADMIN)}"
+           href="/admin">Admin panel</a></li>
+    <li><a th:if="${#httpServletRequest.remoteUser != null}" href="/edit">Create new</a></li>
+    <li><a href="/login" th:if="${#httpServletRequest.remoteUser == null}">Login</a></li>
+    <li><div class="divider"></div></li>
+    <li><a href="/list">List of pages</a></li>
+    <li><a href="/files">List of files</a></li>
 
-<div class="main">
-    <div layout:fragment="content"></div>
+</ul>
+<div>
+    <a href="#" data-activates="slide-out" class="button-collapse"><i class="medium material-icons">menu</i></a>
 </div>
-
+<script>
+    $(".button-collapse").sideNav();
+</script>
 <script>
     $(document).ready(function () {
         $('select').material_select();
@@ -71,6 +69,8 @@
             window.location.href = '/search?query=' + query;
     }
 </script>
-
+<main>
+    <div layout:fragment="content"></div>
+</main>
 </body>
 </html>

@@ -1,0 +1,33 @@
+.side-nav{
+  .logo {
+    background-color: $side-navLogoBackgroundColor;
+    padding: 32px;
+    display: flex;
+    a,img{
+      height: 128px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    a:hover{
+      background-color: inherit;
+    }
+  }
+  #searchBox{
+    >input{
+      margin: 0 0 10px 0;
+      height: 2rem;
+      width:300px;
+    }
+    padding-left: 32px;
+    padding-right: 32px;
+    input{
+      color: $searchBoxInputFontColor;
+    }
+    a{
+      color: $searchBoxIconFontColor;
+    }
+    i{
+      cursor:pointer;
+    }
+  }
+}

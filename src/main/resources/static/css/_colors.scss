@@ -8,7 +8,6 @@ $grey-lighter-1: #757B7F;
 $white-darker-1: #F2F2F2;
 
 //Colors of elements
-
 //body
 $bodyBackgroundColor: $grey-lighter-1;
 $bodyFontColor: $white-darker-1;
@@ -67,7 +66,14 @@ $inputTextFontColor: $mint-lighter-1;
 //InputField/Prefix.active
 $inputFieldFontColor: $mint-lighter-1;
 
-//mdsidebar
-$mdsidebarBackgroundColor: $mint-darker-1;
-$mdsidebarAFontColor: #E8E8EE;
-$mdsidebarElementHover: $mint-darker-2;
+//sideNav
+$side-navLogoBackgroundColor: $mint-darker-2;
+//searchBox
+$searchBoxInputFontColor: #000;
+$searchBoxIconFontColor: #000;
+//editor
+$editorTabBorderRightActiveColor: #EE6E73;
+$editorTabBorderRightHoverColor: #38C999;
+$editorTabFontColor: #FFFFFF;
+$editorLiBackgroundColor: #4A4C4C;
+$editorTabCurrentTabBorderRightColor: #EE6E73;
