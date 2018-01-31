@@ -12,57 +12,37 @@
                     <input type="hidden" id="code" name="code"
                            th:value="${page != null} ? ${page.code} : ${''}"/>
                     <div class="row">
-                        <div class="col m6">
-                            <div class="row">
-                                <div class="col m12 input-field">
-                                    <input placeholder="Page Title" type="text" id="title-input" data-length="128"
-                                           name="title" maxlength="128"
-                                           th:value="${page != null} ? ${page.title} : ${''}"/>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col m12 input-field">
-                                    <div class="autocomplete" id="tags">
-                                        <div class="ac-tags">
-                                        </div>
-                                        <div class="ac-input">
-                                            <input placeholder="Tags" type="text" id="tagsInput"
-                                                   data-activates="tagsMultipleDropdown"
-                                                   data-beloworigin="true" autocomplete="off"/>
-                                            <input type="hidden" class="validate" name="tags" id="hiddenTags"
-                                                   th:field="*{tags}"/>
-                                        </div>
-                                        <ul id="tagsMultipleDropdown" class="dropdown-content ac-dropdown"></ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col m6 input-field mdselect-wrapper">
-                                    <select name="visibility">
-                                        <option value="PUBLIC"
-                                                th:selected="${visibility eq T(ovh.kocproz.markpages.Visibility).PUBLIC}">Public
-                                        </option>
-                                        <option value="AUTHORIZED"
-                                                th:selected="${visibility eq T(ovh.kocproz.markpages.Visibility).AUTHORIZED}">Authorized
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col m4 offset-m2">
-                                    <button class="btn waves-effect waves-light" name="action" type="submit"
-                                            style="padding: 0 1rem;">Save<i class="material-icons right">save</i>
-                                    </button>
-                                </div>
-                            </div>
+                        <div class="col s12 m6">
+                            <input placeholder="Page Title" type="text" id="title-input" data-length="128" name="title" maxlength="128" th:value="${page != null} ? ${page.title} : ${''}"/>
                         </div>
-                        <div class="col m6"><a onclick="window.open('/files/upload', '_blank').focus()">Upload file</a>
+                        <div class="col s12 m6">
+                            <div class="switch">
+                                <label>
+                                    <p>Public</p>
+                                    <input type="checkbox"/>
+                                    <span class="lever"></span>
+                                    <p>Authorized</p>
+                                </label>
+                            </div>
                         </div>
                     </div>
-                    <div class="row input-field"
-                         th:if="${page != null ? @permissionService.hasFullEditPermissions(page.code, #httpServletRequest.getRemoteUser()) : true}">
-                        <div class="col m12">
-                            <div class="autocomplete" id="users">
-                                <div class="ac-users">
+                    <div class="row">
+                        <div class="col s12 m6">
+                            <div class="autocomplete" id="tags">
+                                <div class="ac-input">
+                                    <input placeholder="Tags" type="text" id="tagsInput"
+                                           data-activates="tagsMultipleDropdown"
+                                           data-beloworigin="true" autocomplete="off"/>
+                                    <input type="hidden" class="validate" name="tags" id="hiddenTags"
+                                           th:field="*{tags}"/>
                                 </div>
+                                <ul id="tagsMultipleDropdown" class="dropdown-content ac-dropdown"></ul>
+                                <div class="ac-tags">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m6">
+                            <div class="autocomplete" id="users">
                                 <div class="ac-input">
                                     <input placeholder="Authorized users" type="text" id="usersInput"
                                            data-activates="usersMultipleDropdown"
@@ -71,14 +51,17 @@
                                            th:field="*{users}"/>
                                 </div>
                                 <ul id="usersMultipleDropdown" class="dropdown-content ac-dropdown"></ul>
+                                <div class="ac-users">
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <button class="btn waves-effect waves-light" name="action" type="submit" style="padding: 0 1rem; float:right;">Save<i class="material-icons right">save</i></button>
                     <div class="row">
                         <div class="tabs-vertical">
                             <ul id="tabs-swipe-demo" class="tabs">
                                 <li class="tab col s3"><a href="#editor-container">Editor</a></li>
-                                <li class="tab col s3"><a href="#page-review">Review</a></li>
+                                <li class="tab col s3"><a href="#page-review">Preview</a></li>
                             </ul>
                         </div>
                         <script>
