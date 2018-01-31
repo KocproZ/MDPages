@@ -66,10 +66,10 @@ public class EditController {
         UserModel user = userRepository.getByUsername(auth.getName());
         Set<TagModel> tags = null;
         if (user == null || page == null) return "redirect:/edit";
-        if (page != null) {
-            tags = page.getTags();
-            tags.forEach(t -> t.setPages(null));
-        }
+
+        tags = page.getTags();
+        tags.forEach(t -> t.setPages(null));
+
         if (permissionService.canEdit(user, page)) {
             formData.setTitle(page.getTitle());
             formData.setCode(page.getCode());
