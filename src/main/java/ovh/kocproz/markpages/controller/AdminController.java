@@ -75,7 +75,6 @@ public class AdminController {
     @ResponseBody
     @GetMapping("/rest/countUsers")
     public Long countUsers(@RequestParam(name = "search") String search) {
-        System.out.println(search);
         return permissionEditorService.countUsers(search);
     }
 

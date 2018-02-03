@@ -9,7 +9,10 @@ updateUserListFilters();
 function updateUserListFilters() {
     current = 1;
     getPageCount()
-        .then(usersPagination.updatePagination);
+        .then(usersPagination.updatePagination)
+        .then(function () {
+            usersPagination.moveToBeginning();
+        });
 
 }
 
@@ -42,13 +45,13 @@ function UsersPagination() {
         });
         for (let i = 1; i <= pages; i++) {
             let inside = document.createElement('a');
-            inside.setAttribute('onclick', 'usersPagination.moveToPage(this)');
-            inside.setAttribute('page', i);
+            inside.setAttribute('onclick', 'usersPagination.moveToPage(this.parentNode)');
             inside.innerText = i;
 
             let number = document.createElement('li');
             number.classList.add(i === 1 ? 'active' : 'waves-effect');
             number.appendChild(inside);
+            number.setAttribute('page', i);
             paginationNumbers.push(number);
             paginationNode.insertBefore(number, rightArrow)
         }
@@ -56,28 +59,43 @@ function UsersPagination() {
 
     this.moveLeft = function () {
         if (current > 1) {
-            paginationNode.querySelector('[page="' + current + '"]').setAttribute('class', 'waves-effect');
-            paginationNode.querySelector('[page="' + (current - 1) + '"]').setAttribute('class', 'active');
+            let last = paginationNode.querySelector('[page="' + current + '"]');
             current--;
+            let currentNumberNode = paginationNode.querySelector('[page="' + current + '"]');
+            setEffects(last, currentNumberNode);
             download(current)
         }
     };
 
     this.moveRight = function () {
         if (current < max) {
-            paginationNode.querySelector('[page="' + current + '"]').setAttribute('class', 'waves-effect');
-            paginationNode.querySelector('[page="' + (current + 1) + '"]').setAttribute('class', 'active');
+            let last = paginationNode.querySelector('[page="' + current + '"]');
             current++;
+            let currentNumberNode = paginationNode.querySelector('[page="' + current + '"]');
+            setEffects(last, currentNumberNode);
             download(current)
         }
     };
 
+
     this.moveToPage = function (node) {
         let page = node.getAttribute('page');
-        paginationNode.querySelector('[page="' + current + '"]').setAttribute('class', 'waves-effect');
-        node.setAttribute('class', 'active');
+        let last = paginationNode.querySelector('[page="' + current + '"]');
+        setEffects(last, node);
         current = page;
+        console.log(current);
         download(current)
+    };
+
+    function setEffects(last, current) {
+        last.classList.remove('active');
+        last.classList.add('waves-effect');
+        current.classList.add('active');
+        current.classList.remove('waves-effect');
+    }
+
+    this.moveToBeginning = function () {
+        this.moveToPage(paginationNode.querySelector('[page="1"]'));
     };
 
     function download(page) {
