@@ -1,5 +1,7 @@
 package ovh.kocproz.markpages.data.dto;
 
+import ovh.kocproz.markpages.Visibility;
+
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -97,7 +99,7 @@ public class PageFormDTO {
         this.visibility = visibility;
     }
 
-    public boolean isVisibility() {
-        return visibility;
+    public Visibility getVisibility() {
+        return visibility ? Visibility.AUTHORIZED : Visibility.PUBLIC;
     }
 }

@@ -91,7 +91,7 @@ public class EditController {
             return "redirect:/edit";
 
         PageModel page = editService.addPage(formData.getTitle(),
-                formData.getContent(), formData.isVisibility() ? Visibility.AUTHORIZED : Visibility.AUTHORIZED, formData.getTags());
+                formData.getContent(), formData.getVisibility(), formData.getTags());
 
         editService.setOwner(page, principal.getName());
         editService.setMaintainers(formData.getUsers(), page);
@@ -111,7 +111,7 @@ public class EditController {
         if (pageRepository.exists(formData.getCode()) && user != null &&
                 permissionService.canEdit(user, pageRepository.findOneByCode(formData.getCode()))) {
             editService.updatePage(formData.getTitle(),
-                    formData.getContent(), formData.isVisibility() ? Visibility.AUTHORIZED : Visibility.PUBLIC, formData.getTags(), formData.getCode());
+                    formData.getContent(), formData.getVisibility(), formData.getTags(), formData.getCode());
             if (permissionService.hasFullEditPermissions(formData.getCode(), user))
                 editService.setMaintainers(formData.getUsers(), page);
         }
