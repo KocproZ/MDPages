@@ -13,15 +13,17 @@
                            th:value="${page != null} ? ${page.code} : ${''}"/>
                     <div class="row">
                         <div class="col s12 m6">
-                            <input placeholder="Page Title" type="text" id="title-input" data-length="128" name="title" maxlength="128" th:value="${page != null} ? ${page.title} : ${''}"/>
+                            <input placeholder="Page Title" type="text" id="title-input" data-length="128" name="title"
+                                   maxlength="128" th:value="${page != null} ? ${page.title} : ${''}"/>
                         </div>
                         <div class="col s12 m6">
                             <div class="switch">
                                 <label>
-                                    <p>Public</p>
-                                    <input type="checkbox"/>
+                                    Public
+                                    <input th:if="${visibility}" type="checkbox" name="visibility" checked="checked"/>
+                                    <input th:if="${!visibility}" type="checkbox" name="visibility"/>
                                     <span class="lever"></span>
-                                    <p>Authorized</p>
+                                    Authorized
                                 </label>
                             </div>
                         </div>
@@ -56,7 +58,8 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn waves-effect waves-light" name="action" type="submit" style="padding: 0 1rem; float:right;">Save<i class="material-icons right">save</i></button>
+                    <button class="btn waves-effect waves-light" name="action" type="submit"
+                            style="padding: 0 1rem; float:right;">Save<i class="material-icons right">save</i></button>
                     <div class="row">
                         <div class="tabs-vertical">
                             <ul id="tabs-swipe-demo" class="tabs">
@@ -65,10 +68,10 @@
                             </ul>
                         </div>
                         <script>
-                            $(document).ready(function(){
+                            $(document).ready(function () {
                                 $('ul.tabs').tabs();
                             });
-                            $(document).ready(function(){
+                            $(document).ready(function () {
                                 $('ul.tabs').tabs('select_tab', 'editor-container');
                             });
                         </script>

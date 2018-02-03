@@ -1,7 +1,5 @@
 package ovh.kocproz.markpages.data.dto;
 
-import ovh.kocproz.markpages.Visibility;
-
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -17,8 +15,9 @@ public class PageFormDTO {
     private String code;
     @NotNull
     private String content;
-    @NotNull
-    private Visibility visibility;
+//    @NotNull
+//    private Visibility visibility;
+    private boolean visibility;
     @NotNull
     private List<String> tags;
     private List<String> users;
@@ -47,13 +46,13 @@ public class PageFormDTO {
         this.content = content;
     }
 
-    public Visibility getVisibility() {
-        return visibility;
-    }
-
-    public void setVisibility(Visibility visibility) {
-        this.visibility = visibility;
-    }
+//    public Visibility getVisibility() {
+//        return visibility;
+//    }
+//
+//    public void setVisibility(Visibility visibility) {
+//        this.visibility = visibility;
+//    }
 
     public List<String> getTags() {
         return tags;
@@ -78,10 +77,10 @@ public class PageFormDTO {
         return false;
     }
 
-    @AssertTrue(message = "Invalid visibility value")
-    public boolean isVisibilityValid() {
-        return visibility == Visibility.PUBLIC || visibility == Visibility.AUTHORIZED;
-    }
+//    @AssertTrue(message = "Invalid visibility value")
+//    public boolean isVisibilityValid() {
+//        return visibility == Visibility.PUBLIC || visibility == Visibility.AUTHORIZED;
+//    }
 
     @AssertTrue
     public boolean isUsersNull() {
@@ -92,5 +91,13 @@ public class PageFormDTO {
     @Override
     public String toString() {
         return String.format("PageFormDTO{title=%s, code=%s}", title, code);
+    }
+
+    public void setVisibility(boolean visibility) {
+        this.visibility = visibility;
+    }
+
+    public boolean isVisibility() {
+        return visibility;
     }
 }
