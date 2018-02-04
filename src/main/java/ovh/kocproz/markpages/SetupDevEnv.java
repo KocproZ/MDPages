@@ -68,6 +68,7 @@ public class SetupDevEnv {
             createUsers();
             createTags();
             createPages();
+            createDummyAccounts();
         } else if (dllAuto.equals("create")) {
             createAdminAccount();
         }
@@ -80,6 +81,12 @@ public class SetupDevEnv {
                         Permission.MODERATE,
                         Permission.REGISTER,
                         Permission.ADMIN});
+    }
+
+    private void createDummyAccounts() {
+        for (int i = 0; i < 100; i++) {
+            userService.createUser(Util.randomString(8), "kappa", new Permission[]{});
+        }
     }
 
     private void createHomePage() {

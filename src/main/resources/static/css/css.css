@@ -174,35 +174,39 @@ input[type=text]:not(.browser-default):focus:not([readonly]) + label {
 .input-field .prefix ~ input {
   width: calc(100% - 6rem); }
 
-.side-nav .logo {
+.switch label input[type=checkbox]:checked + .lever {
+  background-color: #38C999; }
+
+.switch, .switch > label {
+  color: white; }
+  .switch p, .switch > label p {
+    display: inline; }
+
+.side-nav .logo, .side-nav.fixed .logo {
   background-color: #4A4C4C;
   padding: 32px;
   display: flex; }
-  .side-nav .logo a, .side-nav .logo img {
+  .side-nav .logo a, .side-nav .logo img, .side-nav.fixed .logo a, .side-nav.fixed .logo img {
     height: 128px;
     margin-left: auto;
     margin-right: auto; }
-  .side-nav .logo a:hover {
+  .side-nav .logo a:hover, .side-nav.fixed .logo a:hover {
     background-color: inherit; }
-.side-nav #searchBox {
+.side-nav .collapsible-body li a, .side-nav.fixed .collapsible-body li a {
+  padding: 0 23.5px 0 51px; }
+.side-nav #searchBox, .side-nav.fixed #searchBox {
   padding-left: 32px;
   padding-right: 32px; }
-  .side-nav #searchBox > input {
+  .side-nav #searchBox > input, .side-nav.fixed #searchBox > input {
     margin: 0 0 10px 0;
     height: 2rem;
     width: 300px; }
-  .side-nav #searchBox input {
+  .side-nav #searchBox input, .side-nav.fixed #searchBox input {
     color: #000; }
-  .side-nav #searchBox a {
+  .side-nav #searchBox a, .side-nav.fixed #searchBox a {
     color: #000; }
-  .side-nav #searchBox i {
+  .side-nav #searchBox i, .side-nav.fixed #searchBox i {
     cursor: pointer; }
-
-.ace_gutter {
-  padding-top: 25px; }
-
-.ace_scroller {
-  margin-top: 25px; }
 
 .tabs-vertical {
   position: fixed;

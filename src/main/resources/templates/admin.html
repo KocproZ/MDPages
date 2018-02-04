@@ -41,39 +41,66 @@
                 </ul>
             </div>
             <div class="col m5 offset-m1 nopadding">
+                <!--<table class="row m12 striped mdtable">-->
+                <!--<thead>-->
+                <!--<tr>-->
+                <!--<th>username</th>-->
+                <!--<th>button</th>-->
+                <!--</tr>-->
+                <!--</thead>-->
+                <!--<tbody class="shadowed">-->
+                <!--<tr th:each="u: ${users}">-->
+                    <!--<td class="m7">-->
+                        <!--<span th:text="${u.getUsername()}"></span>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<a class="col m10 btn waves-effect waves-light"-->
+                           <!--href="">User</a>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--</tbody>-->
+                <!--</table>-->
+                <!--<ul class="usersPagination">-->
+                <!--<li th:if="${usersPage &lt;= 1}" class="disabled"><a><i class="material-icons">chevron_left</i></a>-->
+                <!--</li>-->
+                <!--<li th:if="${usersPage &gt; 1}" class="waves-effect"><a-->
+                <!--th:href="'?usersPage=' + ${usersPage - 1}"><i-->
+                <!--class="material-icons">chevron_left</i></a></li>-->
+                <!--<li th:each="i : ${#numbers.sequence(1, users.totalPages)}"-->
+                <!--th:class="${i} eq ${usersPage} ? ${'active'} : ${'waves-effect'}">-->
+                <!--<a th:href="${'?usersPage=' + i}" th:inline="text">[[${i}]]</a></li>-->
+                <!--<li th:if="${usersPage &gt;= users.totalPages}" class="disabled"><a><i class="material-icons">chevron_right</i></a>-->
+                <!--</li>-->
+                <!--<li th:if="${usersPage &lt; users.totalPages}" class="waves-effect"><a-->
+                <!--th:href="'?usersPage=' + ${usersPage+1}"><i-->
+                <!--class="material-icons">chevron_right</i></a></li>-->
+                <!--</ul>-->
+                <div class="input-field col m6">
+                    <input placeholder="Filter" type="text" id="userSearchInput" onkeyup="updateUserListFilters()"/>
+                </div>
+                <!--<div class="col m1"><p>C</p></div>-->
+                <!--<div class="col m1"><p>U</p></div>-->
+                <!--<div class="col m1"><p>M</p></div>-->
+                <!--<div class="col m1"><p>R</p></div>-->
+                <!--<div class="col m1"><p>P</p></div>-->
                 <table class="row m12 striped mdtable">
                     <thead>
                     <tr>
-                        <th>username</th>
-                        <th>button</th>
+                        <th>Username</th>
+                        <th>Permissions</th>
+                        <th>Options</th>
                     </tr>
                     </thead>
-                    <tbody class="shadowed">
-                    <tr th:each="u: ${users}">
-                        <td class="m7">
-                            <span th:text="${u.getUsername()}"></span>
-                        </td>
-                        <td>
-                            <a class="col m10 btn waves-effect waves-light"
-                               href="">User</a>
-                        </td>
-                    </tr>
+                    <tbody class="shadowed" id="userTable">
                     </tbody>
                 </table>
-                <ul class="pagination">
-                    <li th:if="${usersPage &lt;= 1}" class="disabled"><a><i class="material-icons">chevron_left</i></a>
+
+                <ul class="pagination" id="usersPagination">
+                    <li class="waves-effect" id="leftUsersArrow"><a onclick="usersPagination.moveLeft()"><i
+                            class="material-icons">chevron_left</i></a>
                     </li>
-                    <li th:if="${usersPage &gt; 1}" class="waves-effect"><a
-                            th:href="'?usersPage=' + ${usersPage - 1}"><i
-                            class="material-icons">chevron_left</i></a></li>
-                    <li th:each="i : ${#numbers.sequence(1, users.totalPages)}"
-                        th:class="${i} eq ${usersPage} ? ${'active'} : ${'waves-effect'}">
-                        <a th:href="${'?usersPage=' + i}" th:inline="text">[[${i}]]</a></li>
-                    <li th:if="${usersPage &gt;= users.totalPages}" class="disabled"><a><i class="material-icons">chevron_right</i></a>
+                    <li class="waves-effect" id="rightUsersArrow"><a onclick="usersPagination.moveRight()"><i class="material-icons">chevron_right</i></a>
                     </li>
-                    <li th:if="${usersPage &lt; users.totalPages}" class="waves-effect"><a
-                            th:href="'?usersPage=' + ${usersPage+1}"><i
-                            class="material-icons">chevron_right</i></a></li>
                 </ul>
                 <div class="row">
                     <div class="m10 col card mdcard ">
@@ -102,7 +129,8 @@
             <div class="col m6"></div>
         </div>
     </div>
+    <script src="js/permissionEditor/userList.js"></script>
+    <script src="js/permissionEditor/permissionEditor.js"></script>
 </div>
-
 </html>
 

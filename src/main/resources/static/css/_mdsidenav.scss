@@ -1,4 +1,4 @@
-.side-nav{
+.side-nav, .side-nav.fixed{
   .logo {
     background-color: $side-navLogoBackgroundColor;
     padding: 32px;
@@ -10,6 +10,13 @@
     }
     a:hover{
       background-color: inherit;
+    }
+  }
+  .collapsible-body {
+    li {
+      a {
+        padding: 0 23.5px 0 51px;
+      }
     }
   }
   #searchBox{

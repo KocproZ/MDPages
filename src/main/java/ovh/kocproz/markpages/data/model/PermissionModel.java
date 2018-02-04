@@ -26,6 +26,14 @@ public class PermissionModel {
     @Column(name = "permission", nullable = false, updatable = false)
     private Permission permission;
 
+    public PermissionModel(UserModel user, Permission permission) {
+        this.user = user;
+        this.permission = permission;
+    }
+
+    public PermissionModel() {
+    }
+
     public Long getId() {
         return id;
     }

@@ -1,4 +1,4 @@
-var pagination = document.querySelector("#pagination");
+var pagination = document.querySelector("#usersPagination");
 var resultsTable = document.querySelector("#results");
 var current = 1;
 var max = (pagination.childNodes.length - 5) / 2;

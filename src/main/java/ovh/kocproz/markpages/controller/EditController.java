@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ovh.kocproz.markpages.Visibility;
 import ovh.kocproz.markpages.data.dto.PageFormDTO;
 import ovh.kocproz.markpages.data.model.PageModel;
 import ovh.kocproz.markpages.data.model.TagModel;
@@ -73,7 +74,7 @@ public class EditController {
         if (permissionService.canEdit(user, page)) {
             formData.setTitle(page.getTitle());
             formData.setCode(page.getCode());
-            model.addAttribute("visibility", page.getVisibility());
+            model.addAttribute("visibility", page.getVisibility() == Visibility.AUTHORIZED);
             model.addAttribute("page", page);
             model.addAttribute("pageTags", tags);
             return "editor";
@@ -123,7 +124,7 @@ public class EditController {
         if (principal == null || !permissionService.hasFullEditPermissions(code, principal.getName()))
             throw new NoPermissionException();
         editService.deletePage(code);
-        return "/";
+        return "index";
         //TODO some success message
     }
 

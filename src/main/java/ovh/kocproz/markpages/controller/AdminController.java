@@ -6,15 +6,18 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ovh.kocproz.markpages.Permission;
+import ovh.kocproz.markpages.data.dto.admin.UserPermissionsDTO;
+import ovh.kocproz.markpages.data.dto.admin.UserSearchDTO;
 import ovh.kocproz.markpages.data.repository.PageRepository;
 import ovh.kocproz.markpages.data.repository.UserRepository;
+import ovh.kocproz.markpages.service.PermissionEditorService;
 import ovh.kocproz.markpages.service.PermissionService;
 import ovh.kocproz.markpages.service.UserService;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -25,17 +28,20 @@ public class AdminController {
     private UserService userService;
     private PermissionService permissionService;
     private Pbkdf2PasswordEncoder passwordEncoder;
+    private PermissionEditorService permissionEditorService;
 
     public AdminController(PageRepository pageRepository,
                            UserRepository userRepository,
                            UserService userService,
                            PermissionService permissionService,
-                           Pbkdf2PasswordEncoder passwordEncoder) {
+                           Pbkdf2PasswordEncoder passwordEncoder,
+                           PermissionEditorService permissionEditorService) {
         this.pageRepository = pageRepository;
         this.userRepository = userRepository;
         this.userService = userService;
         this.permissionService = permissionService;
         this.passwordEncoder = passwordEncoder;
+        this.permissionEditorService = permissionEditorService;
     }
 
     @GetMapping("")
@@ -64,6 +70,18 @@ public class AdminController {
                             Permission.UPLOAD});
         }
         return "redirect:/admin";
+    }
+
+    @ResponseBody
+    @GetMapping("/rest/countUsers")
+    public Long countUsers(@RequestParam(name = "search") String search) {
+        return permissionEditorService.countUsers(search);
+    }
+
+    @ResponseBody
+    @GetMapping("/rest/userData")
+    public List<UserPermissionsDTO> getUserData(@Valid UserSearchDTO searchDTO) {
+        return permissionEditorService.getUsers(searchDTO.getSearch(), searchDTO.getPage());
     }
 
 }
