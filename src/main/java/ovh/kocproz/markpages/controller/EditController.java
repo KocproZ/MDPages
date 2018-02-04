@@ -53,7 +53,8 @@ public class EditController {
     }
 
     @GetMapping("")
-    public String editor(PageFormDTO pageFormDTO) {
+    public String editor(Model model, PageFormDTO pageFormDTO) {
+        model.addAttribute("visibility", false);
         return "editor";
     }
 
