@@ -33,6 +33,9 @@ public class SetupDevEnv {
     @Value("${dev.generator.pages}")
     private int pagesToGenerate = 64;
 
+    @Value("${dev.generator.accounts}")
+    private int accountsToGenerate = 0;
+
     @Value("${spring.jpa.hibernate.ddl-auto}")
     private String dllAuto;
 
@@ -40,7 +43,6 @@ public class SetupDevEnv {
     private UserRepository userRepository;
     private TagRepository tagRepository;
     private UserService userService;
-    private Pbkdf2PasswordEncoder passwordEncoder;
     private Logger logger;
     private PageMaintainerRepository maintainerRepository;
 
@@ -55,7 +57,6 @@ public class SetupDevEnv {
         this.userRepository = userRepository;
         this.tagRepository = tagRepository;
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
         this.logger = logger;
         this.maintainerRepository = maintainerRepository;
     }
@@ -84,7 +85,7 @@ public class SetupDevEnv {
     }
 
     private void createDummyAccounts() {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < accountsToGenerate; i++) {
             userService.createUser(Util.randomString(8), "kappa", new Permission[]{});
         }
     }

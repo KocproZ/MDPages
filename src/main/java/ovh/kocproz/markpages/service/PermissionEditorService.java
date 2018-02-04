@@ -34,7 +34,7 @@ public class PermissionEditorService {
         long count;
         count = search != null && search.length() > 0 ?
                 userRepository.countAllByUsernameContaining(search) : userRepository.count();
-        return count / 20 + (count % 20 > 0 ? 1 : 0);
+        return count / 20 + (count % 20 > 0 ? 1 : 0);//TODO Ask why 20
     }
 
     public List<UserPermissionsDTO> getUsers(String search, int page) {
