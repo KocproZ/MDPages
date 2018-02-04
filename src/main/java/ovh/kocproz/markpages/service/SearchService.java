@@ -47,7 +47,7 @@ public class SearchService {
 
     public Long countPages(boolean loggedIn) {
         long count = loggedIn ? pageRepository.countAll() : pageRepository.countAllByVisibility(Visibility.PUBLIC);
-        return count / 20 + (count % 20 > 0 ? 1 : 0);
+        return count / 20 + (count % 20 > 0 ? 1 : 0);//TODO Ask why 20
     }
 
     public List<PageDTO> getPages(int page, boolean loggedIn) {
