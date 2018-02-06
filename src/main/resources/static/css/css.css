@@ -60,9 +60,10 @@ a {
 .mdwrapper {
   background-color: #636666; }
 
-.tags {
-  display: inline;
-  float: right; }
+.chip {
+  margin-bottom: 5px;
+  margin-right: unset;
+  margin-left: 5px; }
 
 table.mdtable.striped > thead {
   border-bottom-style: none; }
@@ -80,10 +81,15 @@ table.mdtable.striped > tbody > tr {
       table.mdtable.striped > tbody > tr > td > .btn:hover {
         text-decoration: none; }
     table.mdtable.striped > tbody > tr > td > a:hover {
-      color: #3dcccc;
-      text-decoration: underline; }
+      color: #3dcccc; }
     table.mdtable.striped > tbody > tr > td > a {
       color: #38C999; }
+
+.tags {
+  justify-content: flex-end;
+  align-items: center;
+  float: right;
+  text-align: right; }
 
 .mdcard {
   background-color: #636666; }

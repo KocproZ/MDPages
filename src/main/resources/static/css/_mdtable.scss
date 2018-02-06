@@ -1,38 +1,37 @@
 table.mdtable {
   &.striped {
-    >thead{
+    > thead {
       border-bottom-style: none;
     }
-    >tbody{
-      &{
+    > tbody {
+      & {
         @extend .shadowed;
       }
-      >tr{
-        &:nth-child(odd){
+      > tr {
+        &:nth-child(odd) {
           //First row
           background-color: $mdtableFirstRowBackgroundColor;
         }
-        &{
+        & {
           //Standard row
           background-color: $mdtableRowBackgroundColor;
-          >td {
+          > td {
             overflow-wrap: break-word;
-            >.btn{
-              color:$mdtableBtnFontColor;
-              float:right;
+            > .btn {
+              color: $mdtableBtnFontColor;
+              float: right;
               margin-right: 5%;
               background-color: $mdtableBtnBackgroundColor;
-              &:hover{
+              &:hover {
                 text-decoration: none;
                 @extend .shadowed;
               }
             }
-            >a{
-              &:hover{
-                color:#3dcccc;
-                text-decoration: underline;
+            > a {
+              &:hover {
+                color: #3dcccc;
               }
-              &{
+              & {
                 color: $mdtableAFontColor;
               }
             }
@@ -41,4 +40,11 @@ table.mdtable {
       }
     }
   }
+}
+
+.tags {
+  justify-content: flex-end;
+  align-items: center;
+  float:right;
+  text-align:right;
 }
