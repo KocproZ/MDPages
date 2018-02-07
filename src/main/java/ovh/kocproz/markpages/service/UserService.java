@@ -63,7 +63,12 @@ public class UserService {
                 .findAllByPageAndRole(page, PageMaintainerModel.Role.MAINTAINER);
         if (pms == null) return new ArrayList<>();
         return convertMaintainers(pms);
+    }
 
+    public String getPageOwner(PageModel page) {
+        PageMaintainerModel owner = maintainerRepository
+                .findFirstByPageAndRole(page, PageMaintainerModel.Role.OWNER);
+        return owner.getUser().getUsername();
     }
 
     public List<String> getUsersContaining(String fragment) {

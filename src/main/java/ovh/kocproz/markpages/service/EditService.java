@@ -38,7 +38,7 @@ public class EditService {
 
     @Transactional
     public void setMaintainers(List<String> usernames, PageModel page) {
-        PageMaintainerModel owner = maintainerRepository.findFirstByRoleAndPage(PageMaintainerModel.Role.OWNER, page);
+        PageMaintainerModel owner = maintainerRepository.findFirstByPageAndRole(page, PageMaintainerModel.Role.OWNER);
         PageMaintainerModel pm;
         maintainerRepository.deleteAllByRoleAndPage(PageMaintainerModel.Role.MAINTAINER, page);
         for (String username : usernames) {

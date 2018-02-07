@@ -21,7 +21,7 @@ public interface PageMaintainerRepository extends JpaRepository<PageMaintainerMo
 
     List<PageMaintainerModel> findAllByPageAndRole(PageModel page, PageMaintainerModel.Role role);
 
-    PageMaintainerModel findFirstByRoleAndPage(PageMaintainerModel.Role role, PageModel page);
+    PageMaintainerModel findFirstByPageAndRole(PageModel page, PageMaintainerModel.Role role);
 
     PageMaintainerModel findFirstByPageAndUser(PageModel page, UserModel user);
 
