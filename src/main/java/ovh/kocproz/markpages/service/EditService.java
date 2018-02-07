@@ -70,8 +70,11 @@ public class EditService {
                              String pageContent,
                              Visibility visibility,
                              List<String> tags) {
-        String stringId = Util.randomString(8);
-        PageModel page = updatePage(pageTitle, pageContent, visibility, tags, stringId);
+        String code;
+        do {
+            code = Util.randomString(8);
+        } while (pageRepository.findOneByCode(code) != null);
+        PageModel page = updatePage(pageTitle, pageContent, visibility, tags, code);
         page.setCreationDate(new Date());
 
         tagService.setTags(tags, page);
