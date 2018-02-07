@@ -1,26 +1,24 @@
 
-.mdcard{
-  &{
-    background-color: $mdcardBackgroundColor;
-  }
-  >form{
-    >.row{
-      >.input-field.col.m12{
+.mdcard {
+  background-color: $mdcardBackgroundColor;
+  > form {
+    > .row {
+      > .input-field.col.m12 {
         min-height: 66px;
-        width:90%;
-        >input.btn{
+        width: 90%;
+        > input.btn {
           background-color: $mdcardInputBtnBackgroundColor;
         }
       }
     }
   }
-  >.card-image{
+  > .card-image {
     margin: 0 auto;
-    width:30vw;
-    min-width:300px;
+    width: 30vw;
+    min-width: 300px;
     max-width: 500px;
   }
-  [type="checkbox"].filled-in:checked+label:after {
+  [type="checkbox"].filled-in:checked + label:after {
     $color: $mdcardInputCheckboxColor;
     background-color: $color;
     border: $color;

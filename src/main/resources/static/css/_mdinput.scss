@@ -7,7 +7,7 @@
   border: $inputCheckBoxColor;
 }
 input[type=password]:not(.browser-default):focus:not([readonly]){
-  box-shadow:0 1px 0 0 #38C999;
+  box-shadow:0 1px 0 0 $inputTextBorderBottomColor;
 }
 input[type=password]:not(.browser-default):focus:not([readonly])+label {
   color: $inputPasswordFontColor;
@@ -18,6 +18,11 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
 }
 input[type=text]:not(.browser-default):focus:not([readonly])+label {
   color: $inputTextFontColor;
+}
+input[type=text].valid:not(.browser-default), input[type=password].valid:not(.browser-default){
+  border-bottom: 1px solid #48c7c9;
+  -webkit-box-shadow: 0 1px 0 0 #48c7c9;
+  box-shadow: 0 1px 0 0 #48c7c9;
 }
 .input-field .prefix.active {
   color: $inputFieldFontColor;

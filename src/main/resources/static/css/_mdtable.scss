@@ -28,11 +28,9 @@ table.mdtable {
               }
             }
             > a {
-              &:hover {
-                color: #3dcccc;
-              }
-              & {
-                color: $mdtableAFontColor;
+              color: $white-darker-1;
+              &:hover{
+                color: #4ce8e8;
               }
             }
           }

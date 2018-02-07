@@ -1,78 +1,65 @@
 //Color declaration
-$mint-lighter-1: #38C999;
-$mint-lighten-2: #4EBF99;
-$mint-darker-1: #636666;
-$mint-darker-2: #4A4C4C;
-$mint-darker-3: #424444;
-$grey-lighter-1: #757B7F;
+$general-lighter-1: #48c7c9;
 $white-darker-1: #F2F2F2;
 
 //Colors of elements
 //body
-$bodyBackgroundColor: $grey-lighter-1;
+$bodyBackgroundColor: #455a64;
 $bodyFontColor: $white-darker-1;
 
 //btn
-$btnBackgroundColor: $mint-lighter-1;
-$btnBackgroundColorHover: $mint-lighter-1;
-$btnBackgroundColorFocus: $mint-lighten-2;
+$btnBackgroundColor: $general-lighter-1;
+$btnBackgroundColorHover: $general-lighter-1;
+$btnBackgroundColorFocus: $general-lighter-1;
 
 //a
-$aFontColor: $mint-lighter-1;
+$aFontColor: $general-lighter-1;
 
 //fancyhr
-$fancyhrBackgroundColor: $mint-lighter-1;
-
-//mdwrapper
-$mdwrapperBackgroundColor: $mint-darker-1;
+$fancyhrBackgroundColor: $general-lighter-1;
 
 //mdtable
-$mdtableFirstRowBackgroundColor: $mint-darker-2;
-$mdtableRowBackgroundColor: $mint-darker-1;
+$mdtableFirstRowBackgroundColor: #2a363d;
+$mdtableRowBackgroundColor: #37474F;
 //mdtable>btn
 $mdtableBtnFontColor: $white-darker-1;
-$mdtableBtnBackgroundColor: $mint-lighter-1;
+$mdtableBtnBackgroundColor: $general-lighter-1;
 //mdtable>a
-$mdtableAFontColor: $mint-lighter-1;
+$mdtableAFontColor: $general-lighter-1;
 
 //mdcard
-$mdcardBackgroundColor: $mint-darker-1;
+$mdcardBackgroundColor: #34434B;
 //mdcard>input.btn
-$mdcardInputBtnBackgroundColor: $mint-lighter-1;
+$mdcardInputBtnBackgroundColor: $general-lighter-1;
 //mdcard>input.checkbox
-$mdcardInputCheckboxColor: $mint-lighter-1;
+$mdcardInputCheckboxColor: $general-lighter-1;
 
 //usersPagination
-$paginationLiActiveBackgroundColor: $mint-lighter-1;
+$paginationLiActiveBackgroundColor: $general-lighter-1;
 $paginationLiAFontColor: $white-darker-1;
-
-//mdselect-wrapper
-$mdselect-wrapperCaretFontColor: $white-darker-1;
-//mdselect-wrapperDropdown
-$mdselect-wrapperSelectDropdownFontColor: $white-darker-1;
-$mdselect-wrapperSelectDropdownBackgroundColor: $mint-darker-2;
-
 //login-panel
-$login-panelBackgroundColor: $mint-darker-1;
+$login-panelBackgroundColor: #34434B;
 
 //inputCheckbox
-$inputCheckBoxColor: $mint-lighter-1;
-$switchBackgroundColor: $mint-lighter-1;
+$inputCheckBoxColor: $general-lighter-1;
+$switchBackgroundColor: $general-lighter-1;
 $switchFontColor: white;
 //inputPassword
-$inputPasswordFontColor: $mint-lighter-1;
+$inputPasswordFontColor: $general-lighter-1;
 //inputText
-$inputTextBorderBottomColor: $mint-lighter-1;
-$inputTextBoxShadowColor: $mint-lighter-1;
-$inputTextFontColor: $mint-lighter-1;
+$inputTextBorderBottomColor: $general-lighter-1;
+$inputTextBoxShadowColor: $general-lighter-1;
+$inputTextFontColor: $general-lighter-1;
 //InputField/Prefix.active
-$inputFieldFontColor: $mint-lighter-1;
+$inputFieldFontColor: $general-lighter-1;
 
 //sideNav
-$side-navLogoBackgroundColor: $mint-darker-2;
+$side-navLogoBackgroundColor: #263238;
+$side-navliBackgroundColor: #37474f;
+$side-navFontColor: white;
 //searchBox
-$searchBoxInputFontColor: #000;
-$searchBoxIconFontColor: #000;
+$searchBoxInputFontColor: white;
+$searchBoxIconFontColor: white;
 //editor
 $editorTabBorderRightActiveColor: #EE6E73;
 $editorTabBorderRightHoverColor: #38C999;

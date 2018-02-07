@@ -60,9 +60,6 @@ a {
 .btn:focus {
   background-color: $btnBackgroundColorFocus;
 }
-.mdwrapper{
-  background-color: $mdwrapperBackgroundColor;
-}
 .chip{
   margin-bottom: 5px;
   margin-right: unset;
@@ -71,7 +68,6 @@ a {
 @import 'mdtable';
 @import 'mdcard';
 @import 'mdpagination';
-@import 'mdselect-wrapper';
 @import 'login-panel';
 @import 'mdinput';
 @import 'mdsidenav';

@@ -1,16 +1,20 @@
-.side-nav, .side-nav.fixed{
+.side-nav, .side-nav.fixed {
+  background-color: $side-navliBackgroundColor;
   .logo {
     background-color: $side-navLogoBackgroundColor;
     padding: 32px;
     display: flex;
-    a,img{
+    a, img {
       height: 128px;
       margin-left: auto;
       margin-right: auto;
     }
-    a:hover{
+    a:hover {
       background-color: inherit;
     }
+  }
+  .divider {
+    background-color: $side-navLogoBackgroundColor;
   }
   .collapsible-body {
     li {
@@ -19,22 +23,35 @@
       }
     }
   }
-  #searchBox{
-    >input{
+  #searchBox {
+    background-color: $side-navLogoBackgroundColor;
+    > input {
       margin: 0 0 10px 0;
       height: 2rem;
-      width:300px;
+      width: 300px;
     }
     padding-left: 32px;
     padding-right: 32px;
-    input{
+    input {
       color: $searchBoxInputFontColor;
     }
-    a{
+    a {
       color: $searchBoxIconFontColor;
     }
-    i{
-      cursor:pointer;
+    i {
+      cursor: pointer;
     }
   }
+  ul, li {
+    background-color: $side-navliBackgroundColor;
+  }
+  li {
+    a {
+      color: $side-navFontColor;
+      i {
+        color: $side-navFontColor;
+      }
+    }
+  }
+
 }
