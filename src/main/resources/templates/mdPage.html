@@ -14,7 +14,8 @@
             <div class="col m4">
                 <div><span class="grey-text" th:inline="text">Created: [[${page.formattedCreationDate}]]</span></div>
                 <div><span class="grey-text" th:inline="text">Edited: [[${page.formattedLastEditedDate}]]</span></div>
-                <div><span class="grey-text" th:inline="text">Author: [[${@userService.getPageOwner(page)}]]</span>
+                <div th:if="${@userService.getPageOwner(page) != null}">
+                    <span class="grey-text" th:inline="text">Author: [[${@userService.getPageOwner(page)}]]</span>
                 </div>
             </div>
             <a class="col m1 btn" th:href="'/edit/' + ${page.code}"

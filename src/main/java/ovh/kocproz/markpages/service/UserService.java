@@ -68,6 +68,7 @@ public class UserService {
     public String getPageOwner(PageModel page) {
         PageMaintainerModel owner = maintainerRepository
                 .findFirstByPageAndRole(page, PageMaintainerModel.Role.OWNER);
+        if (owner == null) return null;
         return owner.getUser().getUsername();
     }
 
