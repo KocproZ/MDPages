@@ -45,7 +45,7 @@ a {
   margin-left: 5px; }
 
 h1, h2, h3, h4, h5 {
-  word-break: break-all; }
+  word-wrap: break-word; }
 
 table.mdtable.striped > thead {
   border-bottom-style: none; }
