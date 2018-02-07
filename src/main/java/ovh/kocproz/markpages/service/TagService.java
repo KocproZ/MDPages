@@ -37,7 +37,7 @@ public class TagService {
     public void setTags(List<String> tags, PageModel page) {
         page.clearTags();
         tags.forEach(tag -> {
-            if (!tag.isEmpty()) {
+            if (!tag.isEmpty() && tag.length() <= 32) {
                 TagModel foundTag = tagRepository.findFirstByName(tag);
                 if (foundTag == null) {
                     foundTag = new TagModel();
