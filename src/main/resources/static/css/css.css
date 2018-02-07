@@ -19,9 +19,6 @@ header, main, footer {
     header, main, footer {
       padding-left: 0; } }
 
-.nopadding {
-  padding: 0 0 0 0 !important; }
-
 .btn {
   background-color: #48c7c9; }
 
@@ -36,21 +33,6 @@ a {
   justify-content: center;
   align-items: center; }
 
-.fancyhr {
-  border: none;
-  -webkit-border-bottom-right-radius: 50px;
-  -webkit-border-bottom-left-radius: 50px;
-  -moz-border-radius-bottomright: 50px;
-  -moz-border-radius-bottomleft: 50px;
-  border-bottom-right-radius: 50px;
-  border-bottom-left-radius: 50px;
-  width: 90%;
-  height: 5px;
-  display: block;
-  box-shadow: 1px 1px 2px #0e0e0e;
-  background-color: #48c7c9;
-  margin: 10px auto; }
-
 @media (max-width: 600px) {
   .toast {
     position: fixed; } }
@@ -61,6 +43,9 @@ a {
   margin-bottom: 5px;
   margin-right: unset;
   margin-left: 5px; }
+
+h1, h2, h3, h4, h5 {
+  word-break: break-all; }
 
 table.mdtable.striped > thead {
   border-bottom-style: none; }

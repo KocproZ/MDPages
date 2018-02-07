@@ -1,70 +1,68 @@
 @import 'colors';
+
 html {
-  min-width:100%;
-  min-height:100%;
+  min-width: 100%;
+  min-height: 100%;
   margin: 0;
   padding: 0;
 }
+
 .shadowed {
   box-shadow: 1px 2px 13px 0px #000000;
 }
+
 body {
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
   background-color: $bodyBackgroundColor;
   color: $bodyFontColor;
 }
+
 header, main, footer {
   padding-left: 300px;
-  @media only screen and (max-width : 992px){
+  @media only screen and (max-width: 992px) {
     padding-left: 0;
   }
 }
-.nopadding {
-  padding: 0 0 0 0!important;
-}
+
 .btn {
   background-color: $btnBackgroundColor;
 }
-.btn:hover{
+
+.btn:hover {
   background-color: $btnBackgroundColorHover;
 }
+
 a {
   color: $aFontColor;
 }
-.center-in-div{
-  display:flex;
-  justify-content:center;
-  align-items:center;
+
+.center-in-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.fancyhr{
-  border: none;
-  -webkit-border-bottom-right-radius: 50px;
-  -webkit-border-bottom-left-radius: 50px;
-  -moz-border-radius-bottomright: 50px;
-  -moz-border-radius-bottomleft: 50px;
-  border-bottom-right-radius: 50px;
-  border-bottom-left-radius: 50px;
-  width: 90%;
-  height: 5px;
-  display: block;
-  box-shadow: 1px 1px 2px #0e0e0e;
-  background-color: $fancyhrBackgroundColor;
-  margin: 10px auto;
-}
-@media(max-width: 600px){
+
+@media(max-width: 600px) {
   .toast {
     position: fixed;
   }
 }
+
 .btn:focus {
   background-color: $btnBackgroundColorFocus;
 }
-.chip{
+
+.chip {
   margin-bottom: 5px;
   margin-right: unset;
   margin-left: 5px;
 }
+
+h1, h2, h3, h4, h5 {
+  word-break: break-all;
+}
+
 @import 'mdtable';
 @import 'mdcard';
 @import 'mdpagination';
