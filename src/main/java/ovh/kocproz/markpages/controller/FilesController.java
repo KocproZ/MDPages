@@ -12,7 +12,6 @@ import ovh.kocproz.markpages.data.model.FileModel;
 import ovh.kocproz.markpages.data.model.UserModel;
 import ovh.kocproz.markpages.data.repository.UserRepository;
 import ovh.kocproz.markpages.exception.FileTooLargeException;
-import ovh.kocproz.markpages.exception.IllegalMimeTypeException;
 import ovh.kocproz.markpages.exception.NotFoundException;
 import ovh.kocproz.markpages.service.FileService;
 import ovh.kocproz.markpages.service.PermissionService;
@@ -72,8 +71,6 @@ public class FilesController {
             } catch (IOException e) {
                 e.printStackTrace();
                 return "redirect:/files/upload?error";
-            } catch (IllegalMimeTypeException e) {
-                return "redirect:/files/upload?illegalMimeType";
             } catch (FileTooLargeException e) {
                 return "redirect:/files/upload?fileTooLarge";
             }
@@ -108,8 +105,6 @@ public class FilesController {
             } catch (IOException e) {
                 e.printStackTrace();
                 return "redirect:/files/update?error";
-            } catch (IllegalMimeTypeException e) {
-                return "redirect:/files/update?illegalMimeType";
             } catch (FileTooLargeException e) {
                 return "redirect:/files/update?fileTooLarge";
             }

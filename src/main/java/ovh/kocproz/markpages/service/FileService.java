@@ -9,14 +9,12 @@ import ovh.kocproz.markpages.data.model.FileModel;
 import ovh.kocproz.markpages.data.model.UserModel;
 import ovh.kocproz.markpages.data.repository.FileRepository;
 import ovh.kocproz.markpages.exception.FileTooLargeException;
-import ovh.kocproz.markpages.exception.IllegalMimeTypeException;
 import ovh.kocproz.markpages.exception.NotFoundException;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLConnection;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -26,9 +24,6 @@ import java.util.List;
  */
 @Service
 public class FileService {
-
-    private static List<String> allowedMimeTypes = Arrays
-            .asList("image/gif", "image/jpeg", "image/png", "image/tiff", "audio/mpeg", "audio/x-wav", "audio/mp3");
 
     private FileRepository fileRepository;
     @Value("${maxFileSize}")
@@ -57,7 +52,6 @@ public class FileService {
         byte[] data = file.getBytes();
         InputStream is = new ByteArrayInputStream(data);
         String mimeType = URLConnection.guessContentTypeFromStream(is);
-        if (!allowedMimeTypes.contains(mimeType)) throw new IllegalMimeTypeException();
 
         FileModel fileModel = fileRepository.findFirstByCode(code);
         boolean exists = fileModel != null;
