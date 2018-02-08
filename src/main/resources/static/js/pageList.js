@@ -6,11 +6,11 @@ var url = '';
 var parameter = '';
 
 var renderer = function (entry) {
-    var start = '<td><a href="/p/' + entry.stringId + '">' + entry.name + '</a><div class="tags">';
+    var start = '<td><a href="/p/' + entry.stringId + '">' + entry.name + '</a></td><td class="tags">';
     entry.tags.forEach(function (tag) {
-        start += '<a href="/search/tag?tag=' + tag + '"><div class="chip">' + tag + '</div><a/>'
+        start += '<a href="/search/tag?tag=' + tag + '"><div class="chip">' + tag + '</div></a>'
     });
-    start += '</div><td/>';
+    start += '</td>';
     resultsTable.insertAdjacentHTML("beforeend", start)
 };
 
