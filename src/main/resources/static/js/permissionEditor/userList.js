@@ -83,7 +83,6 @@ function UsersPagination() {
         let last = paginationNode.querySelector('[page="' + current + '"]');
         setEffects(last, node);
         current = page;
-        console.log(current);
         download(current)
     };
 
@@ -115,22 +114,73 @@ function UsersPagination() {
     }
 
     function writeLine(entry) {
+        let user = new User(entry.username);
+        entry.permissions.forEach(function (permission) {
+            user.setPermission(permission, true);
+        });
+        user.buildPermissionMap();
+
         let line = document.createElement('tr');
         let userSpan = document.createElement('span');
         userSpan.innerText = entry.username;
         let usernameTd = document.createElement('td');
         usernameTd.classList.add('col');
-        usernameTd.classList.add('m7');
+        usernameTd.classList.add('m12');
         usernameTd.appendChild(userSpan);
 
         line.appendChild(usernameTd);
+
+        let permissionsTd = document.createElement('td');
+        permissionsTd.appendChild(document.createElement('p'));
+
+        line.appendChild(permissionsTd);
+
         resultsTable.appendChild(line);
 
-        // let start = '<td><a href="/p/' + entry.stringId + '">' + entry.name + '</a><div class="tags">';
-        // entry.tags.forEach(function (tag) {
-        //     start += '<a href="/search/tag?tag=' + tag + '"><div class="chip">' + tag + '</div><a/>'
-        // });
-        // start += '<div/><td/>';
-        // resultsTable.insertAdjacentHTML("beforeend", start)
+    }
+}
+
+
+function User(name) {
+    let username = name;
+    let primitivePermissionMap = new Map(
+        [
+            ["CREATE", false],
+            ["UPLOAD", false],
+            ["REGISTER", false],
+            ["MODERATE", false],
+            ["ADMIN", false]
+        ]
+    );
+
+    let permissionMap = new Map();
+
+    this.setPermission = function (permission, value) {
+        primitivePermissionMap.set(permission, value);
+    };
+
+    this.getPermission = function (permissionName) {
+        return permissionMap.get(permissionName);
+    };
+
+    this.buildPermissionMap = function () {
+        primitivePermissionMap.forEach(function (value, key) {
+            permissionMap.set(key, new Permission(key, value, username))
+        })
+    }
+}
+
+function Permission(permissionType, originalValue, user) {
+    this.permissionType = permissionType;
+    this.originalValue = originalValue;
+    this.currentValue = originalValue;
+    this.user = user;
+
+    function toggle() {
+        this.currentValue = !this.currentValue;
+    }
+
+    function isDirty() {
+        return this.originalValue !== this.value
     }
 }
