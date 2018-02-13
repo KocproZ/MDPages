@@ -114,11 +114,7 @@ function UsersPagination() {
     }
 
     function writeLine(entry) {
-        let user = new User(entry.username);
-        entry.permissions.forEach(function (permission) {
-            user.setPermission(permission, true);
-        });
-        user.buildPermissionMap();
+
 
         let line = document.createElement('tr');
         let userSpan = document.createElement('span');
@@ -131,18 +127,50 @@ function UsersPagination() {
         line.appendChild(usernameTd);
 
         let permissionsTd = document.createElement('td');
-        permissionsTd.appendChild(document.createElement('p'));
+        let permissionsRow = document.createElement('div');
+        permissionsRow.classList.add('row');
+        permissionsTd.appendChild(permissionsRow);
 
+        let user = new User(entry.username);
+        entry.permissions.forEach(function (permission) {
+            user.setPermission(permission, true);
+        });
+        user.buildPermissionMap();
+        let permissions = [
+            'CREATE',
+            'UPLOAD',
+            'MODERATE',
+            'REGISTER',
+            'ADMIN'
+        ];
+        permissions.forEach(function (permission) {
+            createPermissionButton(permission, user.getPermission(permission).getValue(), permissionsRow, entry.username);
+        });
         line.appendChild(permissionsTd);
 
         resultsTable.appendChild(line);
 
     }
+
+    function createPermissionButton(permission, value, row, username) {
+        let div = document.createElement('div');
+        div.classList.add('col');
+        div.classList.add('m2');
+        let p = document.createElement('p');
+        p.setAttribute('permission', permission);
+        p.setAttribute('user', username);
+        p.innerText = permission.charAt(0);
+        p.setAttribute('onClick', "usersPagination.togglePermission(this)");
+        p.classList.add(value ? 'granted' : 'notGranted');
+        div.appendChild(p);
+        row.appendChild(div);
+    }
 }
 
 
-function User(name) {
+function User(name, permissionsDiv) {
     let username = name;
+    let permissionNode = permissionsDiv;
     let primitivePermissionMap = new Map(
         [
             ["CREATE", false],
@@ -182,5 +210,9 @@ function Permission(permissionType, originalValue, user) {
 
     function isDirty() {
         return this.originalValue !== this.value
+    }
+
+    this.getValue = function () {
+        return this.currentValue;
     }
 }
