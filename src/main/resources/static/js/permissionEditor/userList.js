@@ -2,6 +2,14 @@ const searchInput = document.querySelector('#userSearchInput');
 let current = 1;
 let max;
 const usersPagination = new UsersPagination();
+const permissionEditor = new PermissionEditor();
+const permissions = [
+    'CREATE',
+    'UPLOAD',
+    'MODERATE',
+    'REGISTER',
+    'ADMIN'
+];
 
 updateUserListFilters();
 
@@ -109,47 +117,52 @@ function UsersPagination() {
     }
 
     function render(json) {
+        permissionEditor.clear();
         resultsTable.innerHTML = "";
         json.forEach(writeLine)
     }
 
     function writeLine(entry) {
-
-
+        let user = new User(entry.username);
         let line = document.createElement('tr');
+        writeUsernameTd(line, entry, user);
+        writePermissionsTd(line, entry, user);
+        writeOptionsTd(line, entry);
+        resultsTable.appendChild(line);
+    }
+
+    function writeUsernameTd(line, entry, user) {
         let userSpan = document.createElement('span');
         userSpan.innerText = entry.username;
+        user.setUsernameSpan(userSpan);
         let usernameTd = document.createElement('td');
-        usernameTd.classList.add('col');
-        usernameTd.classList.add('m12');
+        usernameTd.classList.add('col', 'm12');
         usernameTd.appendChild(userSpan);
 
         line.appendChild(usernameTd);
 
+    }
+
+    function writePermissionsTd(line, entry, user) {
         let permissionsTd = document.createElement('td');
         let permissionsRow = document.createElement('div');
         permissionsRow.classList.add('row');
         permissionsTd.appendChild(permissionsRow);
 
-        let user = new User(entry.username);
         entry.permissions.forEach(function (permission) {
             user.setPermission(permission, true);
         });
         user.buildPermissionMap();
-        let permissions = [
-            'CREATE',
-            'UPLOAD',
-            'MODERATE',
-            'REGISTER',
-            'ADMIN'
-        ];
+
         permissions.forEach(function (permission) {
             createPermissionButton(permission, user.getPermission(permission).getValue(), permissionsRow, entry.username);
         });
         line.appendChild(permissionsTd);
+        permissionEditor.addUser(user);
+    }
 
-        resultsTable.appendChild(line);
-
+    function writeOptionsTd(line, entry) {
+        //TODO populate
     }
 
     function createPermissionButton(permission, value, row, username) {
@@ -160,7 +173,7 @@ function UsersPagination() {
         p.setAttribute('permission', permission);
         p.setAttribute('user', username);
         p.innerText = permission.charAt(0);
-        p.setAttribute('onClick', "usersPagination.togglePermission(this)");
+        p.setAttribute('onClick', "permissionEditor.togglePermission(this)");
         p.classList.add(value ? 'granted' : 'notGranted');
         div.appendChild(p);
         row.appendChild(div);
@@ -168,9 +181,48 @@ function UsersPagination() {
 }
 
 
+function PermissionEditor() {
+    let users = new Map();
+
+    this.clear = function () {
+        users.clear();
+    };
+
+    this.addUser = function (user) {
+        users.set(user.getUsername(), user)
+    };
+
+    this.togglePermission = function (node) {
+        let user = users.get(node.getAttribute('user'));
+        let permissionName = node.getAttribute('permission');
+        let permission = user.getPermission(permissionName);
+        permission.toggle();
+        updateNode(permission, node, user)
+    };
+
+    function updateNode(permission, node, user) {
+        if (permission.getValue()) {
+            node.classList.remove('notGranted');
+            node.classList.add('granted');
+        } else {
+            node.classList.remove('granted');
+            node.classList.add('notGranted');
+        }
+        let usernameSpan = user.getUsernameSpan();
+        if (user.isDirty()) {
+            if (!usernameSpan.classList.contains('dirty')) {
+                usernameSpan.classList.add('dirty')
+            }
+        } else if (usernameSpan.classList.contains('dirty')) {
+            usernameSpan.classList.remove('dirty')
+        }
+    }
+}
+
 function User(name, permissionsDiv) {
     let username = name;
     let permissionNode = permissionsDiv;
+    let usernameSpan;
     let primitivePermissionMap = new Map(
         [
             ["CREATE", false],
@@ -195,6 +247,28 @@ function User(name, permissionsDiv) {
         primitivePermissionMap.forEach(function (value, key) {
             permissionMap.set(key, new Permission(key, value, username))
         })
+    };
+
+    this.isDirty = function () {
+        let found = false;
+        permissionMap.forEach(function (value) {
+            if (value.isDirty()) {
+                found = true;
+            }
+        });
+        return found;
+    };
+
+    this.getUsername = function () {
+        return username;
+    };
+
+    this.setUsernameSpan = function (span) {
+        usernameSpan = span;
+    };
+
+    this.getUsernameSpan = function () {
+        return usernameSpan;
     }
 }
 
@@ -204,13 +278,13 @@ function Permission(permissionType, originalValue, user) {
     this.currentValue = originalValue;
     this.user = user;
 
-    function toggle() {
+    this.toggle = function () {
         this.currentValue = !this.currentValue;
-    }
+    };
 
-    function isDirty() {
-        return this.originalValue !== this.value
-    }
+    this.isDirty = function () {
+        return this.originalValue !== this.currentValue
+    };
 
     this.getValue = function () {
         return this.currentValue;
