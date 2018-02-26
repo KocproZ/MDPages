@@ -29,7 +29,7 @@ public class OpenIdClientConfig {
 
 
     @Bean
-    public OAuth2ProtectedResourceDetails openId() {//TODO: getting values from config
+    public OAuth2ProtectedResourceDetails openId() {
         AuthorizationCodeResourceDetails details = new AuthorizationCodeResourceDetails();
         details.setClientId("mdPages");
         details.setAccessTokenUri(accessTokenUri);
