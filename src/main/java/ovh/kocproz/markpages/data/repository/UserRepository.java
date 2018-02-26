@@ -10,6 +10,8 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<UserModel, Long> {
     UserModel getByUsername(String username);
 
+    UserModel getByOpenidSubject(String openidSubject);
+
     Page<UserModel> findAllByUsernameContaining(String username, Pageable pageable);
 
     List<UserModel> findAllByUsernameContaining(String username);

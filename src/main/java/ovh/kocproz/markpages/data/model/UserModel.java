@@ -24,6 +24,9 @@ public class UserModel {
     @Column(name = "password", columnDefinition = "TEXT", length = 160)
     private String password;
 
+    @Column(name = "openid_subject", columnDefinition = "VARCHAR", length = 255)
+    private String openidSubject;
+
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<PermissionModel> permissions = new HashSet<>();
 
@@ -60,6 +63,14 @@ public class UserModel {
 
     public void addPermission(PermissionModel permission) {
         permissions.add(permission);
+    }
+
+    public String getOpenidSubject() {
+        return openidSubject;
+    }
+
+    public void setOpenidSubject(String openidSubject) {
+        this.openidSubject = openidSubject;
     }
 
     @Override

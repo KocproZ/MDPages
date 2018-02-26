@@ -39,12 +39,20 @@ public class UserService {
         this.maintainerRepository = maintainerRepository;
     }
 
-    public void createUser(String username,
-                           String password,
-                           Permission[] permissions) {
+    public UserModel createUser(String username,
+                                String password,
+                                Permission[] permissions) {
+        return createUser(username, password, permissions, null);
+    }
+
+    public UserModel createUser(String username,
+                                String password,
+                                Permission[] permissions,
+                                String openidSubject) {
         UserModel user = new UserModel();
         user.setUsername(username);
-        user.setPassword(passwordEncoder.encode(password));
+        user.setPassword(password != null ? passwordEncoder.encode(password) : "");
+        user.setOpenidSubject(openidSubject);
         userRepository.save(user);
         for (Permission permission : permissions) {
             PermissionModel pm = new PermissionModel();
@@ -52,6 +60,7 @@ public class UserService {
             pm.setUser(user);
             permissionRepository.save(pm);
         }
+        return user;
     }
 
     public Set<PermissionModel> getUserPermissions(UserModel user) {
