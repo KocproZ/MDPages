@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ovh.kocproz.markpages.Permission;
@@ -41,7 +42,8 @@ public class CustomAuthenticationProvider implements org.springframework.securit
         String password = authentication.getCredentials().toString();
 
         UserModel user = userRepository.getByUsername(username);
-        if (user != null && passwordEncoder.matches(password, user.getPassword()))
+        if (user == null) throw new UsernameNotFoundException("No user with username " + username);
+        if (user.getOpenidSubject() == null && passwordEncoder.matches(password, user.getPassword()))
             return new UsernamePasswordAuthenticationToken(user.getUsername(), password, getUserAuthorities(user));
 
         return null;
