@@ -1,6 +1,7 @@
 package ovh.kocproz.markpages.security;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
@@ -19,14 +20,22 @@ import java.util.Collections;
 @EnableOAuth2Client
 public class OpenIdClientConfig {
 
+    @Value("${domain}")
+    String domain;
+    @Value("${openid.accessTokenUri}")
+    String accessTokenUri;
+    @Value("${openid.userAuthorizationUri}")
+    String userAuthorizationUri;
+
+
     @Bean
     public OAuth2ProtectedResourceDetails openId() {//TODO: getting values from config
         AuthorizationCodeResourceDetails details = new AuthorizationCodeResourceDetails();
         details.setClientId("mdPages");
-        details.setAccessTokenUri("https://keycloak.starchasers.ovh/auth/realms/syf/protocol/openid-connect/token");
-        details.setUserAuthorizationUri("https://keycloak.starchasers.ovh/auth/realms/syf/protocol/openid-connect/auth");
+        details.setAccessTokenUri(accessTokenUri);
+        details.setUserAuthorizationUri(userAuthorizationUri);
         details.setScope(Collections.singletonList("openid"));
-        details.setPreEstablishedRedirectUri("http://localhost:8080/login/openid");
+        details.setPreEstablishedRedirectUri(domain + "/login/openid");
         details.setUseCurrentUri(false);
         return details;
     }

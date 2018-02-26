@@ -52,8 +52,6 @@ public class OpenIdConnectFilter extends AbstractAuthenticationProcessingFilter 
             Map<String, String> authInfo = new ObjectMapper().readValue(tokenDecoded.getClaims(), Map.class);
 
             return auth.authenticateOpenId(authInfo.get("sub"), authInfo.get("preferred_username"));
-//            return new OpenIdAuthenticationToken("Sparta",//preferred_username
-//                    Collections.singletonList(new SimpleGrantedAuthority("admin")));
         } catch (InvalidTokenException e) {
             throw new BadCredentialsException("Could not obtain user details from token", e);
         }
