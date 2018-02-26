@@ -24,7 +24,7 @@ public class UserModel {
     @Column(name = "password", columnDefinition = "TEXT", length = 160)
     private String password;
 
-    @Column(name = "openid_subject", columnDefinition = "VARCHAR", length = 255)
+    @Column(name = "openid_subject", length = 255)
     private String openidSubject;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
