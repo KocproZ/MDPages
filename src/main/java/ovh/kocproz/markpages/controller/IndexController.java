@@ -71,32 +71,6 @@ public class IndexController {
         return "mdPage";
     }
 
-    //TODO: DTO validation
-//    @RequestMapping("/search")
-//    public String search(Model model, Principal principal, @Valid @ModelAttribute(name = "query") SearchDTO search) {
-//        if (principal != null)
-//            model.addAttribute("user", userRepository.getByUsername(principal.getName()));
-//
-//        if (principal != null && !search.getName().isEmpty()) {
-//            model.addAttribute("pages", pageRepository.findAllByVisibilityNotAndTitleContaining(
-//                    Visibility.AUTHORIZED, search.getName(), new Sort(Sort.Direction.ASC, "title")));
-//        } else if (principal == null && !search.getName().isEmpty()) {
-//            model.addAttribute("pages", pageRepository.findAllByVisibilityAndTitleContaining(
-//                    Visibility.PUBLIC, search.getName(), new Sort(Sort.Direction.ASC, "title")));
-//        } else if (principal != null && !search.getTags().isEmpty()) {
-//            model.addAttribute("pages", pageRepository.findAllByVisibilityNotAndTagNames(
-//                    Visibility.AUTHORIZED, search.getTags()
-//            ));
-//        } else if (principal == null && !search.getTags().isEmpty()) {
-//            model.addAttribute("pages", pageRepository.findAllByVisibilityAndTagNames(
-//                    Visibility.PUBLIC, search.getTags()
-//            ));
-//        }
-//
-//        return "list";
-//    }
-
-
     @RequestMapping("/login")
     public String login() {
         return "login";

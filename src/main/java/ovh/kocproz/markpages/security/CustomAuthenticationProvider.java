@@ -6,8 +6,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Component;
+import ovh.kocproz.markpages.Permission;
 import ovh.kocproz.markpages.data.model.PermissionModel;
 import ovh.kocproz.markpages.data.model.UserModel;
 import ovh.kocproz.markpages.data.repository.UserRepository;
@@ -40,17 +42,31 @@ public class CustomAuthenticationProvider implements org.springframework.securit
         String password = authentication.getCredentials().toString();
 
         UserModel user = userRepository.getByUsername(username);
-        if (user != null) {
-            if (passwordEncoder.matches(password, user.getPassword())) {
-                ArrayList<GrantedAuthority> ar = new ArrayList<>();
-                Set<PermissionModel> permissions = user.getPermissions();
-                for (PermissionModel p : permissions) {
-                    ar.add(new SimpleGrantedAuthority(p.getPermission().toString()));
-                }
-                return new UsernamePasswordAuthenticationToken(user.getUsername(), password, ar);
-            }
-        }
+        if (user == null) throw new UsernameNotFoundException("No user with username " + username);
+        if (user.getOpenidSubject() == null && passwordEncoder.matches(password, user.getPassword()))
+            return new UsernamePasswordAuthenticationToken(user.getUsername(), password, getUserAuthorities(user));
+
         return null;
+    }
+
+    private ArrayList<GrantedAuthority> getUserAuthorities(UserModel user) {
+        ArrayList<GrantedAuthority> ar = new ArrayList<>();
+        Set<PermissionModel> permissions = user.getPermissions();
+        for (PermissionModel p : permissions)
+            ar.add(new SimpleGrantedAuthority(p.getPermission().toString()));
+        return ar;
+    }
+
+    public Authentication authenticateOpenId(String subject, String username) {
+        UserModel user = userRepository.getByOpenidSubject(subject);
+        if (user == null) {
+            user = userService.createUser(username,
+                    null,
+                    new Permission[]{Permission.CREATE, Permission.UPLOAD},
+                    subject);
+        }
+
+        return new OpenIdAuthenticationToken(username, getUserAuthorities(user));
     }
 
     @Override
