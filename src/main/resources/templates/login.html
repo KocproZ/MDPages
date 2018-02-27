@@ -13,14 +13,13 @@
 <body class="center-in-div">
 <script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
 <script src="/webjars/materializecss/0.100.2/js/materialize.min.js"></script>
-
-    <div class="login-panel">
+<div class="login-panel">
+    <div class="padding">
         <div class="image">
             <a href="/">
                 <img src="/img/logo.png"/>
             </a>
         </div>
-        <div class="fancyhr"/>
         <div class="content">
             <form method="post">
                 <div class="row">
@@ -38,7 +37,8 @@
                         <div class="row">
                             <div class="col s12 m6 center-in-div" style="height: 36px;">
                                 <p style="margin: 0;">
-                                    <input type="checkbox" class="filled-in" id="remember-me" name="remember-me" checked="checked"/>
+                                    <input type="checkbox" class="filled-in" id="remember-me" name="remember-me"
+                                           checked="checked"/>
                                     <label class="white-text" for="remember-me">Remember me</label>
                                 </p>
                             </div>
@@ -52,16 +52,24 @@
             </form>
         </div>
     </div>
+    <div class="bottom-panel">
+        <div>
+            <div class="center-in-div">
+                <a class="btn" href="/login/openid">Sign in with openid</a>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <div th:if="${param.error}">
-        <script>
-            Materialize.toast('Invalid username or password.', 4000)
-        </script>
-    </div>
-    <div th:if="${param.logout}">
-        <script>
-            Materialize.toast('You have been logged out.', 4000)
-        </script>
-    </div>
-    </body>
+<div th:if="${param.error}">
+    <script>
+        Materialize.toast('Invalid username or password.', 4000)
+    </script>
+</div>
+<div th:if="${param.logout}">
+    <script>
+        Materialize.toast('You have been logged out.', 4000)
+    </script>
+</div>
+</body>
 </html>

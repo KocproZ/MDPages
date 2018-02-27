@@ -104,9 +104,10 @@ table.mdtable.striped > tbody > tr {
 
 .login-panel {
   margin: 50px auto 0 auto;
-  padding: 15px;
-  background-color: #34434B;
   max-width: 600px; }
+  .login-panel > .padding {
+    padding: 15px 15px 0 15px;
+    background-color: #34434B; }
   @media (max-width: 600px) {
     .login-panel {
       margin-top: 0;
@@ -124,12 +125,22 @@ table.mdtable.striped > tbody > tr {
       height: 100%;
       padding-top: 0;
       padding-bottom: 0; } }
-  .login-panel > .image {
+  .login-panel .image {
     max-width: 350px;
     padding: 15px;
     margin: 0 auto; }
-    .login-panel > .image img {
+    .login-panel .image img {
       width: 100%; }
+  .login-panel .bottom-panel {
+    position: relative;
+    height: 0; }
+    .login-panel .bottom-panel > div {
+      padding: 0 15px;
+      background-color: #34434B; }
+      .login-panel .bottom-panel > div > div {
+        height: 75px;
+        top: 10px;
+        padding: 0 1.5rem; }
 
 [type="checkbox"]:checked + label::before {
   border-right: 2px solid #F2F2F2;
