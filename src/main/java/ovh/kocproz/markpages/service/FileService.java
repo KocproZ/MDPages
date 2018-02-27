@@ -26,7 +26,7 @@ import java.util.List;
 public class FileService {
 
     private FileRepository fileRepository;
-    @Value("${maxFileSize}")
+    @Value("${maxFileSize:8388608}")
     private long MAX_FILE_SIZE;
 
     public FileService(FileRepository fileRepository) {

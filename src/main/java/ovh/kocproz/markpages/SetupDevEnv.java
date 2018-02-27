@@ -27,14 +27,14 @@ import java.util.Scanner;
 @Component
 public class SetupDevEnv {
 
-    @Value("${dev}")
-    private Boolean dev = false;
+    @Value("${dev:false}")
+    private Boolean dev;
 
-    @Value("${dev.generator.pages}")
-    private int pagesToGenerate = 64;
+    @Value("${dev.generator.pages:16}")
+    private int pagesToGenerate;
 
-    @Value("${dev.generator.accounts}")
-    private int accountsToGenerate = 0;
+    @Value("${dev.generator.accounts:0}")
+    private int accountsToGenerate;
 
     @Value("${spring.jpa.hibernate.ddl-auto}")
     private String dllAuto;
