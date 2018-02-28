@@ -57,6 +57,19 @@ h1, h2, h3, h4, h5 {
   word-wrap: break-word;
 }
 
+@mixin user-select($var) {
+  -webkit-touch-callout: $var; /* iOS Safari */
+  -webkit-user-select: $var; /* Safari */
+  -khtml-user-select: $var; /* Konqueror HTML */
+  -moz-user-select: $var; /* Firefox */
+  -ms-user-select: $var; /* Internet Explorer/Edge */
+  user-select: $var; /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+@mixin noselect {
+  @include user-select(none);
+}
+
 @import 'mdtable';
 @import 'mdcard';
 @import 'mdpagination';

@@ -1,3 +1,6 @@
+.side-nav .collapsible-body, .side-nav.fixed .collapsible-body {
+  background-color: $side-navliBackgroundColor;
+}
 .side-nav, .side-nav.fixed {
   background-color: $side-navliBackgroundColor;
   .logo {
@@ -16,6 +19,9 @@
   .divider {
     margin-bottom: 8px;
     background-color: $side-navLogoBackgroundColor;
+  }
+  .collapsible-header{
+    border-bottom: 1px solid $side-navLogoBackgroundColor;
   }
   .collapsible-body {
     li {
@@ -48,6 +54,7 @@
   }
   li {
     a {
+      @include noselect;
       color: $side-navFontColor;
       i {
         color: $side-navFontColor;

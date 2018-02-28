@@ -185,6 +185,9 @@ input[type=text].valid:not(.browser-default), input[type=password].valid:not(.br
   .switch p, .switch > label p {
     display: inline; }
 
+.side-nav .collapsible-body, .side-nav.fixed .collapsible-body {
+  background-color: #37474f; }
+
 .side-nav, .side-nav.fixed {
   background-color: #37474f; }
   .side-nav .logo, .side-nav.fixed .logo {
@@ -200,6 +203,8 @@ input[type=text].valid:not(.browser-default), input[type=password].valid:not(.br
   .side-nav .divider, .side-nav.fixed .divider {
     margin-bottom: 8px;
     background-color: #263238; }
+  .side-nav .collapsible-header, .side-nav.fixed .collapsible-header {
+    border-bottom: 1px solid #263238; }
   .side-nav .collapsible-body li a, .side-nav.fixed .collapsible-body li a {
     padding: 0 23.5px 0 51px; }
   .side-nav #searchBox, .side-nav.fixed #searchBox {
@@ -219,6 +224,18 @@ input[type=text].valid:not(.browser-default), input[type=password].valid:not(.br
   .side-nav ul, .side-nav li, .side-nav.fixed ul, .side-nav.fixed li {
     background-color: #37474f; }
   .side-nav li a, .side-nav.fixed li a {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently supported by Chrome and Opera */
     color: white; }
     .side-nav li a i, .side-nav.fixed li a i {
       color: white; }
