@@ -2,7 +2,7 @@
       xmlns:layout="http://www.w3.org/1999/xhtml"
       layout:decorator="fragments/layout">
 
-<div layout:fragment="content">
+<main layout:fragment="content">
     <div class="container">
         <h1 class="row m12" th:text="${page.title}"></h1>
         <div class="row">
@@ -41,5 +41,5 @@
         document.getElementById("content").innerHTML = html;
         hljs.initHighlightingOnLoad();
     </script>
-</div>
+</main>
 </html>

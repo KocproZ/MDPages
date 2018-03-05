@@ -2,7 +2,7 @@
       xmlns:layout="http://www.w3.org/1999/xhtml"
       layout:decorator="fragments/layout">
 
-<div layout:fragment="content">
+<main layout:fragment="content">
     <div class="container">
         <p>Tags:</p>
         <a th:each="tag : ${tags}" class="chip" th:href="${'/search/tag?tag='+tag}">
@@ -43,6 +43,6 @@
             setup('/search/page/data?query=', 'query')
         </script>
     </div>
-</div>
+</main>
 
 </html>

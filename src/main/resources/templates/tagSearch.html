@@ -2,7 +2,7 @@
       xmlns:layout="http://www.w3.org/1999/xhtml"
       layout:decorator="fragments/layout">
 
-<div layout:fragment="content">
+<main layout:fragment="content">
     <div class="container">
         <p th:if="${pageCount==0}">No results found.</p>
         <div th:if="${pageCount>0}">
@@ -37,6 +37,6 @@
             setup('/search/tag/data?tag=', 'tag')
         </script>
     </div>
-</div>
+</main>
 
 </html>
