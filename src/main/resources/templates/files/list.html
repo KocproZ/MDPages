@@ -5,12 +5,15 @@
 <main layout:fragment="content">
     <div class="container">
         <div class="row">
+            <div class="col s12 m12 center-in-div">
+                <a href="/files/upload" class="btn">Upload</a>
+            </div>
             <div class="col m12">
                 <ul th:each="f : ${files}">
                     <li class="row">
                         <a class="col m6" th:text="${f.getName()}" th:href="@{/files/{code}(code=${f.getCode()})}"></a>
                         <i class="col m4" th:text="${f.getCode()}"></i>
-                        <a class="col m2" th:href="@{/files/update(code=${f.getCode()})}"
+                        <a class="btn col m2" th:href="@{/files/update(code=${f.getCode()})}"
                            th:text="Update"
                            th:if="${@permissionService.canUpdateFile(#httpServletRequest.getRemoteUser(), f)}"></a>
                     </li>

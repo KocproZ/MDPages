@@ -15,11 +15,9 @@
     <br/>
     <input type="file" name="file" th:field="*{file}"/><br/>
     <select name="visibility">
-        <option value="PUBLIC"
-                th:selected="${file.visibility eq T(ovh.kocproz.markpages.Visibility).PUBLIC}"> Public
+        <option value="PUBLIC" th:selected="${file.visibility eq T(ovh.kocproz.markpages.Visibility).PUBLIC}"> Public
         </option>
-        <option value="AUTHORIZED"
-                th:selected="${file.visibility eq T(ovh.kocproz.markpages.Visibility).AUTHORIZED}"> Authorized
+        <option value="AUTHORIZED" th:selected="${file.visibility eq T(ovh.kocproz.markpages.Visibility).AUTHORIZED}"> Authorized
         </option>
     </select><br/>
     <input type="submit"/>
