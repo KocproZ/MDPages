@@ -52,7 +52,11 @@ table.mdtable {
 }
 
 .chip {
-  margin-bottom: unset;
-  margin-right: unset;
-  margin-left: 5px;
+  margin: unset unset 5px 5px;
+  > div {
+    color: rgba(0,0,0,0.6);
+  }
+  &:last-child {
+    margin-bottom: unset;
+  }
 }
