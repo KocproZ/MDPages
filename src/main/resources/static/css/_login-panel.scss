@@ -1,4 +1,5 @@
 .login-panel {
+  padding-left: unset;
   > .padding {
     padding: 15px 15px 0 15px;
     background-color: $login-panelBackgroundColor;
@@ -36,7 +37,7 @@
   .bottom-panel {
     position: relative;
     height: 0;
-    >div {
+    > div {
       padding: 0 15px;
       background-color: $login-panelBackgroundColor;
       > div {
