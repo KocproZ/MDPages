@@ -14,7 +14,7 @@ table.mdtable {
         background-color: $mdtableRowBackgroundColor;
         > td {
           overflow-wrap: break-word;
-          word-break: break-all;
+          word-break: keep-all;
           padding-top: 8px;
           padding-bottom: 8px;
           padding-left: 10px;
