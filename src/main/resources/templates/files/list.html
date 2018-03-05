@@ -6,15 +6,27 @@
     <div class="container">
         <div class="row">
             <div class="col m12">
-                <ul th:each="f : ${files}">
-                    <li class="row">
-                        <a class="col m6" th:text="${f.getName()}" th:href="@{/files/{code}(code=${f.getCode()})}"></a>
-                        <i class="col m4" th:text="${f.getCode()}"></i>
-                        <a class="col m2" th:href="@{/files/update(code=${f.getCode()})}"
-                           th:text="Update"
-                           th:if="${@permissionService.canUpdateFile(#httpServletRequest.getRemoteUser(), f)}"></a>
-                    </li>
-                </ul>
+                <table class="m6 striped mdtable">
+                    <thead>
+                    <tr>
+                        <th>Filename</th>
+                        <th>size</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="f : ${files}">
+                        <th>
+                            <a th:text="${f.getName()}" th:href="@{/files/{code}(code=${f.getCode()})}"></a>
+                        </th>
+                        <th th:text="${f.getFormattedSize()}"></th>
+                        <th th:href="@{/files/update(code=${f.getCode()})}">
+                            <a th:text="Update"
+                               th:if="${@permissionService.canUpdateFile(#httpServletRequest.getRemoteUser(), f)}"></a>
+                        </th>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

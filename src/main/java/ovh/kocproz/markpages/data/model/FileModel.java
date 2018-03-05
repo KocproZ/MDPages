@@ -44,6 +44,17 @@ public class FileModel {
 
     private String mimeType;
 
+    public long getSize() {
+        return data.length;
+    }
+
+    public String getFormattedSize() {
+        if (data.length < 1024) return data.length + " B";
+        int exp = (int) (Math.log(data.length) / Math.log(1024));
+        char pre = ("KMGTPE").charAt(exp - 1);
+        return String.format("%.1f %sB", data.length / Math.pow(1024, exp), pre);
+    }
+
     public String getName() {
         return name;
     }
