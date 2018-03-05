@@ -19,14 +19,15 @@
                     </thead>
                     <tbody>
                     <tr th:each="f : ${files}">
-                        <th>
+                        <td>
                             <a th:text="${f.getName()}" th:href="@{/files/{code}(code=${f.getCode()})}"></a>
-                        </th>
-                        <th th:text="${f.getFormattedSize()}"></th>
-                        <th th:href="@{/files/update(code=${f.getCode()})}">
-                            <a th:text="Update"
+                        </td>
+                        <td th:text="${f.getFormattedSize()}"></td>
+                        <td>
+                            <a class="btn" th:href="@{/files/update(code=${f.getCode()})}"
+                               th:text="Update"
                                th:if="${@permissionService.canUpdateFile(#httpServletRequest.getRemoteUser(), f)}"></a>
-                        </th>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
