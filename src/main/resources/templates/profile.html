@@ -18,7 +18,7 @@
                 <tbody>
                 <tr th:each="maintainer : ${@pageMaintainerRepository.findAllByUser(user)}">
                     <td>
-                        <a th:inline="text" th:href="@{/p/{code}(code=maintainer.page.code)}">
+                        <a th:inline="text" th:href="@{/p/{code}(code=${maintainer.page.code})}">
                             [[${maintainer.page.title}]]
                         </a>
                     </td>
