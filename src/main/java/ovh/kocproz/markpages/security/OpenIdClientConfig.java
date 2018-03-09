@@ -21,12 +21,15 @@ import java.util.Collections;
 public class OpenIdClientConfig {
 
     @Value("${domain}")
-    String domain;
+    private String domain;
     @Value("${openid.accessTokenUri}")
-    String accessTokenUri;
+    private String accessTokenUri;
     @Value("${openid.userAuthorizationUri}")
-    String userAuthorizationUri;
-
+    private String userAuthorizationUri;
+    @Value("${openid.clientId}")
+    private String clientId;
+    @Value("${openid.clientSecret}")
+    private String clientSecret;
 
     @Bean
     public OAuth2ProtectedResourceDetails openId() {
@@ -34,6 +37,8 @@ public class OpenIdClientConfig {
         details.setClientId("mdPages");
         details.setAccessTokenUri(accessTokenUri);
         details.setUserAuthorizationUri(userAuthorizationUri);
+        details.setClientId(clientId);
+        details.setClientSecret(clientSecret);
         details.setScope(Collections.singletonList("openid"));
         details.setPreEstablishedRedirectUri(domain + "/login/openid");
         details.setUseCurrentUri(false);
