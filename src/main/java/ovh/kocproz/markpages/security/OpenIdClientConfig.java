@@ -34,10 +34,9 @@ public class OpenIdClientConfig {
     @Bean
     public OAuth2ProtectedResourceDetails openId() {
         AuthorizationCodeResourceDetails details = new AuthorizationCodeResourceDetails();
-        details.setClientId("mdPages");
+        details.setClientId(clientId);
         details.setAccessTokenUri(accessTokenUri);
         details.setUserAuthorizationUri(userAuthorizationUri);
-        details.setClientId(clientId);
         details.setClientSecret(clientSecret);
         details.setScope(Arrays.asList("openid", "profile"));
         details.setPreEstablishedRedirectUri(domain + "/login/openid");
