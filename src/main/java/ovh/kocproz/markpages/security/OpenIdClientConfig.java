@@ -10,7 +10,7 @@ import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResour
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 
-import java.util.Collections;
+import java.util.Arrays;
 
 /**
  * @author KocproZ
@@ -39,7 +39,7 @@ public class OpenIdClientConfig {
         details.setUserAuthorizationUri(userAuthorizationUri);
         details.setClientId(clientId);
         details.setClientSecret(clientSecret);
-        details.setScope(Collections.singletonList("openid"));
+        details.setScope(Arrays.asList("openid", "profile"));
         details.setPreEstablishedRedirectUri(domain + "/login/openid");
         details.setUseCurrentUri(false);
         return details;
