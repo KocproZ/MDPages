@@ -14,8 +14,8 @@ html {
 body {
   width: 100%;
   height: 100%;
-  background-color: $bodyBackgroundColor;
-  color: $bodyFontColor;
+  background-color: map-get($body, background-color);
+  color: map-get($body, color);
 }
 
 header, main, footer {
@@ -26,15 +26,17 @@ header, main, footer {
 }
 
 .btn {
-  background-color: $btnBackgroundColor;
-}
-
-.btn:hover {
-  background-color: $btnBackgroundColorHover;
+  background-color: map-get($btn, background-color);
+  &:hover {
+    background-color: map-get($btn, background-color-hover);
+  }
+  &:focus {
+    background-color: map-get($btn, background-color-focus);
+  }
 }
 
 a {
-  color: $aFontColor;
+  color: map-get($a, color);
 }
 
 .center-in-div {
@@ -47,10 +49,6 @@ a {
   .toast {
     position: fixed;
   }
-}
-
-.btn:focus {
-  background-color: $btnBackgroundColorFocus;
 }
 
 h1, h2, h3, h4, h5 {

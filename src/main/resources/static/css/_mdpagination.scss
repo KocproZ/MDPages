@@ -1,12 +1,10 @@
 .pagination {
   > li {
     &.active {
-      background-color: $paginationLiActiveBackgroundColor;
+      background-color: map-get(map-get(map-get($pagination, li), active), background-color);
     }
-    >a {
-      & {
-        color: $paginationLiAFontColor;
-      }
+    > a {
+      color: map-get(map-get(map-get($pagination, li), active), color);;
     }
   }
 }

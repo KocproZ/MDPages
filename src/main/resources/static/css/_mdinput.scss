@@ -3,21 +3,21 @@
   border-bottom: 2px solid #F2F2F2;
 }
 [type="checkbox"].filled-in:checked+label:after {
-  background-color: $inputCheckBoxColor;
-  border: $inputCheckBoxColor;
+  background-color: map-get(map-get($input,checkbox),background-color);
+  border: map-get(map-get($input,checkbox),color);
 }
 input[type=password]:not(.browser-default):focus:not([readonly]){
-  box-shadow:0 1px 0 0 $inputTextBorderBottomColor;
+  box-shadow:0 1px 0 0 map-get(map-get($input,password),box-shadow-color);
 }
 input[type=password]:not(.browser-default):focus:not([readonly])+label {
-  color: $inputPasswordFontColor;
+  color: map-get(map-get($input,password),color);
 }
 input[type=text]:not(.browser-default):focus:not([readonly]) {
-  border-bottom-color:$inputTextBorderBottomColor;
-  box-shadow:0 1px 0 0 $inputTextBoxShadowColor;
+  border-bottom-color:map-get(map-get($input,text),border-bottom-color);
+  box-shadow:0 1px 0 0 map-get(map-get($input,text),box-shadow-color);
 }
 input[type=text]:not(.browser-default):focus:not([readonly])+label {
-  color: $inputTextFontColor;
+  color: map-get(map-get($input,text),color);
 }
 input[type=text].valid:not(.browser-default), input[type=password].valid:not(.browser-default){
   border-bottom: 1px solid #48c7c9;
@@ -25,7 +25,7 @@ input[type=text].valid:not(.browser-default), input[type=password].valid:not(.br
   box-shadow: 0 1px 0 0 #48c7c9;
 }
 .input-field .prefix.active {
-  color: $inputFieldFontColor;
+  color: map-get(map-get($input,input-field),color);
 }
 .input-field {
   height:64px;
@@ -35,11 +35,11 @@ input[type=text].valid:not(.browser-default), input[type=password].valid:not(.br
 }
 .switch {
   label input[type=checkbox]:checked+.lever {
-    background-color: $switchBackgroundColor;
+    background-color: map-get(map-get($input,switch),background-color);
   }
 }
 .switch, .switch>label{
-  color: $switchFontColor;
+  color: map-get(map-get($input,switch),color);
   p{
     display: inline;
   }

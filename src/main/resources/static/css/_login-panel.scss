@@ -2,7 +2,7 @@
   padding-left: unset;
   > .padding {
     padding: 15px 15px 0 15px;
-    background-color: $login-panelBackgroundColor;
+    background-color: map-get($login-panel, background-color);
   }
   margin: 50px auto 0 auto;
   @media(max-width: 600px) {
@@ -39,7 +39,7 @@
     height: 0;
     > div {
       padding: 0 15px;
-      background-color: $login-panelBackgroundColor;
+      background-color: map-get($login-panel, background-color);
       > div {
         height: 75px;
         top: 10px;
