@@ -59,6 +59,7 @@ public class UserService {
             pm.setPermission(permission);
             pm.setUser(user);
             permissionRepository.save(pm);
+            user.addPermission(pm);
         }
         return user;
     }
