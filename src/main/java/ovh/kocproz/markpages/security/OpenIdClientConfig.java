@@ -10,7 +10,7 @@ import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResour
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 
-import java.util.Collections;
+import java.util.Arrays;
 
 /**
  * @author KocproZ
@@ -21,20 +21,24 @@ import java.util.Collections;
 public class OpenIdClientConfig {
 
     @Value("${domain}")
-    String domain;
+    private String domain;
     @Value("${openid.accessTokenUri}")
-    String accessTokenUri;
+    private String accessTokenUri;
     @Value("${openid.userAuthorizationUri}")
-    String userAuthorizationUri;
-
+    private String userAuthorizationUri;
+    @Value("${openid.clientId}")
+    private String clientId;
+    @Value("${openid.clientSecret}")
+    private String clientSecret;
 
     @Bean
     public OAuth2ProtectedResourceDetails openId() {
         AuthorizationCodeResourceDetails details = new AuthorizationCodeResourceDetails();
-        details.setClientId("mdPages");
+        details.setClientId(clientId);
         details.setAccessTokenUri(accessTokenUri);
         details.setUserAuthorizationUri(userAuthorizationUri);
-        details.setScope(Collections.singletonList("openid"));
+        details.setClientSecret(clientSecret);
+        details.setScope(Arrays.asList("openid", "profile"));
         details.setPreEstablishedRedirectUri(domain + "/login/openid");
         details.setUseCurrentUri(false);
         return details;

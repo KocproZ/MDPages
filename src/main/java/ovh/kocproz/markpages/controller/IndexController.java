@@ -66,6 +66,7 @@ public class IndexController {
             return "redirect:/login";
         }
 
+        model.addAttribute("page_title", page.getTitle() + " | mdPages");
         model.addAttribute("page", page);
         model.addAttribute("user", user);
         return "mdPage";

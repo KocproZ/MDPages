@@ -2,21 +2,30 @@
       xmlns:layout="http://www.w3.org/1999/xhtml"
       layout:decorator="fragments/layout">
 
-<div layout:fragment="content">
+<main layout:fragment="content">
     <div class="container">
         <div class="row">
             <h3 th:text="${user.username}" class="offset-m1 col"></h3>
         </div>
         <div class="row">
-            <div class="col m6">
-                <h5>Maintained by you</h5>
-                <li th:each="maintainer : ${@pageMaintainerRepository.findAllByUser(user)}">
-                    <a th:inline="text" th:href="'/p/' + ${maintainer.page.code}">
-                        [[${maintainer.page.title}]] - [[${maintainer.role}]]
-                    </a>
-                </li>
-            </div>
-            <div class="col m4 offset-m1 card mdcard"
+            <!--TODO include tags?-->
+            <table class="mdtable striped">
+                <thead>
+                <tr>
+                    <th>Pages you can edit</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="maintainer : ${@pageMaintainerRepository.findAllByUser(user)}">
+                    <td>
+                        <a th:inline="text" th:href="@{/p/{code}(code=${maintainer.page.code})}">
+                            [[${maintainer.page.title}]]
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="col m6 card mdcard"
                  th:if="${user.username eq #httpServletRequest.getRemoteUser()}">
                 <p style="width:fit-content;margin-left:  auto;margin-right: auto;">Change password</p>
                 <form class="col" th:action="@{/user/chpass}" method="post">
@@ -46,5 +55,5 @@
             </div>
         </div>
     </div>
-</div>
+</main>
 </html>

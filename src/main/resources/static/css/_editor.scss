@@ -10,34 +10,34 @@
     flex-direction: column;
     display: -webkit-flex;
     display: flex;
-    width: unset!important;
+    width: unset !important;
 
-    li{
-      width: unset!important;
-      margin-left: unset!important;
-      left: unset!important;
-      right: unset!important;
-      background-color: $editorLiBackgroundColor;
+    li {
+      width: unset !important;
+      margin-left: unset !important;
+      left: unset !important;
+      right: unset !important;
+      background-color: map-get(map-get($editor, li), background-color);
     }
   }
 
   .tab {
     width: 100%;
-    a{
-      color: $editorTabFontColor!important;
-      border-right: 3px solid $editorLiBackgroundColor;
+    a {
+      color: map-get(map-get($editor, tab), color) !important;
+      border-right: 3px solid map-get(map-get($editor, li), background-color);
     }
     .active {
       -moz-transition: border-color .5s ease;
       -o-transition: border-color .5s ease;
       -webkit-transition: border-color .5s ease;
       transition: border-color .5s ease;
-      border-right: 3px solid $editorTabCurrentTabBorderRightColor;
+      border-right: 3px solid map-get(map-get(map-get($editor, tab), current-tab), border-right-color);
     }
 
     :hover {
-      border-right: 3px solid $editorTabBorderRightHoverColor;
-      a{
+      border-right: 3px solid map-get(map-get(map-get($editor, tab), border-right), color-hover);
+      a {
         width: 95%;
       }
     }

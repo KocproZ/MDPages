@@ -1,10 +1,11 @@
 .side-nav .collapsible-body, .side-nav.fixed .collapsible-body {
-  background-color: $side-navliBackgroundColor;
+  background-color: map-get(map-get($side-nav, li), background-color);
 }
+
 .side-nav, .side-nav.fixed {
-  background-color: $side-navliBackgroundColor;
+  background-color: map-get(map-get($side-nav, li), background-color);
   .logo {
-    background-color: $side-navLogoBackgroundColor;
+    background-color: map-get(map-get($side-nav, logo), background-color);
     padding: 32px;
     display: flex;
     a, img {
@@ -18,10 +19,10 @@
   }
   .divider {
     margin-bottom: 8px;
-    background-color: $side-navLogoBackgroundColor;
+    background-color: map-get(map-get($side-nav, logo), background-color);
   }
-  .collapsible-header{
-    border-bottom: 1px solid $side-navLogoBackgroundColor;
+  .collapsible-header {
+    border-bottom: 1px solid map-get(map-get($side-nav, logo), background-color);
   }
   .collapsible-body {
     li {
@@ -31,7 +32,7 @@
     }
   }
   #searchBox {
-    background-color: $side-navLogoBackgroundColor;
+    background-color: map-get(map-get($side-nav, logo), background-color);
     > input {
       margin: 0 0 10px 0;
       height: 2rem;
@@ -40,26 +41,35 @@
     padding-left: 32px;
     padding-right: 32px;
     input {
-      color: $searchBoxInputFontColor;
+      color: map-get($searchBox, color);
     }
     a {
-      color: $searchBoxIconFontColor;
+      color: map-get($searchBox, color);
     }
     i {
       cursor: pointer;
     }
   }
   ul, li {
-    background-color: $side-navliBackgroundColor;
+    background-color: map-get(map-get($side-nav, li), background-color);
   }
   li {
     a {
       @include noselect;
-      color: $side-navFontColor;
+      color: map-get($side-nav, color);
       i {
-        color: $side-navFontColor;
+        color: map-get($side-nav, color);
       }
     }
   }
+}
 
+.mobile-panel, .mobile-panel > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  background-color: #263238;
+  border-bottom-right-radius: 20px;
 }

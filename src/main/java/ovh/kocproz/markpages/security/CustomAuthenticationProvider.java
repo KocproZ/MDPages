@@ -60,6 +60,7 @@ public class CustomAuthenticationProvider implements org.springframework.securit
     public Authentication authenticateOpenId(String subject, String username) {
         UserModel user = userRepository.getByOpenidSubject(subject);
         if (user == null) {
+            if (userRepository.getByUsername(username) != null) return null;
             user = userService.createUser(username,
                     null,
                     new Permission[]{Permission.CREATE, Permission.UPLOAD},

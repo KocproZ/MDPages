@@ -21,9 +21,10 @@ header, main, footer {
 
 .btn {
   background-color: #48c7c9; }
-
-.btn:hover {
-  background-color: #48c7c9; }
+  .btn:hover {
+    background-color: #48c7c9; }
+  .btn:focus {
+    background-color: #48c7c9; }
 
 a {
   color: #48c7c9; }
@@ -36,9 +37,6 @@ a {
 @media (max-width: 600px) {
   .toast {
     position: fixed; } }
-.btn:focus {
-  background-color: #48c7c9; }
-
 h1, h2, h3, h4, h5 {
   word-wrap: break-word; }
 
@@ -50,17 +48,16 @@ table.mdtable.striped > tbody > tr {
     background-color: #2a363d; }
   table.mdtable.striped > tbody > tr > td {
     overflow-wrap: break-word;
-    word-break: break-all;
-    width: 50%;
+    word-break: keep-all;
     padding-top: 8px;
     padding-bottom: 8px;
     padding-left: 10px;
     line-height: 95%; }
     table.mdtable.striped > tbody > tr > td > .btn {
       color: #F2F2F2;
+      background-color: #48c7c9;
       float: right;
-      margin-right: 5%;
-      background-color: #48c7c9; }
+      margin-right: 5%; }
       table.mdtable.striped > tbody > tr > td > .btn:hover {
         text-decoration: none; }
     table.mdtable.striped > tbody > tr > td > a {
@@ -77,9 +74,11 @@ table.mdtable.striped > tbody > tr {
   padding-left: unset; }
 
 .chip {
-  margin-bottom: unset;
-  margin-right: unset;
-  margin-left: 5px; }
+  margin: unset unset 5px 5px; }
+  .chip > div {
+    color: rgba(0, 0, 0, 0.6); }
+  .chip:last-child {
+    margin-bottom: unset; }
 
 .mdcard {
   background-color: #34434B; }
@@ -100,9 +99,10 @@ table.mdtable.striped > tbody > tr {
 .pagination > li.active {
   background-color: #48c7c9; }
 .pagination > li > a {
-  color: #F2F2F2; }
+  color: #F2f2f2; }
 
 .login-panel {
+  padding-left: unset;
   margin: 50px auto 0 auto;
   max-width: 600px; }
   .login-panel > .padding {
@@ -151,7 +151,7 @@ table.mdtable.striped > tbody > tr {
   border: #48c7c9; }
 
 input[type=password]:not(.browser-default):focus:not([readonly]) {
-  box-shadow: 0 1px 0 0 #48c7c9; }
+  box-shadow: 0 1px 0 0; }
 
 input[type=password]:not(.browser-default):focus:not([readonly]) + label {
   color: #48c7c9; }
@@ -239,6 +239,15 @@ input[type=text].valid:not(.browser-default), input[type=password].valid:not(.br
     color: white; }
     .side-nav li a i, .side-nav.fixed li a i {
       color: white; }
+
+.mobile-panel, .mobile-panel > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  background-color: #263238;
+  border-bottom-right-radius: 20px; }
 
 .tabs-vertical {
   position: fixed;

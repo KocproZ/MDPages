@@ -29,7 +29,7 @@ public class OpenIdConnectFilter extends AbstractAuthenticationProcessingFilter 
 
     private OAuth2RestTemplate restTemplate;
     @Autowired
-    CustomAuthenticationProvider auth;
+    private CustomAuthenticationProvider auth;
 
     public OpenIdConnectFilter(String defaultFilterProcessesUrl) {
         super(defaultFilterProcessesUrl);

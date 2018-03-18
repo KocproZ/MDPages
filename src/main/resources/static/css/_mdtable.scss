@@ -8,23 +8,22 @@ table.mdtable {
       > tr {
         &:nth-child(odd) {
           //First row
-          background-color: $mdtableFirstRowBackgroundColor;
+          background-color: map-get(map-get($mdtable, first-row), background-color);
         }
         //Standard row
-        background-color: $mdtableRowBackgroundColor;
+        background-color: map-get($mdtable, background-color);
         > td {
           overflow-wrap: break-word;
-          word-break: break-all;
-          width: 50%;
+          word-break: keep-all;
           padding-top: 8px;
           padding-bottom: 8px;
           padding-left: 10px;
           line-height: 95%;
           > .btn {
-            color: $mdtableBtnFontColor;
+            color: map-get(map-get($mdtable, btn), color);
+            background-color: map-get(map-get($mdtable, btn), background-color);
             float: right;
             margin-right: 5%;
-            background-color: $mdtableBtnBackgroundColor;
             &:hover {
               text-decoration: none;
               @extend .shadowed;
@@ -53,7 +52,11 @@ table.mdtable {
 }
 
 .chip {
-  margin-bottom: unset;
-  margin-right: unset;
-  margin-left: 5px;
+  margin: unset unset 5px 5px;
+  > div {
+    color: rgba(0, 0, 0, 0.6);
+  }
+  &:last-child {
+    margin-bottom: unset;
+  }
 }

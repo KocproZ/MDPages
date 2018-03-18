@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
+    <meta th:if="${#httpServletRequest.requestURI != '/edit'}" name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title th:text="${page_title != null} ? ${page_title} : 'mdPages'"></title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <link type="text/css" rel="stylesheet" href="/webjars/materializecss/0.100.2/css/materialize.min.css"
@@ -31,7 +32,9 @@
                     <ul>
                         <li><a href="/user/profile">Profile</a></li>
                         <li><a href="/logout">Logout</a></li>
-                        <li><div class="divider"></div></li>
+                        <li>
+                            <div class="divider"></div>
+                        </li>
                     </ul>
                 </div>
             </li>
@@ -42,14 +45,16 @@
            href="/admin">Admin panel</a></li>
     <li><a th:if="${#httpServletRequest.remoteUser != null}" href="/edit">Create new</a></li>
     <li><a href="/login" th:if="${#httpServletRequest.remoteUser == null}">Login</a></li>
-    <li><div class="divider"></div></li>
+    <li>
+        <div class="divider"></div>
+    </li>
     <li><a href="/list">List of pages</a></li>
     <li><a href="/files">List of files</a></li>
 
 </ul>
-<div>
-    <a href="#" data-activates="slide-out" class="button-collapse"><i class="medium material-icons">menu</i></a>
-</div>
+    <div class="mobile-panel">
+        <a href="#" data-activates="slide-out" class="button-collapse"><i class="medium material-icons">menu</i></a>
+    </div>
 <script>
     $(".button-collapse").sideNav();
 </script>
@@ -70,8 +75,7 @@
             window.location.href = '/search?query=' + query;
     }
 </script>
-<main>
-    <div layout:fragment="content"></div>
+<main layout:fragment="content">
 </main>
 </body>
 </html>
