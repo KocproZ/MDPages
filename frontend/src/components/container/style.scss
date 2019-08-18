@@ -1,0 +1,16 @@
+@import '../../style/variables';
+
+$navigation-width: map_get($navigation, "width");
+
+.app {
+  width: 100%;
+  padding-left: $navigation-width;
+
+  > div {
+    left: $navigation-width;
+  }
+}
+
+.container {
+  min-height: 100vh;
+}

@@ -1,0 +1,10 @@
+@import '../../style/variables';
+
+$navigation-width: map_get($navigation, "width");
+
+.footer {
+  clear: both;
+  position: relative;
+  height: 200px;
+  background-color: red;
+}

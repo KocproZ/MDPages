@@ -1,0 +1,8 @@
+@import '../../style/variables';
+
+.navigation {
+  width: map_get($navigation, "width");
+  background: #c1d72e;
+  height: 100%;
+  position: fixed;
+}
