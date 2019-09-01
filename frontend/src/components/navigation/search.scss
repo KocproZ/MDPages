@@ -1,0 +1,13 @@
+.search {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  input[type="text"] {
+    width: 90%;
+  }
+
+  input[type="submit"].hidden {
+    display: none;
+  }
+}
