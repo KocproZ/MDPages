@@ -6,6 +6,9 @@
   height: 100%;
   position: fixed;
 
-  @import 'logo';
-  @import 'search';
+  .logo {
+    margin: map_get($navigation, "logo-margin-top") auto map_get($navigation, "logo-margin-top") auto;
+  }
+
+  @import './search/style';
 }

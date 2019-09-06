@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import './style.scss';
-import Search from "./search";
+import Search from "./search/";
+import Logo from "../logo";
 
 class Navigation extends Component {
     render() {
         return (
             <div className="navigation">
-                <div className={"logo"}/>
+                <Logo/>
                 <Search/>
             </div>
         );

@@ -1,0 +1,7 @@
+@import '../../style/variables';
+
+.logo {
+  background-color: red;
+  width: map_get($logo, "width");
+  height: map_get($logo, "height");
+}

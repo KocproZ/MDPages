@@ -1,8 +1,0 @@
-@import '../../style/variables';
-
-.logo {
-  background-color: red;
-  width: map_get($navigation, "width")/2;
-  height: map_get($navigation, "width")/2;
-  margin: map_get($navigation, "logo-margin-top") auto map_get($navigation, "logo-margin-top") auto;
-}
