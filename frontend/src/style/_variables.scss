@@ -1,5 +1,31 @@
+$colors: (
+    "black": #010101,
+);
+
+$page-preference-colors: (
+    "main-1": #fff,
+    "main-2": #fff,
+    "main-3": #fff,
+    "secondary-1": map-get($colors, "black"),
+    "secondary-2": #fff,
+    "secondary-3": #fff,
+    "font-1": #fff,
+    "font-2": #fff,
+    "font-3": #fff,
+);
+
+$logo: (
+    "width": 125px,
+    "height": 125px
+);
+
 $navigation: (
-        "width": 250px,
-        "logo-margin-top": 50px,
-        "logo-margin-bottom": 50px,
-)
+    "width": 250px,
+    "logo-margin-top": 50px,
+    "logo-margin-bottom": 50px,
+);
+
+$footer: (
+    "background-color": map-get($page-preference-colors, "secondary-1"),
+    "color": map-get($page-preference-colors, "font-1"),
+);

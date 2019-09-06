@@ -1,10 +1,51 @@
 @import '../../style/variables';
-
-$navigation-width: map_get($navigation, "width");
+@import '../../style/mixins';
 
 .footer {
   clear: both;
   position: relative;
-  height: 200px;
-  background-color: red;
+  @include colors($footer);
+
+  padding: 25px 0;
+
+  > .row {
+    height: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .center {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+
+    ul {
+      display: flex;
+      list-style: none;
+      font-size: 15px;
+
+      li {
+        opacity: 0.8;
+        margin: 0 5px;
+
+        &:first-child {
+          font-weight: bold;
+          opacity: 1;
+          margin-left: 0;
+          margin-right: 15px;
+        }
+
+        a {
+          color: inherit;
+        }
+      }
+    }
+  }
 }
