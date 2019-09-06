@@ -6,12 +6,10 @@ class Container extends Component {
     render() {
         return (
             <div className={"app"}>
-                <div>
-                    <div className={"container"}>
+                <div className={"container"}>
 
-                    </div>
-                    <Footer/>
                 </div>
+                <Footer/>
             </div>
         );
     }

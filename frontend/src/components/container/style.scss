@@ -3,14 +3,15 @@
 $navigation-width: map_get($navigation, "width");
 
 .app {
-  width: 100%;
-  padding-left: $navigation-width;
+  margin-left: $navigation-width;
 
-  > div {
-    left: $navigation-width;
+  .container {
+    min-height: 100vh;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-left: 0;
   }
 }
 
-.container {
-  min-height: 100vh;
-}
+
