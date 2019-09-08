@@ -24,7 +24,7 @@ class Index extends Component {
     render() {
         return (
             <form className={"search"} onSubmit={this.handleSearch}>
-                <input value={this.state.search} name="search" type={"text"} onChange={this.handleTextSearch}/>
+                <input value={this.state.search} name="search" type={"text"} onChange={this.handleTextSearch} placeholder={"Type text to search..."}/>
                 <input type={"submit"} className={"hidden"}/>
             </form>
         );

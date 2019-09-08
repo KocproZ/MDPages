@@ -1,18 +1,4 @@
-$colors: (
-    "black": #010101,
-);
-
-$page-preference-colors: (
-    "main-1": #fff,
-    "main-2": #fff,
-    "main-3": #fff,
-    "secondary-1": map-get($colors, "black"),
-    "secondary-2": #fff,
-    "secondary-3": #fff,
-    "font-1": #fff,
-    "font-2": #fff,
-    "font-3": #fff,
-);
+@import 'colors';
 
 $logo: (
     "width": 125px,
@@ -20,7 +6,7 @@ $logo: (
 );
 
 $navigation: (
-    "width": 250px,
+    "width": 200px,
     "logo-margin-top": 50px,
     "logo-margin-bottom": 50px,
 );

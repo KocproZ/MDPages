@@ -1,7 +1,8 @@
 @import '../../style/variables';
+@import '../../style/colors';
 
 .logo {
-  background-color: red;
+  background-color: map-get($page-preference-colors, "main-4");
   width: map_get($logo, "width");
   height: map_get($logo, "height");
 }

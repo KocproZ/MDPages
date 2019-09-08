@@ -1,9 +1,11 @@
 @import '../../style/variables';
+@import '../../style/colors';
 
 $navigation-width: map_get($navigation, "width");
 
 .app {
   margin-left: $navigation-width;
+  background-color: map-get($page-preference-colors, "main-3");
 
   .container {
     min-height: 100vh;

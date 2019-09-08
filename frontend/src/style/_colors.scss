@@ -1,0 +1,18 @@
+$colors: (
+    "black": #010101,
+    "white": #fff
+);
+
+//Use this colors in website for easy color management:
+$page-preference-colors: (
+    "main-1": #1e1f26,
+    "main-2": #262830,
+    "main-3": #131418,
+    "main-4": #ff7631,
+    "secondary-1": map-get($colors, "black"),
+    "secondary-2": #fff,
+    "secondary-3": #fff,
+    "font-1": #fff,
+    "font-2": #fff,
+    "font-3": #fff,
+);

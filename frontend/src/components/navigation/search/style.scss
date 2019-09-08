@@ -1,3 +1,5 @@
+@import '../../../style/colors';
+
 .search {
   display: flex;
   justify-content: center;
@@ -5,6 +7,14 @@
 
   input[type="text"] {
     width: 90%;
+    background-color: map-get($page-preference-colors, "main-2");
+    border: unset;
+    color: map-get($page-preference-colors, "font-1");
+    padding: 5px 5px 5px 15px;
+
+    &:focus {
+      outline-color: map-get($page-preference-colors, "main-4");
+    }
   }
 
   input[type="submit"].hidden {

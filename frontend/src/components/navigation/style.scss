@@ -1,10 +1,12 @@
 @import '../../style/variables';
+@import '../../style/colors';
 
 $width: map_get($navigation, "width");
 
 .navigation {
   width: $width;
-  background: #c1d72e;
+  background: map-get($page-preference-colors, "main-1");
+  color: map-get($page-preference-colors, "font-1");
   height: 100%;
   position: fixed;
 
@@ -13,77 +15,5 @@ $width: map_get($navigation, "width");
   }
 
   @import './search/style';
-
-  .mobile-button {
-    display: none;
-    top: 25px;
-    left: 15px;
-    z-index: 1;
-    -webkit-user-select: none;
-    user-select: none;
-
-    input {
-      display: block;
-      width: 40px;
-      height: 32px;
-      position: absolute;
-      top: -7px;
-      left: -5px;
-      cursor: pointer;
-      opacity: 0;
-      /* hide this */
-      z-index: 2;
-      /* and place it over the hamburger */
-      -webkit-touch-callout: none;
-    }
-
-    span {
-      display: block;
-      width: 33px;
-      height: 4px;
-      margin-bottom: 5px;
-      position: relative;
-      background: #cdcdcd;
-      border-radius: 3px;
-      z-index: 1;
-      transform-origin: 4px 0;
-      transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
-
-      &:first-child {
-        transform-origin: 0 0;
-      }
-
-      &:nth-last-child(2) {
-        transform-origin: 0 100%;
-      }
-    }
-
-    input:checked ~ span {
-      opacity: 1;
-      transform: rotate(45deg) translate(-11px, -19px);
-      background: #232323;
-
-      &:nth-last-child(3) {
-        opacity: 0;
-        transform: rotate(0deg) scale(0.2, 0.2);
-      }
-
-      &:nth-last-child(2) {
-        transform: rotate(-45deg) translate(0, 10px);
-      }
-    }
-  }
-
-  @media screen and (max-width: 768px) {
-    left: -$width;
-    transition: 0.5s all;
-    &.show {
-      left: 0;
-    }
-    .mobile-button {
-      display: block;
-      position: fixed;
-    }
-  }
-
+  @import './mobile-button';
 }

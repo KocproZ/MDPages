@@ -1,5 +1,6 @@
 @import '../../style/variables';
 @import '../../style/mixins';
+@import '../../style/colors';
 
 .footer {
   clear: both;
@@ -32,10 +33,11 @@
       font-size: 15px;
 
       li {
-        opacity: 0.8;
         margin: 0 5px;
+        color: darken(map-get($colors, "white"), 20%);
 
         &:first-child {
+          color: map-get($colors, "white");
           font-weight: bold;
           opacity: 1;
           margin-left: 0;
