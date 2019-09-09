@@ -10,7 +10,6 @@
   padding: 25px 0;
 
   > .row {
-    height: 100%;
     margin-left: 0;
     margin-right: 0;
   }
@@ -31,6 +30,8 @@
       display: flex;
       list-style: none;
       font-size: 15px;
+      flex-flow: wrap;
+      justify-content: space-between;
 
       li {
         margin: 0 5px;
@@ -48,6 +49,18 @@
           color: inherit;
         }
       }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .column {
+      ul {
+        padding-right: 40px;
+      }
+    }
+    .center {
+      margin-top: 25px;
+      margin-bottom: 25px;
     }
   }
 }

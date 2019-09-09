@@ -3,10 +3,11 @@
 .mobile-button {
   display: none;
   top: 20px;
-  left: 5px;
+  left: 20px;
   z-index: 1;
   -webkit-user-select: none;
   user-select: none;
+  transition: 0.5s all;
 
   input {
     display: block;
@@ -65,6 +66,10 @@
   transition: 0.5s all;
   &.show {
     left: 0;
+    .mobile-button{
+      top: 20px;
+      left: 5px;
+    }
   }
   .mobile-button {
     display: block;

@@ -7,7 +7,7 @@ class Footer extends Component {
         return (
             <div className={"footer"}>
                 <div className={"row"}>
-                    <div className={"col-7"}>
+                    <div className={"col-12 col-md-7"}>
                         <div className={"column"}>
                             <ul>
                                 <li>MDPages</li>
@@ -29,7 +29,7 @@ class Footer extends Component {
                             </ul>
                         </div>
                     </div>
-                    <div className={"col-5 center"}>
+                    <div className={"col-12 col-md-5 center"}>
                         <Logo/>
                     </div>
                 </div>
