@@ -1,10 +1,8 @@
 @import '../../style/variables';
 @import '../../style/colors';
 
-$width: map_get($navigation, "width");
-
 .navigation {
-  width: $width;
+  width: map_get($navigation, "width");
   background: map-get($page-preference-colors, "main-1");
   color: map-get($page-preference-colors, "font-1");
   height: 100%;
@@ -15,5 +13,5 @@ $width: map_get($navigation, "width");
   }
 
   @import './search/style';
-  @import './mobile-button';
+  @import './mobile-button/style';
 }

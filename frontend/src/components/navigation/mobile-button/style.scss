@@ -1,3 +1,5 @@
+@import '../../../style/colors';
+@import '../../../style/variables';
 .mobile-button {
   display: none;
   top: 25px;
@@ -59,7 +61,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  left: -$width;
+  left: -(map_get($navigation, "width"));
   transition: 0.5s all;
   &.show {
     left: 0;

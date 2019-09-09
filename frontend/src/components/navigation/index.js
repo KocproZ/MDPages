@@ -2,35 +2,26 @@ import React, {Component} from 'react';
 import './style.scss';
 import Search from "./search/";
 import Logo from "../logo";
+import MobileButton from "./mobile-button";
+import {connect} from "react-redux";
+import {getNavigationVisibility} from "../../redux/selectors";
 
 class Navigation extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            showNavigation: false,
-
-        };
-        this.handleMobileButton = this.handleMobileButton.bind(this);
-    }
-
-    handleMobileButton() {
-        this.setState({showNavigation: !this.state.showNavigation})
-    }
 
     render() {
         return (
-            <div className={"navigation" + (this.state.showNavigation ? " show" : "")}>
+            <div className={"navigation" + (this.props.visibility ? " show" : "")}>
                 <Logo/>
                 <Search/>
-                <div className={"mobile-button"}>
-                    <input type="checkbox" onChange={this.handleMobileButton} checked={this.state.showNavigation}/>
-                    <span/>
-                    <span/>
-                    <span/>
-                </div>
+                <MobileButton/>
             </div>
         );
     }
 }
 
-export default Navigation;
+const mapStateToProps = state => {
+    const visibility = getNavigationVisibility(state);
+    return {visibility}
+};
+
+export default connect(mapStateToProps)(Navigation);
