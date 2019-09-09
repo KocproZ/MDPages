@@ -24,12 +24,13 @@ class Navigation extends Component {
     }
 
     updateWindowDimensions() {
-        this.setState({width: window.innerWidth, height: window.innerHeight});
-        if (this.state.width < 768 && this.props.visibility === true) {
-            this.props.dispatch(toggleNavigation())
-        }
-        else if(this.state.width > 768 && this.props.visibility === false){
-            this.props.dispatch(toggleNavigation())
+        if (window.innerWidth !== this.state.width) {
+            this.setState({width: window.innerWidth, height: window.innerHeight});
+            if (this.state.width < 768 && this.props.visibility === true) {
+                this.props.dispatch(toggleNavigation())
+            } else if (this.state.width > 768 && this.props.visibility === false) {
+                this.props.dispatch(toggleNavigation())
+            }
         }
     }
 
