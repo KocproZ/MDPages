@@ -7,6 +7,7 @@
   color: map-get($page-preference-colors, "font-1");
   height: 100%;
   position: fixed;
+  z-index: 1;
 
   .logo {
     margin: map_get($navigation, "logo-margin-top") auto map_get($navigation, "logo-margin-top") auto;
