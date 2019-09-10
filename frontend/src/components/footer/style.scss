@@ -12,14 +12,17 @@
   > .row {
     margin-left: 0;
     margin-right: 0;
+
+    > * {
+      display: flex;
+      align-items: center;
+    }
   }
 
   .center {
     height: 100%;
     width: 100%;
-    display: flex;
     justify-content: center;
-    align-items: center;
   }
 
   .column {
@@ -31,6 +34,10 @@
       list-style: none;
       font-size: 15px;
       flex-flow: wrap;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
 
       li {
         margin: 0 5px;
@@ -55,14 +62,16 @@
     .column {
       ul {
         padding-right: 40px;
-        @media screen and (max-width: 576px) {
-          justify-content: space-between;
-        }
       }
     }
     .center {
       margin-top: 25px;
       margin-bottom: 25px;
+    }
+    .row {
+      > * {
+        justify-content: center;
+      }
     }
   }
 }
