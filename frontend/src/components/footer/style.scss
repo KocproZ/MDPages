@@ -31,7 +31,6 @@
       list-style: none;
       font-size: 15px;
       flex-flow: wrap;
-      justify-content: space-between;
 
       li {
         margin: 0 5px;
@@ -56,6 +55,9 @@
     .column {
       ul {
         padding-right: 40px;
+        @media screen and (max-width: 576px) {
+          justify-content: space-between;
+        }
       }
     }
     .center {
