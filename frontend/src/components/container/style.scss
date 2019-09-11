@@ -9,6 +9,7 @@ $navigation-width: map_get($navigation, "width");
 
   .container {
     min-height: 100vh;
+    padding-top: 100px;
   }
 
   @media screen and (max-width: 768px) {
