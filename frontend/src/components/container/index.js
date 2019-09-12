@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
 import './style.scss';
 import Footer from "../footer";
-import Home from "../sites/home/home";
 import {Route} from "react-router-dom";
+
+import Home from "../sites/home/home";
+import Login from "../sites/login";
 
 class Container extends Component {
     render() {
         return (
             <div className={"app"}>
-                <div className={"container"}>
-                    <Route exact path="/" component={Home}/>
-                </div>
+                <Route exact path="/" component={Home}/>
+                <Route exact path="/login" component={Login}/>
                 <Footer/>
             </div>
         );

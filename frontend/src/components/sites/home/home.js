@@ -4,9 +4,9 @@ import './style.scss';
 class Home extends Component {
     render() {
         return (
-            <React.Fragment>
-                <div>KUPA</div>
-            </React.Fragment>
+            <div className={"container"}>
+
+            </div>
         );
     }
 }

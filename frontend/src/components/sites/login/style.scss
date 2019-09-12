@@ -1,0 +1,57 @@
+.loginPage {
+  position: relative;
+
+  .loginForm {
+    color: white;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    > .row {
+      width: 100%;
+    }
+
+    .login {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      &:first-child {
+        margin-bottom: 25px;
+      }
+
+      input {
+        width: 80%;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      .button {
+
+      }
+    }
+
+    .vertical-line {
+      position: relative;
+
+      &:before {
+        position: absolute;
+        content: '';
+        width: 2%;
+        left: 49%;
+        right: 49%;
+        height: calc(100% + 400px);
+        top: -200px;
+        margin: 0 auto;
+        background-color: red;
+      }
+    }
+  }
+}
