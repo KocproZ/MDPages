@@ -3,6 +3,7 @@ import './style.scss';
 import Footer from "../footer";
 import Home from "../sites/home/home";
 import {Route} from "react-router-dom";
+import LoginPage from "../sites/login";
 
 class Container extends Component {
     render() {
@@ -10,6 +11,7 @@ class Container extends Component {
             <div className={"app"}>
                 <div className={"container"}>
                     <Route exact path="/" component={Home}/>
+                    <Route exact path="/login" component={LoginPage}/>
                 </div>
                 <Footer/>
             </div>

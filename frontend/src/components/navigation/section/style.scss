@@ -1,0 +1,46 @@
+@import '../../../style/colors';
+@import '../../../style/variables';
+@import '../../../style/fonts';
+
+.section {
+  padding: 0 map-get($navigation, "offset");
+  margin-top: 25px;
+
+  .title {
+    display: block;
+    font-size: 0.8rem;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    @import 'colors';
+    @include lato-font;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  ol {
+    list-style: none;
+    margin-bottom: unset;
+    padding-left: unset;
+
+    li {
+      margin-left: -1 * map-get($navigation, "offset");
+      margin-right: -1 * map-get($navigation, "offset");
+
+      a {
+        width: 100%;
+        display: block;
+        color: map-get($page-preference-colors, 'font-1');
+        text-decoration: none;
+        transition: 0.5s all;
+        padding: 5px map-get($navigation, "offset");
+        font-weight: 700;
+        font-size: 1rem;
+
+        &:hover {
+          text-decoration: none;
+          background-color: darken(map-get($page-preference-colors, "main-1"), 10%);
+        }
+      }
+    }
+  }
+}
