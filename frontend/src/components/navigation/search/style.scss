@@ -4,6 +4,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
+  min-height: 35px;
 
   input[type="text"] {
     width: 90%;
@@ -11,9 +12,30 @@
     border: unset;
     color: map-get($page-preference-colors, "font-1");
     padding: 5px 5px 5px 15px;
+    transition: 0.5s all;
+    z-index: 10;
+    position: absolute;
+    top: 210px;
+    left: 5%;
+    outline-color: black;
 
     &:focus {
       outline-color: map-get($page-preference-colors, "main-4");
+      position: absolute;
+      top: 50px;
+      margin: 0 auto;
+      max-width: 800px;
+      width: 30vw;
+      left: 35vw;
+      box-shadow: 0 0 20px 2px black;
+      @media screen and (max-width: 1200px) {
+        left: 25vw;
+        width: 50vw;
+      }
+      @media screen and (max-width: 720px) {
+        left: 10vw;
+        width: 80vw;
+      }
     }
   }
 
