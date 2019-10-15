@@ -1,9 +1,48 @@
+@import '../../../style/colors';
+
 .homepage {
   color: white;
+  justify-content: center;
 
-  &.header {
-    &:first-child {
+  > * {
+    position: relative;
+  }
 
+  .header {
+    font-size: 3rem;
+    padding: 15px;
+    margin-bottom: 30px;
+    text-transform: capitalize;
+
+    &:after {
+      border-bottom: 4px solid map-get($page-preference-colors, "main-4");
+      content: '';
+      height: 5px;
+      position: absolute;
+      bottom: 0;
+      left: 15px;
+      right: 15px;
+    }
+  }
+
+  .box {
+    margin-bottom: 50px;
+    padding: 15px 30px 30px;
+    position: relative;
+    z-index: 0;
+
+    &::before {
+      background-color: inherit;
+      border: 0.5ch solid map-get($page-preference-colors, "main-4");
+      bottom: 1px;
+      box-shadow: 1ch 1rem 0 map-get($page-preference-colors, "main-4");
+      content: '';
+      left: 1px;
+      margin-right: 1ch;
+      position: absolute;
+      right: 1px;
+      top: 1px;
+      z-index: -1;
     }
   }
 }
