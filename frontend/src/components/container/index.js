@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './style.scss';
 import Footer from "../footer";
-import Home from "../sites/home/home";
+import Home from "../sites/home";
 import {Route} from "react-router-dom";
 import LoginPage from "../sites/login";
 

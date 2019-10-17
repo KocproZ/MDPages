@@ -1,1 +1,2 @@
 export const TOGGLE_NAVIGATION = "TOGGLE_NAVIGATION";
+export const RENAME_TITLE = "RENAME_TITLE";
