@@ -3,18 +3,19 @@ import './style.scss';
 import {connect} from "react-redux";
 import {renameTitle} from "../../../redux/actions";
 
-class LoginPage extends Component {
+class Home extends Component {
+
     componentDidMount() {
-        this.props.dispatch(renameTitle("MDPages | Login"));
+        this.props.dispatch(renameTitle("MDPages | Homepage"));
     }
 
     render() {
         return (
-            <React.Fragment>
+            <div className={"container"}>
 
-            </React.Fragment>
+            </div>
         );
     }
 }
 
-export default connect()(LoginPage);
+export default connect()(Home);

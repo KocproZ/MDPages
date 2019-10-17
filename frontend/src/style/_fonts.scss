@@ -1,11 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
-
 //fontawesome
 @import '/~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '/~@fortawesome/fontawesome-free/scss/regular';
 @import '/~@fortawesome/fontawesome-free/scss/solid';
 
-* {
+@mixin lato-font {
+  font-family: 'Lato', sans-serif;
+}
+
+@mixin roboto-font {
   font-family: 'Roboto', sans-serif;
+}
+
+* {
+  @include lato-font;
 }

@@ -6,6 +6,8 @@ import MobileButton from "./mobile-button";
 import {connect} from "react-redux";
 import {getNavigationVisibility} from "../../redux/selectors";
 import {toggleNavigation} from "../../redux/actions";
+import {Link} from "react-router-dom";
+import Section from "./section";
 
 class Navigation extends Component {
     constructor(props) {
@@ -37,9 +39,23 @@ class Navigation extends Component {
     render() {
         return (
             <div className={"navigation" + (this.props.visibility ? " show" : "")}>
+                <MobileButton/>
                 <Logo/>
                 <Search/>
-                <MobileButton/>
+                <Section title={"Profile"} color={"profile"}>
+                    <ol>
+                        <li><Link to={"/login"}>Login</Link></li>
+                        <li><Link to={"/register"}>Register</Link></li>
+                    </ol>
+                </Section>
+                <Section title={"Popular"} color={"popular"}>
+                    <ol>
+                        <li><Link to={"/explore"}>Explore</Link></li>
+                        <li><Link to={"/list"}>List</Link></li>
+                        <li><Link to={"/changes"}>Last changes</Link></li>
+                        <li><Link to={"/history"}>History</Link></li>
+                    </ol>
+                </Section>
             </div>
         );
     }
