@@ -3,10 +3,7 @@ import './style.scss';
 import Footer from "../footer";
 import Home from "../sites/home";
 import {Route} from "react-router-dom";
-import LoginPage from "../sites/login";
-
-import Home from "../sites/home/home";
-import Login from "../sites/login";
+import LoginPage from "../sites/loginPage";
 
 class Container extends Component {
     render() {

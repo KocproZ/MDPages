@@ -1,0 +1,87 @@
+.loginPage {
+  max-width: 1000px;
+  @media screen and (min-width: 992px) {
+    margin: 150px auto 0;
+  }
+
+  .row {
+    margin-left: unset;
+    margin-right: unset;
+  }
+
+  .login, .register {
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+
+    .form-group {
+      margin-bottom: 20px;
+      padding-left: unset;
+      padding-right: unset;
+
+      &:nth-last-of-type(2) {
+        margin-bottom: 40px;
+      }
+    }
+
+    label {
+      color: white;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 15px;
+    }
+
+    input {
+      &[type="text"], &[type="password"], &[type="email"] {
+        background-color: #262830;
+        border: none;
+        color: #fff;
+        padding: 5px 15px 5px 15px;
+
+        &:focus {
+          outline-color: #ff7631;
+        }
+      }
+
+      &[type="submit"] {
+        background-color: #47cf73;
+        border: none;
+        padding: 5px;
+      }
+    }
+  }
+
+  .divider {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+    &:before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 2px;
+      background-color: #262830;
+      @media screen and (max-width: 992px) {
+        height: 2px;
+        width: calc(100vw - 30px);
+      }
+    }
+
+    > div {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-transform: uppercase;
+      border: 2px solid #262830;
+      border-radius: 15px;
+      background-color: #131418;
+      z-index: 1;
+    }
+  }
+}
