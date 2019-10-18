@@ -9,24 +9,28 @@ class LoginPage extends Component {
     }
 
     render() {
+
+        const FormGroup = (props) => {
+            if (props.label)
+                return <div className={"row col-12 form-group"}>
+                    <label htmlFor={props.name} className={"col-12"}>{props.label}</label>
+                    <input id={props.name} type={props.type} name={props.name} className={"col-12"}
+                           required={props.required}/>
+                </div>;
+            return <div className={"row col-12 form-group"}>
+                <input id={props.name} type={props.type} name={props.name} className={"col-12"}
+                       required={props.required} value={props.value}/>
+            </div>;
+        };
+
         return (
             <React.Fragment>
                 <div className={"row loginPage"}>
                     <div className={"col-12 col-lg-5 login"}>
                         <form className={"row"}>
-                            <div className={"row col-12 form-group"}>
-                                <label htmlFor={"login"} className={"col-12"}>Username or Email</label>
-                                <input id={"login"} type={"text"} name={"login"} className={"col-12"}
-                                       required={true}/>
-                            </div>
-                            <div className={"row col-12 form-group"}>
-                                <label htmlFor={"password"} className={"col-12"}>Password</label>
-                                <input id={"password"} type={"password"} name={"password"} className={"col-12"}
-                                       required={true}/>
-                            </div>
-                            <div className={"row col-12 form-group"}>
-                                <input type={"submit"} name={"submit"} className={"col-12"} value={"Login"}/>
-                            </div>
+                            <FormGroup name={"login_login"} type={"text"} label={"Username or Email"} required={true}/>
+                            <FormGroup name={"login_password"} type={"password"} label={"Password"} required={true}/>
+                            <FormGroup name={"login_submit"} type={"submit"} required={true} value={"Login"}/>
                         </form>
                     </div>
                     <div className={"col-12 col-lg-2 divider"}>
@@ -34,30 +38,11 @@ class LoginPage extends Component {
                     </div>
                     <div className={"col-12 col-lg-5 register"}>
                         <form className={"row"}>
-                            <div className={"row col-12 form-group"}>
-                                <label htmlFor={"login"} className={"col-12"}>Username</label>
-                                <input id={"login"} type={"text"} name={"login"} className={"col-12"}
-                                       required={true}/>
-                            </div>
-                            <div className={"row col-12 form-group"}>
-                                <label htmlFor={"register_email"} className={"col-12"}>Email</label>
-                                <input id={"register_email"} type={"email"} name={"email"} className={"col-12"}
-                                       required={true}/>
-                            </div>
-                            <div className={"row col-12 form-group"}>
-                                <label htmlFor={"register_password"} className={"col-12"}>Password</label>
-                                <input id={"register_password"} type={"password"} name={"password"} className={"col-12"}
-                                       required={true}/>
-                            </div>
-                            <div className={"row col-12 form-group"}>
-                                <label htmlFor={"register_repeat_password"} className={"col-12"}>Repeat Password</label>
-                                <input id={"register_repeat_password"} type={"password"} name={"repeat_password"}
-                                       className={"col-12"}
-                                       required={true}/>
-                            </div>
-                            <div className={"row col-12 form-group"}>
-                                <input type={"submit"} name={"submit"} className={"col-12"} value={"Register"}/>
-                            </div>
+                            <FormGroup name={"register_login"} type={"text"} label={"Username"} required={true}/>
+                            <FormGroup name={"register_email"} type={"email"} label={"Email"} required={true}/>
+                            <FormGroup name={"register_password"} type={"password"} label={"Password"} required={true}/>
+                            <FormGroup name={"register_repeat_password"} type={"email"} label={"Repeat Password"} required={true}/>
+                            <FormGroup name={"register_submit"} type={"submit"} required={true} value={"Register"}/>
                         </form>
                     </div>
                 </div>
