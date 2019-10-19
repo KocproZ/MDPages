@@ -27,3 +27,4 @@ nbdist/
 
 ### Frontend ###
 /frontend/package-lock.json
+/mdpages.env
