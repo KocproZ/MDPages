@@ -12,6 +12,7 @@ import ovh.kocproz.mdpages.data.model.UserModel;
 import ovh.kocproz.mdpages.data.repository.PageMaintainerRepository;
 import ovh.kocproz.mdpages.data.repository.PermissionRepository;
 import ovh.kocproz.mdpages.data.repository.UserRepository;
+import ovh.kocproz.mdpages.user.dto.SignInDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +73,12 @@ public class UserService {
             user.addPermission(pm);
         }
         return user;
+    }
+
+    public boolean verifyUserCredentials(SignInDTO signInDTO){
+        UserModel user = findUser(signInDTO.getUsername());
+        if(user == null) return false;
+        return passwordEncoder.matches(signInDTO.getPassword(), user.getPassword());
     }
 
     public Set<PermissionModel> getUserPermissions(UserModel user) {

@@ -1,8 +1,16 @@
 package ovh.kocproz.mdpages.user.dto;
 
-public class LoginDTO {
+public class SignInDTO {
     private String username;
     private String password;
+
+    public SignInDTO(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public SignInDTO() {
+    }
 
     public String getUsername() {
         return username;
