@@ -79,11 +79,11 @@ public class JwtTokenService {
                 .compact();
     }
 
-    private void verifyRefreshToken(String tokenId, UserModel user) {
+    public void verifyRefreshToken(String tokenId, UserModel user) {
         refreshTokenRepository.findFirstByTokenAndUser(tokenId, user).orElseThrow(UnauthorizedException::new);
     }
 
-    private Claims parse(String token) {
+    public Claims parse(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
     }
 
