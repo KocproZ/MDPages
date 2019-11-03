@@ -39,6 +39,16 @@ public class UserService {
         this.maintainerRepository = maintainerRepository;
     }
 
+    public UserModel getUser(String username) {
+        UserModel user = userRepository.getByUsername(username);
+//        if(user == null) //TODO throw exception
+        return user;
+    }
+
+    public UserModel findUser(String username) {
+        return userRepository.getByUsername(username);
+    }
+
     public UserModel createUser(String username,
                                 String password,
                                 Permission[] permissions) {
