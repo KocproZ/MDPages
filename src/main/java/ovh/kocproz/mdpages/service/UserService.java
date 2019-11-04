@@ -12,6 +12,7 @@ import ovh.kocproz.mdpages.data.model.UserModel;
 import ovh.kocproz.mdpages.data.repository.PageMaintainerRepository;
 import ovh.kocproz.mdpages.data.repository.PermissionRepository;
 import ovh.kocproz.mdpages.data.repository.UserRepository;
+import ovh.kocproz.mdpages.user.dto.SignInDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,16 @@ public class UserService {
         this.maintainerRepository = maintainerRepository;
     }
 
+    public UserModel getUser(String username) {
+        UserModel user = userRepository.getByUsername(username);
+//        if(user == null) //TODO throw exception
+        return user;
+    }
+
+    public UserModel findUser(String username) {
+        return userRepository.getByUsername(username);
+    }
+
     public UserModel createUser(String username,
                                 String password,
                                 Permission[] permissions) {
@@ -62,6 +73,12 @@ public class UserService {
             user.addPermission(pm);
         }
         return user;
+    }
+
+    public boolean verifyUserCredentials(SignInDTO signInDTO){
+        UserModel user = findUser(signInDTO.getUsername());
+        if(user == null) return false;
+        return passwordEncoder.matches(signInDTO.getPassword(), user.getPassword());
     }
 
     public Set<PermissionModel> getUserPermissions(UserModel user) {
