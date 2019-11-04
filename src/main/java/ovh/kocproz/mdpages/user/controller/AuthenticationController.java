@@ -1,10 +1,8 @@
 package ovh.kocproz.mdpages.user.controller;
 
+import io.jsonwebtoken.JwtException;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ovh.kocproz.mdpages.exception.UnauthorizedException;
 import ovh.kocproz.mdpages.service.UserService;
 import ovh.kocproz.mdpages.user.dto.JwtAutheticationResponse;
@@ -35,20 +33,24 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signIn")
-    public JwtAutheticationResponse signIn(@RequestParam @Validated SignInDTO signInDTO) {
+    public JwtAutheticationResponse signIn(@RequestBody @Validated SignInDTO signInDTO) {
         if (userService.verifyUserCredentials(signInDTO))
             return new JwtAutheticationResponse(tokenService.issueRefreshToken(userService.getUser(signInDTO.getUsername())));
         else throw new UnauthorizedException();
     }
 
     @PostMapping("/refresh")
-    public JwtAutheticationResponse refresh(@RequestParam @Validated RefreshTokenDTO refreshTokenDTO) {
+    public JwtAutheticationResponse refresh(@RequestBody @Validated RefreshTokenDTO refreshTokenDTO) {
         return new JwtAutheticationResponse(tokenService.refreshRefreshToken(refreshTokenDTO.getRefreshToken()));
     }
 
     @PostMapping("/getAccessToken")
-    public JwtAutheticationResponse getAccessToken(@RequestParam @Validated RefreshTokenDTO refreshTokenDTO) {
-        return new JwtAutheticationResponse(tokenService.issueAccessToken(refreshTokenDTO.getRefreshToken()));
+    public JwtAutheticationResponse getAccessToken(@RequestBody @Validated RefreshTokenDTO refreshTokenDTO) {
+        try {
+            return new JwtAutheticationResponse(tokenService.issueAccessToken(refreshTokenDTO.getRefreshToken()));
+        } catch (JwtException e) {
+            throw new UnauthorizedException();
+        }
     }
 
 }

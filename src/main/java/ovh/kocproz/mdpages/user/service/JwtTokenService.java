@@ -1,8 +1,6 @@
 package ovh.kocproz.mdpages.user.service;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ovh.kocproz.mdpages.Util;
@@ -62,7 +60,7 @@ public class JwtTokenService {
         return issueRefreshToken(user);
     }
 
-    public String issueAccessToken(String refreshToken) {
+    public String issueAccessToken(String refreshToken) throws JwtException {
         Claims refreshTokenClaims = parse(refreshToken);
         UserModel user = userService.getUser(refreshTokenClaims.getSubject());
         verifyRefreshToken((String) refreshTokenClaims.get("tokenId"), user);
