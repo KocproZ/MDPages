@@ -19,7 +19,7 @@ import ovh.kocproz.mdpages.service.UserService;
 import javax.validation.Valid;
 import java.util.List;
 
-@Controller
+//@Controller
 @RequestMapping("/admin")
 public class AdminController {
 

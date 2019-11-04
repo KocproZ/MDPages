@@ -14,6 +14,8 @@ import java.util.List;
  * @author Hubertus
  * Created 12.11.2017
  */
+//TODO move somewhere else
+//TODO security
 @RestController
 public class ApiController {
 

@@ -16,7 +16,8 @@ import java.util.List;
  * @author Hubertus
  * Created 20.11.2017
  */
-
+//TODO move somewhere else
+//TODO security
 @RestController
 public class RestSearchController {
 

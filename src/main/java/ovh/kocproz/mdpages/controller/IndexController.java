@@ -16,7 +16,7 @@ import ovh.kocproz.mdpages.service.TagService;
 
 import java.security.Principal;
 
-@Controller
+//@Controller
 public class IndexController {
 
     private PageRepository pageRepository;

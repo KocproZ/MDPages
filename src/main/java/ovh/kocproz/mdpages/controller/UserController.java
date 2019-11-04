@@ -13,7 +13,7 @@ import ovh.kocproz.mdpages.data.repository.UserRepository;
 
 import java.security.Principal;
 
-@Controller
+//@Controller
 @RequestMapping("/user")
 public class UserController {
 

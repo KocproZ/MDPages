@@ -26,7 +26,7 @@ import java.io.IOException;
  * @author Hubertus
  * Created 18.11.2017
  */
-@Controller
+//@Controller
 @RequestMapping("/files")
 public class FilesController {
 

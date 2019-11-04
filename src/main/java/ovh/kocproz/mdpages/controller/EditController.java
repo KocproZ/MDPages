@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
 import java.security.Principal;
 import java.util.Set;
 
-@Controller
+//@Controller
 @RequestMapping("/edit")
 public class EditController {
 

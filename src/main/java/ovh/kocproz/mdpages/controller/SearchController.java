@@ -18,7 +18,7 @@ import java.security.Principal;
  * @author Hubertus
  * Created 19.11.2017
  */
-@Controller
+//@Controller
 @RequestMapping("/search")
 public class SearchController {
 
