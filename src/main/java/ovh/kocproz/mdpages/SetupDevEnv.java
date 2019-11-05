@@ -10,7 +10,7 @@ import ovh.kocproz.mdpages.data.model.PageMaintainerModel;
 import ovh.kocproz.mdpages.data.model.PageModel;
 import ovh.kocproz.mdpages.data.model.TagModel;
 import ovh.kocproz.mdpages.data.repository.PageMaintainerRepository;
-import ovh.kocproz.mdpages.data.repository.PageRepository;
+import ovh.kocproz.mdpages.page.repository.PageRepository;
 import ovh.kocproz.mdpages.data.repository.TagRepository;
 import ovh.kocproz.mdpages.data.repository.UserRepository;
 import ovh.kocproz.mdpages.service.UserService;

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ovh.kocproz.mdpages.data.model.PageModel;
 import ovh.kocproz.mdpages.data.model.TagModel;
-import ovh.kocproz.mdpages.data.repository.PageRepository;
+import ovh.kocproz.mdpages.page.repository.PageRepository;
 import ovh.kocproz.mdpages.data.repository.TagRepository;
 
 import java.util.ArrayList;

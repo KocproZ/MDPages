@@ -1,4 +1,4 @@
-package ovh.kocproz.mdpages.data.repository;
+package ovh.kocproz.mdpages.page.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
